@@ -39,4 +39,6 @@ repositories {
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
