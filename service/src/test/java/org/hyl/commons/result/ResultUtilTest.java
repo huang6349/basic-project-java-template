@@ -1,5 +1,7 @@
 package org.hyl.commons.result;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.assertj.core.api.Assertions;
 import org.hyl.commons.result.enums.MessageEnum;
 import org.hyl.commons.result.enums.NetworkEnum;
@@ -14,22 +16,22 @@ public class ResultUtilTest {
 
     private String message;
 
-    private List<Integer> data;
+    private List<Integer> data = Lists.newArrayList();
 
     private String e;
 
-    private Map<String, Integer> params;
+    private Map<String, Integer> params = Maps.newHashMap();
 
     @Before
     public void setUp() throws Exception {
         this.state = new Random().nextInt(400) + 100;
         this.message = "COMMONS_TEST";
-        this.data = new ArrayList<>();
+        this.data = Lists.newArrayList();
         this.data.add(new Random().nextInt());
         this.data.add(new Random().nextInt());
         this.data.add(new Random().nextInt());
         this.e = new RuntimeException("COMMONS_ERROR").getMessage();
-        this.params = new HashMap<>();
+        this.params = Maps.newHashMap();
         this.params.put("id", new Random().nextInt(100));
     }
 
