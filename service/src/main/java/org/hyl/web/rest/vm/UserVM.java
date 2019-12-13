@@ -6,6 +6,9 @@ import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class UserVM {
 
@@ -23,9 +26,17 @@ public class UserVM {
 
     private String state_zh;
 
+    private String lastModifiedBy;
+
+    private String lastModifiedDate_zh;
+
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
         BeanUtils.copyProperties(user, vm);
+        if (user.getLastModifiedDate() != null) {
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(user.getLastModifiedDate(), ZoneId.systemDefault());
+            vm.setLastModifiedDate_zh(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+        }
         return vm;
     }
 
@@ -75,5 +86,21 @@ public class UserVM {
 
     public void setState_zh(String state_zh) {
         this.state_zh = state_zh;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getLastModifiedDate_zh() {
+        return lastModifiedDate_zh;
+    }
+
+    public void setLastModifiedDate_zh(String lastModifiedDate_zh) {
+        this.lastModifiedDate_zh = lastModifiedDate_zh;
     }
 }

@@ -1,21 +1,16 @@
 package org.hyl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hyl.auditing.AbstractIdAuditingEntity;
 import org.hyl.config.Constants;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "TB_USER")
-public class MyUser implements Serializable {
+public class MyUser extends AbstractIdAuditingEntity {
 
     private static final long serialVersionUID = -5873184873496716826L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
 
     @Column(length = 50, nullable = false)
     private String username;
@@ -26,14 +21,6 @@ public class MyUser implements Serializable {
 
     @Column(nullable = false, columnDefinition = "TINYINT DEFAULT 0")
     private Byte state = Constants.DATA_NORMAL_STATE;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -57,5 +44,14 @@ public class MyUser implements Serializable {
 
     public void setState(Byte state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "MyUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
+                '}';
     }
 }
