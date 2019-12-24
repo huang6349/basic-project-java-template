@@ -21,6 +21,9 @@ public class UserVM extends AbstractIdAuditingVM {
     @Pattern(regexp = "^[A-Za-z0-9]{4,16}$", message = "密码只能是数字和字母的组合，且长度在4-16个字符之间")
     private String password;
 
+    private String lastModifiedBy;
+
+    private String lastModifiedDate_zh;
 
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
@@ -50,5 +53,21 @@ public class UserVM extends AbstractIdAuditingVM {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getLastModifiedDate_zh() {
+        return lastModifiedDate_zh;
+    }
+
+    public void setLastModifiedDate_zh(String lastModifiedDate_zh) {
+        this.lastModifiedDate_zh = lastModifiedDate_zh;
     }
 }

@@ -4,10 +4,6 @@ import org.hyl.config.Constants;
 
 public class AbstractAuditingVM {
 
-    private String lastModifiedBy;
-
-    private String lastModifiedDate_zh;
-
     private Byte state = Constants.DATA_NORMAL_STATE;
 
     private String state_zh;
@@ -18,22 +14,6 @@ public class AbstractAuditingVM {
 
     public void setState(Byte state) {
         this.state = state;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getLastModifiedDate_zh() {
-        return lastModifiedDate_zh;
-    }
-
-    public void setLastModifiedDate_zh(String lastModifiedDate_zh) {
-        this.lastModifiedDate_zh = lastModifiedDate_zh;
     }
 
     public String getState_zh() {
