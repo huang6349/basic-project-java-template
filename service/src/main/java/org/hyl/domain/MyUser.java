@@ -1,13 +1,14 @@
 package org.hyl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
 import org.hyl.auditing.AbstractIdAuditingEntity;
-import org.hyl.config.Constants;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_USER")
+@Where(clause = "DATA_STATE <> 0")
 public class MyUser extends AbstractIdAuditingEntity {
 
     private static final long serialVersionUID = -5873184873496716826L;
@@ -18,9 +19,6 @@ public class MyUser extends AbstractIdAuditingEntity {
     @JsonIgnore
     @Column(length = 60, nullable = false)
     private String password;
-
-    @Column(nullable = false, columnDefinition = "TINYINT DEFAULT 0")
-    private Byte state = Constants.DATA_NORMAL_STATE;
 
     public String getUsername() {
         return username;
@@ -38,20 +36,11 @@ public class MyUser extends AbstractIdAuditingEntity {
         this.password = password;
     }
 
-    public Byte getState() {
-        return state;
-    }
-
-    public void setState(Byte state) {
-        this.state = state;
-    }
-
     @Override
     public String toString() {
         return "MyUser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", state=" + state +
                 '}';
     }
 }

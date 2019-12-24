@@ -54,7 +54,6 @@ public class UserResourceTest {
         actions.andExpect(status().isOk()).andDo(print());
     }
 
-
     @Test
     public void query() throws Exception {
         MyUser user = new MyUser();
