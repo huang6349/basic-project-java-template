@@ -1,6 +1,6 @@
 package org.hyl.web.rest.vm;
 
-import org.hyl.auditing.AbstractAuditingVM;
+import org.hyl.auditing.AbstractIdAuditingVM;
 import org.hyl.config.Constants;
 import org.hyl.domain.Authority;
 import org.springframework.beans.BeanUtils;
@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class AuthorityVM extends AbstractAuditingVM {
-
-    @NotBlank(message = "角色编号不能为空")
-    @Size(max = 50, message = "角色编号的长度只能小于50个字符")
-    @Pattern(regexp = "^[A-Z]+[A-Z_]+[A-Z]+$", message = "角色编号必须满足“ROLE_ADMIN”规则，即开头和结尾是大写字母中间包含至少一个“_”")
-    private String id;
+public class AuthorityVM extends AbstractIdAuditingVM {
 
     @NotBlank(message = "角色名称不能为空")
     @Size(max = 50, message = "角色名称的长度只能小于50个字符")
     private String name;
+
+    @NotBlank(message = "角色唯一标识码不能为空")
+    @Size(max = 50, message = "角色唯一标识码的长度只能小于50个字符")
+    @Pattern(regexp = "^[A-Z]+[A-Z_]+[A-Z]+$", message = "角色唯一标识码必须满足“ROLE_ADMIN”规则，即开头和结尾是大写字母中间包含至少一个“_”")
+    private String code;
 
     private Integer seq = 0;
 
@@ -45,20 +45,20 @@ public class AuthorityVM extends AbstractAuditingVM {
         // Empty constructor needed for Jackson.
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getSeq() {

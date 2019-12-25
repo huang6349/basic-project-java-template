@@ -28,6 +28,7 @@ public class MyUser extends AbstractIdAuditingEntity {
             name = "TB_USER_AUTHORITY",
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID"))
+    @Where(clause = "DATA_STATE <> 0")
     private Set<Authority> authorities = Sets.newHashSet();
 
     public String getUsername() {

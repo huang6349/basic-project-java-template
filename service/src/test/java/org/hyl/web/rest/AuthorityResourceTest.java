@@ -29,9 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class AuthorityResourceTest {
 
-    private static final String DEFAULT_ID = "ROLE_TEST";
     private static final String DEFAULT_NAME = "测试角色";
+    private static final String DEFAULT_CODE = "ROLE_TEST";
     private static final String UPDATE_NAME = "修改测试角色";
+    private static final String UPDATE_CODE = DEFAULT_CODE;
 
     @Autowired
     private MockMvc mvc;
@@ -45,8 +46,8 @@ public class AuthorityResourceTest {
     @Test
     public void create() throws Exception {
         AuthorityVM vm = new AuthorityVM();
-        vm.setId(DEFAULT_ID);
         vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
         ResultActions actions = mvc.perform(post("/api/authority")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));
@@ -57,8 +58,8 @@ public class AuthorityResourceTest {
     @Test
     public void query() throws Exception {
         Authority authority = new Authority();
-        authority.setId(DEFAULT_ID);
         authority.setName(DEFAULT_NAME);
+        authority.setCode(DEFAULT_CODE);
         authorityRepository.save(authority);
         ResultActions actions = mvc.perform(get("/api/authority")
                 .accept(MediaType.APPLICATION_JSON));
@@ -69,8 +70,8 @@ public class AuthorityResourceTest {
     @Test
     public void queryById() throws Exception {
         Authority authority = new Authority();
-        authority.setId(DEFAULT_ID);
         authority.setName(DEFAULT_NAME);
+        authority.setCode(DEFAULT_CODE);
         Authority newAuthority = authorityRepository.save(authority);
         ResultActions actions = mvc.perform(get("/api/authority/" + newAuthority.getId())
                 .accept(MediaType.APPLICATION_JSON));
@@ -81,8 +82,8 @@ public class AuthorityResourceTest {
     @Test
     public void queryByPageable() throws Exception {
         Authority authority = new Authority();
-        authority.setId(DEFAULT_ID);
         authority.setName(DEFAULT_NAME);
+        authority.setCode(DEFAULT_CODE);
         authorityRepository.save(authority);
         ResultActions actions = mvc.perform(get("/api/authority/pageable")
                 .param("page", "0")
@@ -95,12 +96,13 @@ public class AuthorityResourceTest {
     @Test
     public void update() throws Exception {
         Authority authority = new Authority();
-        authority.setId(DEFAULT_ID);
         authority.setName(DEFAULT_NAME);
+        authority.setCode(DEFAULT_CODE);
         Authority newAuthority = authorityRepository.save(authority);
         AuthorityVM vm = new AuthorityVM();
         BeanUtils.copyProperties(newAuthority, vm);
         vm.setName(UPDATE_NAME);
+        vm.setCode(UPDATE_CODE);
         ResultActions actions = mvc.perform(put("/api/authority")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));
@@ -111,8 +113,8 @@ public class AuthorityResourceTest {
     @Test
     public void delete() throws Exception {
         Authority authority = new Authority();
-        authority.setId(DEFAULT_ID);
         authority.setName(DEFAULT_NAME);
+        authority.setCode(DEFAULT_CODE);
         Authority newAuthority = authorityRepository.save(authority);
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/authority/" + newAuthority.getId())
                 .accept(MediaType.APPLICATION_JSON));

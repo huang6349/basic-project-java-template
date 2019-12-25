@@ -1,6 +1,5 @@
 package org.hyl.web.rest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hyl.commons.result.Message;
 import org.hyl.commons.result.PaginationUtil;
 import org.hyl.commons.result.enums.rest.RestTypeEnum;
@@ -41,7 +40,7 @@ public class AuthorityResource {
     public Message create(@Valid @RequestBody AuthorityVM vm) {
         log.debug("新增角色：{}", vm);
 
-        if (StringUtils.isBlank(vm.getId())) {
+        if (vm.getId() != null) {
             throw new DataNotAlreadyIDException();
         }
         return RESTful.success(RestTypeEnum.POST, authorityService.create(vm));
@@ -55,7 +54,7 @@ public class AuthorityResource {
     }
 
     @GetMapping("/authority/{id}")
-    public Message query(@PathVariable String id) {
+    public Message query(@PathVariable Long id) {
         log.debug("根据编号查询角色：{}", id);
 
         Optional<Authority> optional = authorityRepository.findById(id);
@@ -77,7 +76,7 @@ public class AuthorityResource {
     }
 
     @DeleteMapping("/authority/{id}")
-    public Message delete(@PathVariable String id) {
+    public Message delete(@PathVariable Long id) {
         log.debug("删除角色：{}", id);
 
         return RESTful.success(RestTypeEnum.DELETE, authorityService.delete(id));

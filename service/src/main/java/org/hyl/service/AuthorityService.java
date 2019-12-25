@@ -31,11 +31,11 @@ public class AuthorityService {
     public AuthorityVM create(AuthorityVM vm) {
         log.debug("新增角色：{}", vm);
 
-        if (authorityRepository.findByIdIgnoreCase(vm.getId()).isPresent()) {
-            throw new DataAlreadyExistException("角色编号为【" + vm.getId() + "】的信息已经存在了");
-        }
         if (authorityRepository.findByNameIgnoreCase(vm.getName()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
+        }
+        if (authorityRepository.findByCodeIgnoreCase(vm.getCode()).isPresent()) {
+            throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
         Authority authority = new Authority();
         BeanUtils.copyProperties(vm, authority);
@@ -46,7 +46,7 @@ public class AuthorityService {
     public AuthorityVM update(AuthorityVM vm) {
         log.debug("修改角色：{}", vm);
 
-        Optional<Authority> optional = authorityRepository.findByIdIgnoreCase(vm.getId());
+        Optional<Authority> optional = authorityRepository.findById(vm.getId());
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的角色信息");
         }
@@ -57,14 +57,17 @@ public class AuthorityService {
         if (authorityRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
+        if (authorityRepository.findByCodeIgnoreCaseAndIdNot(vm.getCode(), vm.getId()).isPresent()) {
+            throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
+        }
         BeanUtils.copyProperties(vm, authority);
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
 
-    public AuthorityVM delete(String id) {
+    public AuthorityVM delete(Long id) {
         log.debug("删除角色：{}", id);
 
-        Optional<Authority> optional = authorityRepository.findByIdIgnoreCase(id);
+        Optional<Authority> optional = authorityRepository.findById(id);
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要删除的角色信息");
         }

@@ -3,7 +3,7 @@ package org.hyl.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import org.hibernate.annotations.Where;
-import org.hyl.auditing.AbstractAuditingEntity;
+import org.hyl.auditing.AbstractIdAuditingEntity;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,16 +11,15 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_AUTHORITY")
 @Where(clause = "DATA_STATE <> 0")
-public class Authority extends AbstractAuditingEntity {
+public class Authority extends AbstractIdAuditingEntity {
 
     private static final long serialVersionUID = 7584372570299432038L;
 
-    @Id
-    @Column(name = "ID", length = 50)
-    private String id;
-
     @Column(name = "NAME", length = 50, nullable = false)
     private String name;
+
+    @Column(name = "CODE", length = 50, nullable = false)
+    private String code;
 
     @Column(name = "SEQ", nullable = false, columnDefinition = "INTEGER DEFAULT 0")
     private Integer seq = 0;
@@ -31,20 +30,20 @@ public class Authority extends AbstractAuditingEntity {
     @ManyToMany(mappedBy = "authorities")
     private Set<MyUser> users = Sets.newHashSet();
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getSeq() {
@@ -74,8 +73,8 @@ public class Authority extends AbstractAuditingEntity {
     @Override
     public String toString() {
         return "Authority{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
                 ", seq=" + seq +
                 ", desc='" + desc + '\'' +
                 ", users=" + users +

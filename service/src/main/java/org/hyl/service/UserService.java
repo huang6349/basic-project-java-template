@@ -82,7 +82,7 @@ public class UserService {
 
     private Set<Authority> setAuthorities(Set<AuthorityVM> roles) {
         return roles.stream().map(o -> {
-            Optional<Authority> optional = authorityRepository.findByIdIgnoreCase(o.getId());
+            Optional<Authority> optional = authorityRepository.findById(o.getId());
             if (!optional.isPresent()) {
                 throw new BadRequestException("未能在系统中找到角色信息[" + o.getName() + "]");
             }
