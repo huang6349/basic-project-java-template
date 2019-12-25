@@ -1,10 +1,12 @@
 package org.hyl.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Sets;
 import org.hibernate.annotations.Where;
 import org.hyl.auditing.AbstractIdAuditingEntity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "TB_USER")
@@ -19,6 +21,14 @@ public class MyUser extends AbstractIdAuditingEntity {
     @JsonIgnore
     @Column(length = 60, nullable = false)
     private String password;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "TB_USER_AUTHORITY",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID"))
+    private Set<Authority> authorities = Sets.newHashSet();
 
     public String getUsername() {
         return username;
@@ -36,11 +46,20 @@ public class MyUser extends AbstractIdAuditingEntity {
         this.password = password;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public String toString() {
         return "MyUser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", authorities=" + authorities +
                 '}';
     }
 }
