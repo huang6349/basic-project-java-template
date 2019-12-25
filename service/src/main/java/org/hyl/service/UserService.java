@@ -31,7 +31,7 @@ public class UserService {
     public UserVM create(UserVM vm) {
         log.debug("新增用户：{}", vm);
 
-        if (userRepository.findByUsername(vm.getUsername()).isPresent()) {
+        if (userRepository.findByUsernameIgnoreCase(vm.getUsername()).isPresent()) {
             throw new DataAlreadyExistException("用户名【" + vm.getUsername() + "】已存在");
         }
         MyUser user = new MyUser();
