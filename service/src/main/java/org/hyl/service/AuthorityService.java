@@ -6,8 +6,6 @@ import org.hyl.errors.BadRequestException;
 import org.hyl.errors.DataAlreadyExistException;
 import org.hyl.repository.AuthorityRepository;
 import org.hyl.web.rest.vm.AuthorityVM;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +17,6 @@ import java.util.Optional;
 @Transactional
 public class AuthorityService {
 
-    private final Logger log = LoggerFactory.getLogger(AuthorityService.class);
-
     private final AuthorityRepository authorityRepository;
 
     @Autowired
@@ -29,8 +25,6 @@ public class AuthorityService {
     }
 
     public AuthorityVM create(AuthorityVM vm) {
-        log.debug("新增角色：{}", vm);
-
         if (authorityRepository.findByNameIgnoreCase(vm.getName()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
@@ -44,8 +38,6 @@ public class AuthorityService {
     }
 
     public AuthorityVM update(AuthorityVM vm) {
-        log.debug("修改角色：{}", vm);
-
         Optional<Authority> optional = authorityRepository.findById(vm.getId());
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的角色信息");
@@ -65,8 +57,6 @@ public class AuthorityService {
     }
 
     public AuthorityVM delete(Long id) {
-        log.debug("删除角色：{}", id);
-
         Optional<Authority> optional = authorityRepository.findById(id);
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要删除的角色信息");

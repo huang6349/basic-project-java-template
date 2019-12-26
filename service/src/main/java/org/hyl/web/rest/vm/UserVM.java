@@ -1,6 +1,5 @@
 package org.hyl.web.rest.vm;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import org.hyl.auditing.AbstractIdAuditingVM;
 import org.hyl.config.Constants;
@@ -21,7 +20,6 @@ public class UserVM extends AbstractIdAuditingVM {
     @Pattern(regexp = "^[A-Za-z]+[A-Za-z0-9]{3,16}$", message = "用户名只能是数字和字母的组合，且长度在4-16个字符之间、首位必须是字母")
     private String username;
 
-    @JsonIgnore
     @NotBlank(message = "密码不能为空")
     @Pattern(regexp = "^[A-Za-z0-9]{4,16}$", message = "密码只能是数字和字母的组合，且长度在4-16个字符之间")
     private String password;

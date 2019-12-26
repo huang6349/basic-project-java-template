@@ -9,8 +9,6 @@ import org.hyl.repository.AuthorityRepository;
 import org.hyl.repository.UserRepository;
 import org.hyl.web.rest.vm.AuthorityVM;
 import org.hyl.web.rest.vm.UserVM;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
-
     private final UserRepository userRepository;
 
     private final AuthorityRepository authorityRepository;
@@ -37,8 +33,6 @@ public class UserService {
     }
 
     public UserVM create(UserVM vm) {
-        log.debug("新增用户：{}", vm);
-
         if (userRepository.findByUsernameIgnoreCase(vm.getUsername()).isPresent()) {
             throw new DataAlreadyExistException("用户名为【" + vm.getUsername() + "】的信息已经存在了");
         }
@@ -50,8 +44,6 @@ public class UserService {
     }
 
     public UserVM update(UserVM vm) {
-        log.debug("修改用户：{}", vm);
-
         Optional<MyUser> optional = userRepository.findById(vm.getId());
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的用户信息");
@@ -69,8 +61,6 @@ public class UserService {
     }
 
     public UserVM delete(Long id) {
-        log.debug("删除用户：{}", id);
-
         Optional<MyUser> optional = userRepository.findById(id);
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要删除的用户");
