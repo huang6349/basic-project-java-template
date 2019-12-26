@@ -44,5 +44,6 @@ dependencies {
     implementation 'com.h2database:h2'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'commons-collections:commons-collections:3.2.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

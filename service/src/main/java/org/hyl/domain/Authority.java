@@ -30,6 +30,15 @@ public class Authority extends AbstractIdAuditingEntity {
     @ManyToMany(mappedBy = "authorities")
     private Set<MyUser> users = Sets.newHashSet();
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "TB_AUTHORITY_PERMISSIONS",
+            joinColumns = @JoinColumn(name = "AUTHORITY_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PERMISSIONS_ID"))
+    @Where(clause = "DATA_STATE <> 0")
+    private Set<Permissions> permissions = Sets.newHashSet();
+
     public String getName() {
         return name;
     }
@@ -70,6 +79,14 @@ public class Authority extends AbstractIdAuditingEntity {
         this.users = users;
     }
 
+    public Set<Permissions> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permissions> permissions) {
+        this.permissions = permissions;
+    }
+
     @Override
     public String toString() {
         return "Authority{" +
@@ -78,6 +95,7 @@ public class Authority extends AbstractIdAuditingEntity {
                 ", seq=" + seq +
                 ", desc='" + desc + '\'' +
                 ", users=" + users +
+                ", permissions=" + permissions +
                 '}';
     }
 }
