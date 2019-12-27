@@ -9,6 +9,7 @@ import org.hyl.errors.DataNotAlreadyIDException;
 import org.hyl.repository.AuthorityRepository;
 import org.hyl.service.AuthorityService;
 import org.hyl.web.rest.vm.AuthorityVM;
+import org.hyl.web.rest.vm.UpdateAuthorityPermissionsVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -58,6 +59,11 @@ public class AuthorityResource {
 
     @PutMapping("/authority")
     public Message update(@Valid @RequestBody AuthorityVM vm) {
+        return RESTful.success(RestTypeEnum.PUT, authorityService.update(vm));
+    }
+
+    @PutMapping("/authority/permissions")
+    public Message update(@Valid @RequestBody UpdateAuthorityPermissionsVM vm) {
         return RESTful.success(RestTypeEnum.PUT, authorityService.update(vm));
     }
 

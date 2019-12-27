@@ -1,12 +1,15 @@
 package org.hyl.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hyl.domain.Authority;
+import com.google.common.collect.Sets;
 import org.hyl.repository.AuthorityRepository;
+import org.hyl.service.AuthorityService;
+import org.hyl.service.PermissionsService;
 import org.hyl.web.rest.vm.AuthorityVM;
+import org.hyl.web.rest.vm.PermissionsVM;
+import org.hyl.web.rest.vm.UpdateAuthorityPermissionsVM;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,6 +46,12 @@ public class AuthorityResourceTest {
     @Autowired
     private AuthorityRepository authorityRepository;
 
+    @Autowired
+    private AuthorityService authorityService;
+
+    @Autowired
+    private PermissionsService permissionsService;
+
     @Test
     public void create() throws Exception {
         AuthorityVM vm = new AuthorityVM();
@@ -57,10 +66,10 @@ public class AuthorityResourceTest {
 
     @Test
     public void query() throws Exception {
-        Authority authority = new Authority();
-        authority.setName(DEFAULT_NAME);
-        authority.setCode(DEFAULT_CODE);
-        authorityRepository.save(authority);
+        AuthorityVM vm = new AuthorityVM();
+        vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
+        authorityService.create(vm);
         ResultActions actions = mvc.perform(get("/api/authority")
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
@@ -69,11 +78,11 @@ public class AuthorityResourceTest {
 
     @Test
     public void queryById() throws Exception {
-        Authority authority = new Authority();
-        authority.setName(DEFAULT_NAME);
-        authority.setCode(DEFAULT_CODE);
-        Authority newAuthority = authorityRepository.save(authority);
-        ResultActions actions = mvc.perform(get("/api/authority/" + newAuthority.getId())
+        AuthorityVM vm = new AuthorityVM();
+        vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
+        AuthorityVM newAuthorityVM = authorityService.create(vm);
+        ResultActions actions = mvc.perform(get("/api/authority/" + newAuthorityVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
@@ -81,10 +90,10 @@ public class AuthorityResourceTest {
 
     @Test
     public void queryByPageable() throws Exception {
-        Authority authority = new Authority();
-        authority.setName(DEFAULT_NAME);
-        authority.setCode(DEFAULT_CODE);
-        authorityRepository.save(authority);
+        AuthorityVM vm = new AuthorityVM();
+        vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
+        authorityService.create(vm);
         ResultActions actions = mvc.perform(get("/api/authority/pageable")
                 .param("page", "0")
                 .param("size", "20")
@@ -95,15 +104,33 @@ public class AuthorityResourceTest {
 
     @Test
     public void update() throws Exception {
-        Authority authority = new Authority();
-        authority.setName(DEFAULT_NAME);
-        authority.setCode(DEFAULT_CODE);
-        Authority newAuthority = authorityRepository.save(authority);
         AuthorityVM vm = new AuthorityVM();
-        BeanUtils.copyProperties(newAuthority, vm);
-        vm.setName(UPDATE_NAME);
-        vm.setCode(UPDATE_CODE);
+        vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
+        AuthorityVM newAuthorityVM = authorityService.create(vm);
+        newAuthorityVM.setName(UPDATE_NAME);
+        newAuthorityVM.setCode(UPDATE_CODE);
         ResultActions actions = mvc.perform(put("/api/authority")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newAuthorityVM)));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
+    public void updateAuthorityPermissions() throws Exception {
+        PermissionsVM permissionsVM = new PermissionsVM();
+        permissionsVM.setName("测试权限");
+        permissionsVM.setPid(0L);
+        PermissionsVM newPermissionsVM = permissionsService.create(permissionsVM);
+        AuthorityVM authorityVM = new AuthorityVM();
+        authorityVM.setName(DEFAULT_NAME);
+        authorityVM.setCode(DEFAULT_CODE);
+        AuthorityVM newAuthorityVM = authorityService.create(authorityVM);
+        UpdateAuthorityPermissionsVM vm = new UpdateAuthorityPermissionsVM();
+        vm.setId(newAuthorityVM.getId());
+        vm.setPermissions(Sets.newHashSet(newPermissionsVM.getId()));
+        ResultActions actions = mvc.perform(put("/api/authority/permissions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
@@ -112,11 +139,11 @@ public class AuthorityResourceTest {
 
     @Test
     public void delete() throws Exception {
-        Authority authority = new Authority();
-        authority.setName(DEFAULT_NAME);
-        authority.setCode(DEFAULT_CODE);
-        Authority newAuthority = authorityRepository.save(authority);
-        ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/authority/" + newAuthority.getId())
+        AuthorityVM vm = new AuthorityVM();
+        vm.setName(DEFAULT_NAME);
+        vm.setCode(DEFAULT_CODE);
+        AuthorityVM newAuthorityVM = authorityService.create(vm);
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/authority/" + newAuthorityVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());

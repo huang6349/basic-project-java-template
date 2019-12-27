@@ -2,16 +2,21 @@ package org.hyl.service;
 
 import org.hyl.config.Constants;
 import org.hyl.domain.Authority;
+import org.hyl.domain.Permissions;
 import org.hyl.errors.BadRequestException;
 import org.hyl.errors.DataAlreadyExistException;
 import org.hyl.repository.AuthorityRepository;
+import org.hyl.repository.PermissionsRepository;
 import org.hyl.web.rest.vm.AuthorityVM;
+import org.hyl.web.rest.vm.UpdateAuthorityPermissionsVM;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,9 +24,12 @@ public class AuthorityService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final PermissionsRepository permissionsRepository;
+
     @Autowired
-    public AuthorityService(AuthorityRepository authorityRepository) {
+    public AuthorityService(AuthorityRepository authorityRepository, PermissionsRepository permissionsRepository) {
         this.authorityRepository = authorityRepository;
+        this.permissionsRepository = permissionsRepository;
     }
 
     public AuthorityVM create(AuthorityVM vm) {
@@ -56,6 +64,16 @@ public class AuthorityService {
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
 
+    public AuthorityVM update(UpdateAuthorityPermissionsVM vm) {
+        Optional<Authority> optional = authorityRepository.findById(vm.getId());
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未找到需要修改的角色信息");
+        }
+        Authority authority = optional.get();
+        authority.setPermissions(setPermissions(vm.getPermissions()));
+        return AuthorityVM.adapt(authorityRepository.save(authority));
+    }
+
     public AuthorityVM delete(Long id) {
         Optional<Authority> optional = authorityRepository.findById(id);
         if (!optional.isPresent()) {
@@ -64,5 +82,15 @@ public class AuthorityService {
         Authority authority = optional.get();
         authority.setState(Constants.DATA_DELETE_STATE);
         return AuthorityVM.adapt(authorityRepository.save(authority));
+    }
+
+    private Set<Permissions> setPermissions(Set<Long> permissions) {
+        return permissions.stream().map(permission -> {
+            Optional<Permissions> optional = permissionsRepository.findById(permission);
+            if (!optional.isPresent()) {
+                throw new BadRequestException("未能在系统中找到数据编号为【" + permission + "】的权限信息");
+            }
+            return optional.get();
+        }).collect(Collectors.toSet());
     }
 }
