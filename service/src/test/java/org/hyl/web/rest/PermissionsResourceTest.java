@@ -1,8 +1,14 @@
 package org.hyl.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.Assertions;
+import org.hyl.auditing.LevelUtil;
+import org.hyl.domain.Permissions;
+import org.hyl.repository.PermissionsRepository;
 import org.hyl.service.PermissionsService;
 import org.hyl.web.rest.vm.PermissionsVM;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,8 +37,6 @@ public class PermissionsResourceTest {
 
     private static final String DEFAULT_NAME = "测试权限";
     private static final String UPDATE_NAME = "修改测试权限";
-    private static final Long DEFAULT_PID = 0L;
-    private static final Long UPDATE_PID = 1L;
 
     @Autowired
     private MockMvc mvc;
@@ -39,25 +45,46 @@ public class PermissionsResourceTest {
     private ObjectMapper objectMapper;
 
     @Autowired
+    private PermissionsRepository permissionsRepository;
+
+    @Autowired
     private PermissionsService permissionsService;
+
+    private PermissionsVM vm;
+
+    @Before
+    public void setup() {
+        vm = new PermissionsVM();
+        vm.setName(DEFAULT_NAME);
+    }
 
     @Test
     public void create() throws Exception {
-        PermissionsVM vm = new PermissionsVM();
-        vm.setName(DEFAULT_NAME);
-        vm.setPid(DEFAULT_PID);
+        List<Permissions> prevAll = permissionsRepository.findAll();
         ResultActions actions = mvc.perform(post("/api/permissions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
+        List<Permissions> currAll = permissionsRepository.findAll();
+        Assertions.assertThat(currAll).hasSize(prevAll.size() + 1);
+        Permissions permissions = currAll.get(currAll.size() - 1);
+        Assertions.assertThat(permissions.getId()).isNotNull();
+        Assertions.assertThat(permissions.getPid()).isEqualTo(0);
+        Assertions.assertThat(permissions.getLevel()).isEqualTo(StringUtils.join(LevelUtil.ROOT, LevelUtil.SUFFIX));
+        Assertions.assertThat(permissions.getName()).isEqualTo(DEFAULT_NAME);
+        Assertions.assertThat(permissions.getPath()).isNull();
+        Assertions.assertThat(permissions.getSeq()).isEqualTo(0);
+        Assertions.assertThat(permissions.getDesc()).isNull();
+        Assertions.assertThat(permissions.getAuthorities()).isEmpty();
+        Assertions.assertThat(permissions.getCreatedBy()).isNotNull();
+        Assertions.assertThat(permissions.getCreatedDate()).isNotNull();
+        Assertions.assertThat(permissions.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(permissions.getLastModifiedDate()).isNotNull();
     }
 
     @Test
     public void query() throws Exception {
-        PermissionsVM vm = new PermissionsVM();
-        vm.setName(DEFAULT_NAME);
-        vm.setPid(DEFAULT_PID);
         permissionsService.create(vm);
         ResultActions actions = mvc.perform(get("/api/permissions")
                 .accept(MediaType.APPLICATION_JSON));
@@ -67,11 +94,8 @@ public class PermissionsResourceTest {
 
     @Test
     public void queryById() throws Exception {
-        PermissionsVM vm = new PermissionsVM();
-        vm.setName(DEFAULT_NAME);
-        vm.setPid(DEFAULT_PID);
-        PermissionsVM newPermissionsVM = permissionsService.create(vm);
-        ResultActions actions = mvc.perform(get("/api/permissions/" + newPermissionsVM.getId())
+        PermissionsVM permissionsVM = permissionsService.create(vm);
+        ResultActions actions = mvc.perform(get("/api/permissions/" + permissionsVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
@@ -79,9 +103,6 @@ public class PermissionsResourceTest {
 
     @Test
     public void queryByPageable() throws Exception {
-        PermissionsVM vm = new PermissionsVM();
-        vm.setName(DEFAULT_NAME);
-        vm.setPid(DEFAULT_PID);
         permissionsService.create(vm);
         ResultActions actions = mvc.perform(get("/api/permissions/pageable")
                 .param("page", "0")
@@ -93,18 +114,15 @@ public class PermissionsResourceTest {
 
     @Test
     public void queryToTree() throws Exception {
+        PermissionsVM permissionsVM = permissionsService.create(vm);
         PermissionsVM vm1 = new PermissionsVM();
-        vm1.setName(DEFAULT_NAME);
-        vm1.setPid(DEFAULT_PID);
-        PermissionsVM newPermissionsVM = permissionsService.create(vm1);
+        vm1.setName(DEFAULT_NAME + "A");
+        vm1.setPid(permissionsVM.getId());
+        permissionsService.create(vm1);
         PermissionsVM vm2 = new PermissionsVM();
-        vm2.setName(DEFAULT_NAME + "A");
-        vm2.setPid(newPermissionsVM.getId());
+        vm2.setName(DEFAULT_NAME + "B");
+        vm2.setPid(permissionsVM.getId());
         permissionsService.create(vm2);
-        PermissionsVM vm3 = new PermissionsVM();
-        vm3.setName(DEFAULT_NAME + "B");
-        vm3.setPid(newPermissionsVM.getId());
-        permissionsService.create(vm3);
         ResultActions actions = mvc.perform(get("/api/permissions/tree")
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
@@ -113,43 +131,52 @@ public class PermissionsResourceTest {
 
     @Test
     public void update() throws Exception {
-        PermissionsVM vm1 = new PermissionsVM();
-        vm1.setName(DEFAULT_NAME);
-        vm1.setPid(DEFAULT_PID);
-        PermissionsVM newPermissionsVM = permissionsService.create(vm1);
-        PermissionsVM vm2 = new PermissionsVM();
-        vm2.setName(DEFAULT_NAME + "A");
-        vm2.setPid(newPermissionsVM.getId());
-        permissionsService.create(vm2);
-        PermissionsVM vm3 = new PermissionsVM();
-        vm3.setName(DEFAULT_NAME + "B");
-        vm3.setPid(newPermissionsVM.getId());
-        permissionsService.create(vm3);
-        newPermissionsVM.setName(UPDATE_NAME);
-        newPermissionsVM.setPid(UPDATE_PID);
+        PermissionsVM parentPermissionsVM = new PermissionsVM();
+        parentPermissionsVM.setName("父级测试权限");
+        PermissionsVM newParentPermissionsVM = permissionsService.create(parentPermissionsVM);
+        PermissionsVM permissionsVM = permissionsService.create(vm);
+        permissionsVM.setName(UPDATE_NAME);
+        permissionsVM.setPid(newParentPermissionsVM.getId());
+        List<Permissions> prevAll = permissionsRepository.findAll();
+        Permissions prevPermissions = prevAll.get(prevAll.size() - 1);
         ResultActions actions = mvc.perform(put("/api/permissions")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newPermissionsVM)));
+                .content(objectMapper.writeValueAsString(permissionsVM)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
+        List<Permissions> currAll = permissionsRepository.findAll();
+        Assertions.assertThat(currAll).hasSize(prevAll.size());
+        Permissions currPermissions = currAll.get(currAll.size() - 1);
+        Assertions.assertThat(currPermissions.getId()).isEqualTo(prevPermissions.getId());
+        Assertions.assertThat(currPermissions.getPid()).isEqualTo(newParentPermissionsVM.getId());
+        Assertions.assertThat(currPermissions.getLevel()).isEqualTo(LevelUtil.calculateLevel("0E", newParentPermissionsVM.getId()));
+        Assertions.assertThat(currPermissions.getName()).isEqualTo(UPDATE_NAME);
+        Assertions.assertThat(currPermissions.getPath()).isEqualTo(prevPermissions.getPath());
+        Assertions.assertThat(currPermissions.getSeq()).isEqualTo(prevPermissions.getSeq());
+        Assertions.assertThat(currPermissions.getDesc()).isEqualTo(prevPermissions.getDesc());
+        Assertions.assertThat(currPermissions.getAuthorities()).isEqualTo(prevPermissions.getAuthorities());
+        Assertions.assertThat(currPermissions.getCreatedBy()).isEqualTo(prevPermissions.getCreatedBy());
+        Assertions.assertThat(currPermissions.getCreatedDate()).isEqualTo(prevPermissions.getCreatedDate());
+        Assertions.assertThat(currPermissions.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currPermissions.getLastModifiedDate()).isNotNull();
     }
 
     @Test
     public void delete() throws Exception {
+        PermissionsVM permissionsVM = permissionsService.create(vm);
         PermissionsVM vm1 = new PermissionsVM();
-        vm1.setName(DEFAULT_NAME);
-        vm1.setPid(DEFAULT_PID);
-        PermissionsVM newPermissionsVM = permissionsService.create(vm1);
+        vm1.setName(DEFAULT_NAME + "A");
+        vm1.setPid(permissionsVM.getId());
+        permissionsService.create(vm1);
         PermissionsVM vm2 = new PermissionsVM();
-        vm2.setName(DEFAULT_NAME + "A");
-        vm2.setPid(newPermissionsVM.getId());
+        vm2.setName(DEFAULT_NAME + "B");
+        vm2.setPid(permissionsVM.getId());
         permissionsService.create(vm2);
-        PermissionsVM vm3 = new PermissionsVM();
-        vm3.setName(DEFAULT_NAME + "B");
-        vm3.setPid(newPermissionsVM.getId());
-        permissionsService.create(vm3);
-        ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/permissions/" + newPermissionsVM.getId())
+        List<Permissions> prevAll = permissionsRepository.findAll();
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/permissions/" + permissionsVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        List<Permissions> currAll = permissionsRepository.findAll();
+        Assertions.assertThat(currAll).hasSize(prevAll.size() - 3);
     }
 }
