@@ -1,6 +1,7 @@
 package org.hyl.web.rest.vm;
 
 import com.google.common.collect.Sets;
+import org.hyl.auditing.AbstractIdAuditingEntity;
 import org.hyl.auditing.AbstractIdAuditingVM;
 import org.hyl.config.Constants;
 import org.hyl.domain.MyUser;
@@ -28,7 +29,7 @@ public class UserVM extends AbstractIdAuditingVM {
 
     private String lastModifiedDate_zh;
 
-    private Set<AuthorityVM> roles = Sets.newHashSet();
+    private Set<Long> authorities = Sets.newHashSet();
 
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
@@ -37,7 +38,7 @@ public class UserVM extends AbstractIdAuditingVM {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(user.getLastModifiedDate(), ZoneId.systemDefault());
             vm.setLastModifiedDate_zh(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
-        vm.setRoles(user.getAuthorities().stream().map(AuthorityVM::adapt).collect(Collectors.toSet()));
+        vm.setAuthorities(user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         return vm;
     }
 
@@ -77,11 +78,11 @@ public class UserVM extends AbstractIdAuditingVM {
         this.lastModifiedDate_zh = lastModifiedDate_zh;
     }
 
-    public Set<AuthorityVM> getRoles() {
-        return roles;
+    public Set<Long> getAuthorities() {
+        return authorities;
     }
 
-    public void setRoles(Set<AuthorityVM> roles) {
-        this.roles = roles;
+    public void setAuthorities(Set<Long> authorities) {
+        this.authorities = authorities;
     }
 }

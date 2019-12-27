@@ -39,7 +39,7 @@ public class UserService {
         MyUser user = new MyUser();
         BeanUtils.copyProperties(vm, user);
         user.setState(Constants.DATA_NORMAL_STATE);
-        user.setAuthorities(setAuthorities(vm.getRoles()));
+        user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
     }
 
@@ -56,7 +56,7 @@ public class UserService {
             throw new BadRequestException("用户状态不允许修改信息");
         }
         BeanUtils.copyProperties(vm, user);
-        user.setAuthorities(setAuthorities(vm.getRoles()));
+        user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
     }
 
@@ -70,11 +70,11 @@ public class UserService {
         return UserVM.adapt(userRepository.save(user));
     }
 
-    private Set<Authority> setAuthorities(Set<AuthorityVM> roles) {
-        return roles.stream().map(o -> {
-            Optional<Authority> optional = authorityRepository.findById(o.getId());
+    private Set<Authority> setAuthorities(Set<Long> authorities) {
+        return authorities.stream().map(authoritie -> {
+            Optional<Authority> optional = authorityRepository.findById(authoritie);
             if (!optional.isPresent()) {
-                throw new BadRequestException("未能在系统中找到角色信息[" + o.getName() + "]");
+                throw new BadRequestException("未能在系统中找到数据编号为【" + authoritie + "】的角色信息");
             }
             return optional.get();
         }).collect(Collectors.toSet());
