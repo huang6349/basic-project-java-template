@@ -52,13 +52,13 @@ public class PermissionsResource {
     }
 
     @GetMapping("/permissions/{id}")
-    public Message queryById(@PathVariable Long id) {
+    public Message query(@PathVariable Long id) {
         Optional<Permissions> optional = permissionsRepository.findById(id);
         return RESTful.success(RestTypeEnum.GET, optional.map(PermissionsVM::adapt).orElse(null));
     }
 
     @GetMapping("/permissions/pageable")
-    public Message queryByPageable(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Message query(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return PaginationUtil.execute(permissionsRepository.findAll(pageable).map(PermissionsVM::adapt));
     }
 
