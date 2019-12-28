@@ -7,10 +7,10 @@ import org.hyl.errors.BadRequestException;
 import org.hyl.errors.DataAlreadyExistException;
 import org.hyl.repository.AuthorityRepository;
 import org.hyl.repository.UserRepository;
-import org.hyl.web.rest.vm.AuthorityVM;
 import org.hyl.web.rest.vm.UserVM;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +26,13 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserVM create(UserVM vm) {
@@ -38,6 +41,7 @@ public class UserService {
         }
         MyUser user = new MyUser();
         BeanUtils.copyProperties(vm, user);
+        user.setPassword(passwordEncoder.encode(vm.getPassword()));
         user.setState(Constants.DATA_NORMAL_STATE);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));

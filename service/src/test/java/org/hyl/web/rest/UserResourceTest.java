@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -34,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+@WithMockUser(username = "admin", password = "123456")
 public class UserResourceTest {
 
     private static final String DEFAULT_USERNAME = "test";
@@ -54,6 +57,9 @@ public class UserResourceTest {
 
     @Autowired
     private AuthorityService authorityService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private UserVM vm;
 
@@ -82,7 +88,7 @@ public class UserResourceTest {
         MyUser user = currAll.get(currAll.size() - 1);
         Assertions.assertThat(user.getId()).isNotNull();
         Assertions.assertThat(user.getUsername()).isEqualTo(DEFAULT_USERNAME);
-        Assertions.assertThat(user.getPassword()).isEqualTo(DEFAULT_PASSWORD);
+        Assertions.assertThat(passwordEncoder.matches(DEFAULT_PASSWORD, user.getPassword())).isTrue();
         Assertions.assertThat(user.getAuthorities()).hasSize(1);
         Assertions.assertThat(user.getCreatedBy()).isNotNull();
         Assertions.assertThat(user.getCreatedDate()).isNotNull();
