@@ -1,0 +1,28 @@
+.layout :global(.ant-pro-sider-menu-logo) {
+  padding: 0;
+}
+
+.layout :global(.ant-pro-sider-menu-logo > b) {
+  cursor: auto;
+  margin: 0 0 0 12px;
+  height: 64px;
+  line-height: 64px;
+}
+
+.layout :global(.ant-pro-sider-menu-sider) {
+  box-shadow: none;
+  border-right: 1px solid #e8e8e8;
+}
+
+.layout :global(.ant-pro-global-header) {
+  box-shadow: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.layout :global(.ant-pro-global-header-trigger:hover) {
+  background: transparent;
+}
+
+.layout :global(.ant-pro-basicLayout-content) {
+  margin: 0;
+}
