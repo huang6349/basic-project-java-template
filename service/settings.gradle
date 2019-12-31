@@ -1,4 +1,5 @@
-rootProject.name = 'basic-project-java-template'
+rootProject.name = 'root'
 
 include 'commons'
 include 'data'
+include 'system'
