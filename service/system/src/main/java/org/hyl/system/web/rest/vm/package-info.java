@@ -1,0 +1,1 @@
+package org.hyl.system.web.rest.vm;

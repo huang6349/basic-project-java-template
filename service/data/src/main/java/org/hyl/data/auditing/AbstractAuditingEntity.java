@@ -1,7 +1,7 @@
 package org.hyl.data.auditing;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hyl.data.config.Constants;
+import org.hyl.data.config.DataConstants;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -41,7 +41,7 @@ public class AbstractAuditingEntity implements Serializable {
     private Instant lastModifiedDate = Instant.now();
 
     @Column(name = "DATA_STATE", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
-    private Byte state = Constants.DATA_NORMAL_STATE;
+    private Byte state = DataConstants.DATA_NORMAL_STATE;
 
     public String getCreatedBy() {
         return createdBy;

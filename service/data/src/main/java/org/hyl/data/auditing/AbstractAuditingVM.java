@@ -1,10 +1,10 @@
 package org.hyl.data.auditing;
 
-import org.hyl.data.config.Constants;
+import org.hyl.data.config.DataConstants;
 
 public class AbstractAuditingVM {
 
-    private Byte state = Constants.DATA_NORMAL_STATE;
+    private Byte state = DataConstants.DATA_NORMAL_STATE;
 
     private String state_zh;
 
@@ -17,9 +17,9 @@ public class AbstractAuditingVM {
     }
 
     public String getState_zh() {
-        state_zh = Constants.DATA_NORMAL_STATE_ZH;
-        if (Constants.DATA_DELETE_STATE.equals(state)) {
-            state_zh = Constants.DATA_DELETE_STATE_ZH;
+        state_zh = DataConstants.DATA_NORMAL_STATE_ZH;
+        if (DataConstants.DATA_DELETE_STATE.equals(state)) {
+            state_zh = DataConstants.DATA_DELETE_STATE_ZH;
         }
         return state_zh;
     }

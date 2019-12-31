@@ -2,4 +2,5 @@ rootProject.name = 'root'
 
 include 'commons'
 include 'data'
+include 'log'
 include 'system'
