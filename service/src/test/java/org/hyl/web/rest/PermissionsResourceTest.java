@@ -3,7 +3,7 @@ package org.hyl.web.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.hyl.auditing.LevelUtil;
+import org.hyl.data.auditing.LevelUtil;
 import org.hyl.domain.Permissions;
 import org.hyl.repository.PermissionsRepository;
 import org.hyl.service.PermissionsService;
@@ -178,6 +178,7 @@ public class PermissionsResourceTest {
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.delete("/api/permissions/" + permissionsVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
         List<Permissions> currAll = permissionsRepository.findAll();
         Assertions.assertThat(currAll).hasSize(prevAll.size() - 3);
     }

@@ -1,4 +1,4 @@
-package org.hyl.auditing;
+package org.hyl.data.auditing;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;

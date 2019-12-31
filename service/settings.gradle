@@ -1,3 +1,4 @@
 rootProject.name = 'basic-project-java-template'
 
 include 'commons'
+include 'data'

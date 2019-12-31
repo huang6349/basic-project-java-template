@@ -1,6 +1,6 @@
-package org.hyl.auditing;
+package org.hyl.data.auditing;
 
-import org.hyl.config.Constants;
+import org.hyl.data.config.Constants;
 
 public class AbstractAuditingVM {
 

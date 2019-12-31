@@ -1,7 +1,7 @@
 package org.hyl.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hyl.auditing.LevelUtil;
+import org.hyl.data.auditing.LevelUtil;
 import org.hyl.config.Constants;
 import org.hyl.domain.Permissions;
 import org.hyl.errors.BadRequestException;

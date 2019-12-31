@@ -1,6 +1,6 @@
 package org.hyl.web.rest.vm;
 
-import org.hyl.auditing.AbstractLevelAuditingVM;
+import org.hyl.data.auditing.AbstractLevelAuditingVM;
 import org.hyl.config.Constants;
 import org.hyl.domain.Permissions;
 import org.springframework.beans.BeanUtils;

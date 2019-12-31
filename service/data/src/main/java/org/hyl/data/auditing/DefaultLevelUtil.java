@@ -1,4 +1,4 @@
-package org.hyl.auditing;
+package org.hyl.data.auditing;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -6,15 +6,13 @@ import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DefaultLevelUtil<T extends AbstractLevelAuditingVM<T>> implements LevelUtil<T> {
 
     @Override
     public List<T> listToTree(List<T> list) {
-        return listToTree(list, StringUtils.join(LevelUtil.ROOT, LevelUtil.SUFFIX));
+        return listToTree(list, StringUtils.join(ROOT, SUFFIX));
     }
 
     @Override
@@ -26,7 +24,7 @@ public class DefaultLevelUtil<T extends AbstractLevelAuditingVM<T>> implements L
         List<T> root = Lists.newArrayList();
         list.forEach(t -> {
             multimap.put(t.getLevel(), t);
-            if (StringUtils.join(LevelUtil.ROOT, LevelUtil.SUFFIX).equals(t.getLevel())) {
+            if (StringUtils.join(ROOT, SUFFIX).equals(t.getLevel())) {
                 root.add(t);
             }
         });

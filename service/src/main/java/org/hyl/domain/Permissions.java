@@ -3,7 +3,7 @@ package org.hyl.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import org.hibernate.annotations.Where;
-import org.hyl.auditing.AbstractLevelAuditingEntity;
+import org.hyl.data.auditing.AbstractLevelAuditingEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,7 +1,7 @@
-package org.hyl.auditing;
+package org.hyl.data.auditing;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hyl.config.Constants;
+import org.hyl.data.config.Constants;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;

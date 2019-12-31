@@ -1,8 +1,8 @@
 package org.hyl.web.rest.vm;
 
 import com.google.common.collect.Sets;
-import org.hyl.auditing.AbstractIdAuditingEntity;
-import org.hyl.auditing.AbstractIdAuditingVM;
+import org.hyl.data.auditing.AbstractIdAuditingEntity;
+import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.config.Constants;
 import org.hyl.domain.MyUser;
 import org.springframework.beans.BeanUtils;

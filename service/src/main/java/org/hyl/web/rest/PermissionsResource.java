@@ -1,7 +1,7 @@
 package org.hyl.web.rest;
 
-import org.hyl.auditing.DefaultLevelUtil;
-import org.hyl.auditing.LevelUtil;
+import org.hyl.data.auditing.DefaultLevelUtil;
+import org.hyl.data.auditing.LevelUtil;
 import org.hyl.commons.result.Message;
 import org.hyl.commons.pagination.PaginationUtil;
 import org.hyl.commons.result.enums.RestTypeEnum;

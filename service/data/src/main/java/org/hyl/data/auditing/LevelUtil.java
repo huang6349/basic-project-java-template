@@ -1,4 +1,4 @@
-package org.hyl.auditing;
+package org.hyl.data.auditing;
 
 import org.apache.commons.lang3.StringUtils;
 
