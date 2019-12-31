@@ -1,7 +1,6 @@
-package org.hyl.commons.result.enums.rest;
+package org.hyl.commons.result.enums;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hyl.commons.result.enums.NetworkEnum;
 import org.springframework.http.HttpStatus;
 
 public enum RestMessageEnum {

@@ -1,10 +1,8 @@
-package org.hyl.commons.result.rest;
+package org.hyl.commons.result;
 
-import org.hyl.commons.result.Message;
-import org.hyl.commons.result.MessageVM;
 import org.hyl.commons.result.enums.NetworkEnum;
-import org.hyl.commons.result.enums.rest.RestMessageEnum;
-import org.hyl.commons.result.enums.rest.RestTypeEnum;
+import org.hyl.commons.result.enums.RestMessageEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 
 public class RestMessageVM extends MessageVM {
 

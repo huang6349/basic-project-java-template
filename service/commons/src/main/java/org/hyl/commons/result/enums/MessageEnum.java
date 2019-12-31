@@ -1,10 +1,9 @@
 package org.hyl.commons.result.enums;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 
 public enum MessageEnum {
-    SUCCESS(HttpStatus.OK.value(), "请求成功"), ERROR(HttpStatus.BAD_REQUEST.value(), "请求失败，请稍后再试");
+    SUCCESS(200, "请求成功"), ERROR(400, "请求失败，请稍后再试");
 
     private final Integer state;
 

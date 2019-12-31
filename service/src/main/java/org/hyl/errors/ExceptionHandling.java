@@ -1,7 +1,7 @@
 package org.hyl.errors;
 
 import org.hyl.commons.result.Message;
-import org.hyl.commons.result.rest.RESTful;
+import org.hyl.commons.result.RESTful;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;

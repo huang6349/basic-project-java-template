@@ -1,8 +1,9 @@
-package org.hyl.commons.result;
+package org.hyl.commons.pagination;
 
 import com.google.common.collect.Maps;
-import org.hyl.commons.result.enums.rest.RestTypeEnum;
-import org.hyl.commons.result.rest.RESTful;
+import org.hyl.commons.result.Message;
+import org.hyl.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.RESTful;
 import org.springframework.data.domain.Page;
 
 import java.util.Map;

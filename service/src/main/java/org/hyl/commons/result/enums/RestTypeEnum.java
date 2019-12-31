@@ -1,4 +1,4 @@
-package org.hyl.commons.result.enums.rest;
+package org.hyl.commons.result.enums;
 
 public enum RestTypeEnum {
     DEFAULT(0), POST(1), DELETE(2), GET(3), PUT(4);

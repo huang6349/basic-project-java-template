@@ -23,7 +23,7 @@ public class ResultUtilTest {
     private Map<String, Integer> params = Maps.newHashMap();
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         this.state = new Random().nextInt(400) + 100;
         this.message = "COMMONS_TEST";
         this.data = Lists.newArrayList();

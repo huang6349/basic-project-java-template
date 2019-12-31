@@ -1,9 +1,9 @@
 package org.hyl.web.rest;
 
 import org.hyl.commons.result.Message;
-import org.hyl.commons.result.PaginationUtil;
-import org.hyl.commons.result.enums.rest.RestTypeEnum;
-import org.hyl.commons.result.rest.RESTful;
+import org.hyl.commons.pagination.PaginationUtil;
+import org.hyl.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.RESTful;
 import org.hyl.domain.MyUser;
 import org.hyl.errors.DataNotAlreadyIDException;
 import org.hyl.repository.UserRepository;

@@ -1,12 +1,11 @@
-package org.hyl.commons.result.rest;
+package org.hyl.commons.result;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.assertj.core.api.Assertions;
-import org.hyl.commons.result.Message;
 import org.hyl.commons.result.enums.NetworkEnum;
-import org.hyl.commons.result.enums.rest.RestMessageEnum;
-import org.hyl.commons.result.enums.rest.RestTypeEnum;
+import org.hyl.commons.result.enums.RestMessageEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,7 @@ public class RESTfulTest {
     private Map<String, Integer> params = Maps.newHashMap();
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         this.state = new Random().nextInt(400) + 100;
         this.message = "REST_TEST";
         this.data = Lists.newArrayList();

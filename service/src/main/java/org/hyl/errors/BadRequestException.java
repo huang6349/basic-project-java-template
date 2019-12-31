@@ -1,6 +1,6 @@
 package org.hyl.errors;
 
-import org.hyl.commons.result.enums.rest.RestTypeEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.springframework.http.HttpStatus;
 
 /**
