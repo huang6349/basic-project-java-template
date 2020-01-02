@@ -3,11 +3,15 @@ import { connect } from 'dva';
 import { Form } from './components';
 import styles from './index.css';
 
-const IndexPage = ({ loading }) => {
+const IndexPage = ({ loading, dispatch }) => {
+  function handleSubmit(data) {
+    dispatch({ type: 'global/login', payload: data });
+  }
+
   return (
     <section className={styles['layout']}>
       <div className={styles['main']} style={{ width: 365 }}>
-        <Form loading={loading} />
+        <Form loading={loading} onSubmit={handleSubmit} />
       </div>
     </section>
   );

@@ -1,39 +1,36 @@
 import NProgress from 'nprogress';
-import fetch from 'dva/fetch';
+import localforage from 'localforage';
+import { extend } from 'umi-request';
+import { message } from 'antd';
+import { TOKEN } from '@/constant';
 import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false });
 
-const request = (url, options = {}) => {
-  NProgress.start();
+const request = extend({ credentials: 'include' });
 
+request.interceptors.request.use(async (url, options) => {
+  NProgress.start();
   options.headers = options.headers || {};
   options.headers['Content-Type'] = 'application/json;charset=UTF-8';
   options.headers['Accept'] = 'application/json';
-
+  const token = await localforage.getItem(TOKEN['name']);
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
   NProgress.inc();
+  return { url: `/api${url}`, options };
+});
 
-  return fetch(url, options)
-    .then((response) => {
-      if (response.ok) return response;
-      const error = new Error('服务器内部错误，请稍后再试');
-      error.response = response;
-      return error;
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const { message, success } = data;
-      if (!success) throw new Error(message);
-      return data;
-    })
-    .catch((err) => {
-      throw err;
-    })
-    .finally(() => {
-      NProgress.done();
-    });
-};
+request.interceptors.response.use(async (response, ...b) => {
+  NProgress.done();
+  const data = await response.json();
+  if (data && data['success']) {
+    return data['data'];
+  } else {
+    message.error(data['message']);
+    return {};
+  }
+});
 
 export default request;
