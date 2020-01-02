@@ -15,6 +15,8 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
 
     private String path;
 
+    private String icon;
+
     private String desc;
 
     private String lastModifiedBy;
@@ -49,6 +51,14 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getDesc() {

@@ -23,6 +23,8 @@ public class Permissions extends AbstractLevelAuditingEntity {
 
     private String path;
 
+    private String icon;
+
     @Column(name = "SEQ", nullable = false, columnDefinition = "INTEGER DEFAULT 0")
     private Integer seq = 0;
 
@@ -46,6 +48,14 @@ public class Permissions extends AbstractLevelAuditingEntity {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getSeq() {

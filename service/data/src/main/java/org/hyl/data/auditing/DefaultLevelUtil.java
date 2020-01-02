@@ -37,7 +37,7 @@ public class DefaultLevelUtil<T extends AbstractLevelAuditingVM<T>> implements L
             String nextLevel = LevelUtil.calculateLevel(level, t.getId());
             List<T> next = (List<T>) multimap.get(nextLevel);
             if (CollectionUtils.isNotEmpty(next)) {
-                t.setChild(next);
+                t.setChildren(next);
                 transformTree(next, multimap, nextLevel);
             }
         });

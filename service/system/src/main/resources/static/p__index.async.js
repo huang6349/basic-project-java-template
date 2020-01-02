@@ -1,1 +1,1 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[2],{RXBc:function(e,n,t){"use strict";t.r(n);var a=t("q1tI"),c=function(){return a["createElement"](a["Fragment"],null,"Hello, Basic Project Java Template")};n["default"]=c}}]);
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[4],{RXBc:function(e,n,t){"use strict";t.r(n);var a=t("q1tI"),c=function(){return a["createElement"](a["Fragment"],null,"Hello, Basic Project Java Template")};n["default"]=c}}]);

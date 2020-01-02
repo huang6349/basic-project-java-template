@@ -12,7 +12,7 @@ public class AbstractLevelAuditingVM<E> extends AbstractIdAuditingVM {
     @JsonIgnore
     private String level;
 
-    private List<E> child = Lists.newArrayList();
+    private List<E> children = Lists.newArrayList();
 
     public Long getPid() {
         return pid;
@@ -30,11 +30,11 @@ public class AbstractLevelAuditingVM<E> extends AbstractIdAuditingVM {
         this.level = level;
     }
 
-    public List<E> getChild() {
-        return child;
+    public List<E> getChildren() {
+        return children;
     }
 
-    public void setChild(List<E> child) {
-        this.child = child;
+    public void setChildren(List<E> children) {
+        this.children = children;
     }
 }

@@ -76,6 +76,7 @@ public class PermissionsResourceTest {
         Assertions.assertThat(permissions.getLevel()).isEqualTo(StringUtils.join(LevelUtil.ROOT, LevelUtil.SUFFIX));
         Assertions.assertThat(permissions.getName()).isEqualTo(DEFAULT_NAME);
         Assertions.assertThat(permissions.getPath()).isNull();
+        Assertions.assertThat(permissions.getIcon()).isNull();
         Assertions.assertThat(permissions.getSeq()).isEqualTo(0);
         Assertions.assertThat(permissions.getDesc()).isNull();
         Assertions.assertThat(permissions.getAuthorities()).isEmpty();
@@ -154,6 +155,7 @@ public class PermissionsResourceTest {
         Assertions.assertThat(currPermissions.getLevel()).isEqualTo(LevelUtil.calculateLevel("0E", newParentPermissionsVM.getId()));
         Assertions.assertThat(currPermissions.getName()).isEqualTo(UPDATE_NAME);
         Assertions.assertThat(currPermissions.getPath()).isEqualTo(prevPermissions.getPath());
+        Assertions.assertThat(currPermissions.getIcon()).isEqualTo(prevPermissions.getIcon());
         Assertions.assertThat(currPermissions.getSeq()).isEqualTo(prevPermissions.getSeq());
         Assertions.assertThat(currPermissions.getDesc()).isEqualTo(prevPermissions.getDesc());
         Assertions.assertThat(currPermissions.getAuthorities()).isEqualTo(prevPermissions.getAuthorities());

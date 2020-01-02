@@ -1,8 +1,9 @@
-import { authenticate } from '@/services/users';
+import { authenticate, authorities } from '@/services/users';
 
 export default {
   state: {
-    isLogin: !1,
+    isLogin: null,
+    menuData: [],
   },
   subscriptions: {},
   effects: {
@@ -13,6 +14,10 @@ export default {
     *keep({ payload }, { put, call, select }) {
       const { hasToken } = payload;
       yield put({ type: 'update_state', payload: { isLogin: hasToken } });
+    },
+    *fetchUser({ payload }, { put, call, select }) {
+      const menuData = yield call(authorities) || [];
+      yield put({ type: 'update_state', payload: { menuData } });
     },
   },
   reducers: {

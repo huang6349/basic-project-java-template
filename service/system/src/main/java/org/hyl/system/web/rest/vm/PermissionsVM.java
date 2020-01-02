@@ -21,6 +21,8 @@ public class PermissionsVM extends AbstractIdAuditingVM {
 
     private String path;
 
+    private String icon;
+
     private Integer seq = 0;
 
     private String desc;
@@ -65,6 +67,14 @@ public class PermissionsVM extends AbstractIdAuditingVM {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getSeq() {

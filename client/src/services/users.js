@@ -11,3 +11,7 @@ export async function authenticate(login) {
     return !1;
   }
 }
+
+export async function authorities() {
+  return await request.get('/authorities/tree');
+}
