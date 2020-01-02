@@ -10,6 +10,10 @@ public class LoginVM {
     @NotNull(message = "密码不能为空")
     private String password;
 
+    public LoginVM() {
+        // Empty constructor needed for Jackson.
+    }
+
     public String getUsername() {
         return username;
     }

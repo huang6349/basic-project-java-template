@@ -33,7 +33,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
-        log.debug("进行身份验证 {}", login);
+        log.debug("【进行用户身份验证】: {}", login);
 
         return userRepository.findByUsernameIgnoreCase(login)
                 .map(user -> createUserDetails(login, user))

@@ -46,14 +46,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.exceptionHandling().accessDeniedHandler(securityMessageSupport);
+        http.cors();
         http.csrf().disable();
+        http.httpBasic().disable();
+        http.formLogin().disable();
+        http.logout().disable();
         http.exceptionHandling().authenticationEntryPoint(securityMessageSupport);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().deny();
         http.authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/**").authenticated();
-        http.httpBasic();
         http.apply(securityConfigurerAdapter());
     }
 

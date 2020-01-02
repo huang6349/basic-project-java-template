@@ -39,6 +39,10 @@ public class PermissionsVM extends AbstractIdAuditingVM {
         return vm;
     }
 
+    public PermissionsVM() {
+        // Empty constructor needed for Jackson.
+    }
+
     public Long getPid() {
         return pid;
     }

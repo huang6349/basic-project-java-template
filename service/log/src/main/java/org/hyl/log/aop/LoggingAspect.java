@@ -23,7 +23,8 @@ public class LoggingAspect {
 
     @Before("controller()")
     public void doBefore(JoinPoint joinPoint) {
-        log.info("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
+        log.info("【开始请求】: {}.{}()", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
+        log.info("【请求参数】: {}", Arrays.toString(joinPoint.getArgs()));
     }
 
     @Around("controller()")
@@ -38,7 +39,8 @@ public class LoggingAspect {
         } finally {
             stopWatch.stop();
         }
-        log.info("Enter: {}.{}() with time = {} millis", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName(), stopWatch.getTime());
+        log.info("【结束请求】: {}.{}()", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName());
+        log.info("【请求耗时】: {} 毫秒", stopWatch.getTime());
         return object;
     }
 }

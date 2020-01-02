@@ -31,6 +31,10 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
         return vm;
     }
 
+    public PermissionsLevelVM() {
+        // Empty constructor needed for Jackson.
+    }
+
     public String getName() {
         return name;
     }

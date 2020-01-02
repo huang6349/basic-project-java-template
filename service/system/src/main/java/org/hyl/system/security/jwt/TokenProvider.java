@@ -69,17 +69,13 @@ public class TokenProvider implements InitializingBean {
             Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT signature.");
-            log.trace("Invalid JWT signature trace: {}", e);
+            log.info("无效的 JWT 令牌");
         } catch (ExpiredJwtException e) {
-            log.info("Expired JWT token.");
-            log.trace("Expired JWT token trace: {}", e);
+            log.info("已过期的 JWT 令牌");
         } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT token.");
-            log.trace("Unsupported JWT token trace: {}", e);
+            log.info("不支持的 JWT 令牌");
         } catch (IllegalArgumentException e) {
-            log.info("JWT token compact of handler are invalid.");
-            log.trace("JWT token compact of handler are invalid trace: {}", e);
+            log.info("参数不存在的 JWT 令牌");
         }
         return false;
     }

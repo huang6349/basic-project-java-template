@@ -10,6 +10,10 @@ public class UpdateAuthorityPermissionsVM {
 
     private Set<Long> permissions = Sets.newHashSet();
 
+    public UpdateAuthorityPermissionsVM() {
+        // Empty constructor needed for Jackson.
+    }
+
     public Long getId() {
         return id;
     }

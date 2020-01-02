@@ -18,6 +18,10 @@ public class Message implements Serializable {
 
     private Object params;
 
+    public Message() {
+        // Empty constructor needed for Jackson.
+    }
+
     public Integer getState() {
         return state;
     }
