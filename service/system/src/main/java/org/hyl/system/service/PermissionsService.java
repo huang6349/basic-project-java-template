@@ -1,7 +1,11 @@
 package org.hyl.system.service;
 
+import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.errors.DataAlreadyExistException;
+import org.hyl.system.repository.UserRepository;
+import org.hyl.system.security.SecurityUtils;
+import org.hyl.system.web.rest.vm.PermissionsLevelVM;
 import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.LevelUtil;
@@ -13,17 +17,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class PermissionsService {
 
+    private LevelUtil<PermissionsLevelVM> levelUtil = new DefaultLevelUtil<>();
+
     private final PermissionsRepository permissionsRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public PermissionsService(PermissionsRepository permissionsRepository) {
+    public PermissionsService(PermissionsRepository permissionsRepository, UserRepository userRepository) {
         this.permissionsRepository = permissionsRepository;
+        this.userRepository = userRepository;
     }
 
     public PermissionsVM create(PermissionsVM vm) {
@@ -71,6 +82,18 @@ public class PermissionsService {
         permissions.setState(DataConstants.DATA_DELETE_STATE);
         batchUpdateState(optional.get().getLevel(), DataConstants.DATA_DELETE_STATE, id);
         return PermissionsVM.adapt(permissionsRepository.save(permissions));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<PermissionsLevelVM>> getUserPermissions() {
+        return SecurityUtils.getCurrentUserUsername()
+                .flatMap(userRepository::findByUsernameIgnoreCase)
+                .map(user -> levelUtil.listToTree(permissionsRepository.findByAuthoritiesIn(user.getAuthorities())
+                        .stream()
+                        .distinct()
+                        .map(PermissionsLevelVM::adapt)
+                        .collect(Collectors.toList()))
+                );
     }
 
     private String getLevel(Long id) {

@@ -1,4 +1,4 @@
-package org.hyl.system.rest;
+package org.hyl.system.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
