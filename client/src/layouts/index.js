@@ -55,12 +55,15 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       className={styles['layout']}
       location={location}
       title="basic"
-      menuHeaderRender={!1}
+      menuHeaderRender={() => {
+        return <div className={styles['header']} />;
+      }}
       layout="sidemenu"
       contentWidth="Fluid"
       navTheme="light"
       fixedHeader={!0}
       fixSiderbar={!1}
+      collapsedButtonRender={!1}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps['children'] || !menuItemProps['path']) {
           return defaultDom;

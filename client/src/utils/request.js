@@ -1,7 +1,6 @@
 import NProgress from 'nprogress';
 import localforage from 'localforage';
 import { extend } from 'umi-request';
-import { message } from 'antd';
 import { TOKEN } from '@/constant';
 import 'nprogress/nprogress.css';
 
@@ -24,12 +23,13 @@ request.interceptors.request.use(async (url, options) => {
 
 request.interceptors.response.use(async (response, ...b) => {
   NProgress.done();
-  const data = await response.json();
+  const data = await response.clone().json();
   if (data && data['success']) {
-    return data['data'];
+    return response;
   } else {
-    message.error(data['message']);
-    return {};
+    const error = new Error(data['message']);
+    error.response = data;
+    throw error;
   }
 });
 

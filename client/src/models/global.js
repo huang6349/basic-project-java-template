@@ -9,19 +9,19 @@ export default {
   effects: {
     *login({ payload }, { put, call, select }) {
       const isLogin = yield call(authenticate, payload) || {};
-      yield put({ type: 'update_state', payload: { isLogin } });
+      yield put({ type: 'updateState', payload: { isLogin } });
     },
     *keep({ payload }, { put, call, select }) {
       const { hasToken } = payload;
-      yield put({ type: 'update_state', payload: { isLogin: hasToken } });
+      yield put({ type: 'updateState', payload: { isLogin: hasToken } });
     },
     *fetchUser({ payload }, { put, call, select }) {
-      const menuData = yield call(authorities) || [];
-      yield put({ type: 'update_state', payload: { menuData } });
+      const { data: menuData = [] } = yield call(authorities) || {};
+      yield put({ type: 'updateState', payload: { menuData } });
     },
   },
   reducers: {
-    update_state: function(state, { payload }) {
+    updateState: function(state, { payload }) {
       return { ...state, ...payload };
     },
   },
