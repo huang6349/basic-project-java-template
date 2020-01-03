@@ -26,3 +26,14 @@
 .layout :global(.ant-pro-basicLayout-content) {
   margin: 0;
 }
+.layout :global(.ant-pro-page-header-wrap) {
+  margin: 0;
+}
+
+.layout :global(.ant-pro-page-header-wrap .ant-pro-page-header-wrap-page-header-warp) {
+  background: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+}
+.layout :global(.ant-pro-page-header-wrap .ant-pro-page-header-wrap-children-content) {
+  margin-top: 12px;
+}

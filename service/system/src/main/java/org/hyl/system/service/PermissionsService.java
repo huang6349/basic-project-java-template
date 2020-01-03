@@ -88,6 +88,18 @@ public class PermissionsService {
     public Optional<List<PermissionsLevelVM>> getUserPermissions() {
         return SecurityUtils.getCurrentUserUsername()
                 .flatMap(userRepository::findByUsernameIgnoreCase)
+                .map(user -> permissionsRepository.findByAuthoritiesIn(user.getAuthorities())
+                        .stream()
+                        .distinct()
+                        .map(PermissionsLevelVM::adapt)
+                        .collect(Collectors.toList())
+                );
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<PermissionsLevelVM>> getUserPermissionsToTree() {
+        return SecurityUtils.getCurrentUserUsername()
+                .flatMap(userRepository::findByUsernameIgnoreCase)
                 .map(user -> levelUtil.listToTree(permissionsRepository.findByAuthoritiesIn(user.getAuthorities())
                         .stream()
                         .distinct()

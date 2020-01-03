@@ -53,18 +53,22 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
   return (
     <ProLayout
       className={styles['layout']}
+      location={location}
+      title="basic"
       menuHeaderRender={!1}
       layout="sidemenu"
       contentWidth="Fluid"
       navTheme="light"
-      location={location}
       fixedHeader={!0}
-      fixSiderbar={!0}
+      fixSiderbar={!1}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps['children'] || !menuItemProps['path']) {
           return defaultDom;
         }
         return <Link to={{ pathname: menuItemProps['path'], query: { k: new Date().getTime() } }}>{defaultDom}</Link>;
+      }}
+      breadcrumbRender={(routes) => {
+        return routes.map(({ path, ...route }) => ({ path: `#${path}`, ...route }));
       }}
       menuDataRender={() => menuData}
     >

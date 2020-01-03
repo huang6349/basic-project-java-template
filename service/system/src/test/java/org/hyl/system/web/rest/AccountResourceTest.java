@@ -27,7 +27,15 @@ public class AccountResourceTest {
     private MockMvc mvc;
 
     @Test
-    public void queryAuthorities() throws Exception {
+    public void authorities() throws Exception {
+        ResultActions actions = mvc.perform(get("/api/authorities")
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
+    public void authoritiesToTree() throws Exception {
         ResultActions actions = mvc.perform(get("/api/authorities/tree")
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
