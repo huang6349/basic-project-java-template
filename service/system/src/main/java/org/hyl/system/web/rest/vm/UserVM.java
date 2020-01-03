@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
+import org.hyl.system.domain.Authority;
 import org.hyl.system.domain.MyUser;
 import org.springframework.beans.BeanUtils;
 
@@ -31,6 +32,8 @@ public class UserVM extends AbstractIdAuditingVM {
 
     private Set<Long> authorities = Sets.newHashSet();
 
+    private Set<String> authorities_zh = Sets.newHashSet();
+
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
         BeanUtils.copyProperties(user, vm);
@@ -39,6 +42,7 @@ public class UserVM extends AbstractIdAuditingVM {
             vm.setLastModifiedDate_zh(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
         vm.setAuthorities(user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
+        vm.setAuthorities_zh(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
         return vm;
     }
 
@@ -84,5 +88,13 @@ public class UserVM extends AbstractIdAuditingVM {
 
     public void setAuthorities(Set<Long> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<String> getAuthorities_zh() {
+        return authorities_zh;
+    }
+
+    public void setAuthorities_zh(Set<String> authorities_zh) {
+        this.authorities_zh = authorities_zh;
     }
 }

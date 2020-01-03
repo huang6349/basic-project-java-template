@@ -28,19 +28,17 @@ public class LoggingAspect {
     }
 
     @Around("controller()")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        Object object = null;
+        Object object;
         try {
             object = proceedingJoinPoint.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
         } finally {
             stopWatch.stop();
+            log.info("【结束请求】: {}.{}()", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName());
+            log.info("【请求耗时】: {} 毫秒", stopWatch.getTime());
         }
-        log.info("【结束请求】: {}.{}()", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName());
-        log.info("【请求耗时】: {} 毫秒", stopWatch.getTime());
         return object;
     }
 }

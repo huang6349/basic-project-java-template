@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AuthorityRepository extends JpaRepository<Authority, Long>, JpaSpecificationExecutor {
+public interface AuthorityRepository extends JpaRepository<Authority, Long>, JpaSpecificationExecutor<Authority> {
 
     Optional<Authority> findByNameIgnoreCase(String name);
 

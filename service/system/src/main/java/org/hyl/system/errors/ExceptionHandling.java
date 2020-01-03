@@ -22,7 +22,7 @@ public class ExceptionHandling {
 
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Message handleBindException(final BindException e) {
         log.info("【全局异常拦截】 BindException: 异常信息 {}", e.getMessage());
 
@@ -31,7 +31,7 @@ public class ExceptionHandling {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Message handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
         log.info("【全局异常拦截】 MethodArgumentNotValidException: 异常信息 {}", e.getMessage());
 
@@ -40,7 +40,7 @@ public class ExceptionHandling {
 
     @ExceptionHandler(InternalServerErrorException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Message handleInternalServerErrorException(final InternalServerErrorException e) {
         log.info("【全局异常拦截】 InternalServerErrorException: 异常信息 {}", e.getMessage());
 

@@ -8,6 +8,7 @@ dependencies {
     implementation 'com.google.guava:guava:24.1-jre'
     implementation 'commons-collections:commons-collections:3.2.2'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'com.github.wenhao:jpa-spec:3.2.5'
     implementation project(':commons')
     implementation project(':data')
     implementation project(':log')

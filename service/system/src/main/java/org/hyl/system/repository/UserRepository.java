@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<MyUser, Long>, JpaSpecificationExecutor {
+public interface UserRepository extends JpaRepository<MyUser, Long>, JpaSpecificationExecutor<MyUser> {
 
     Optional<MyUser> findByUsernameIgnoreCase(String username);
 }
