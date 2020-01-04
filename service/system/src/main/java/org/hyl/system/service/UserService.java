@@ -2,6 +2,7 @@ package org.hyl.system.service;
 
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
+import org.hyl.system.web.rest.vm.UpdateUserVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.BadRequestException;
@@ -47,15 +48,12 @@ public class UserService {
         return UserVM.adapt(userRepository.save(user));
     }
 
-    public UserVM update(UserVM vm) {
+    public UserVM update(UpdateUserVM vm) {
         Optional<MyUser> optional = userRepository.findById(vm.getId());
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的用户信息");
         }
         MyUser user = optional.get();
-        if (vm.getUsername() == null || !vm.getUsername().equals(user.getUsername())) {
-            throw new BadRequestException("用户名不允许修改");
-        }
         if (vm.getState() == null || !vm.getState().equals(user.getState())) {
             throw new BadRequestException("用户状态不允许修改信息");
         }

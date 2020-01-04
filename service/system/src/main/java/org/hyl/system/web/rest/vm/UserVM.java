@@ -9,6 +9,7 @@ import org.hyl.system.domain.MyUser;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,21 +29,22 @@ public class UserVM extends AbstractIdAuditingVM {
 
     private String lastModifiedBy;
 
-    private String lastModifiedDate_zh;
+    private String lastModifiedDate_text;
 
+    @NotEmpty(message = "用户角色不能为空")
     private Set<Long> authorities = Sets.newHashSet();
 
-    private Set<String> authorities_zh = Sets.newHashSet();
+    private Set<String> authorities_text = Sets.newHashSet();
 
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
         BeanUtils.copyProperties(user, vm);
         if (user.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(user.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_zh(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
         vm.setAuthorities(user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
-        vm.setAuthorities_zh(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+        vm.setAuthorities_text(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
         return vm;
     }
 
@@ -74,12 +76,12 @@ public class UserVM extends AbstractIdAuditingVM {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getLastModifiedDate_zh() {
-        return lastModifiedDate_zh;
+    public String getLastModifiedDate_text() {
+        return lastModifiedDate_text;
     }
 
-    public void setLastModifiedDate_zh(String lastModifiedDate_zh) {
-        this.lastModifiedDate_zh = lastModifiedDate_zh;
+    public void setLastModifiedDate_text(String lastModifiedDate_text) {
+        this.lastModifiedDate_text = lastModifiedDate_text;
     }
 
     public Set<Long> getAuthorities() {
@@ -90,11 +92,11 @@ public class UserVM extends AbstractIdAuditingVM {
         this.authorities = authorities;
     }
 
-    public Set<String> getAuthorities_zh() {
-        return authorities_zh;
+    public Set<String> getAuthorities_text() {
+        return authorities_text;
     }
 
-    public void setAuthorities_zh(Set<String> authorities_zh) {
-        this.authorities_zh = authorities_zh;
+    public void setAuthorities_text(Set<String> authorities_text) {
+        this.authorities_text = authorities_text;
     }
 }

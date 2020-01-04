@@ -8,6 +8,7 @@ import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.AuthorityService;
 import org.hyl.system.service.UserService;
 import org.hyl.system.web.rest.vm.AuthorityVM;
+import org.hyl.system.web.rest.vm.UpdateUserVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,6 @@ public class UserResourceTest {
 
     private static final String DEFAULT_USERNAME = "test";
     private static final String DEFAULT_PASSWORD = "test123456";
-    private static final String UPDATE_PASSWORD = "update123456";
 
     @Autowired
     private MockMvc mvc;
@@ -128,12 +128,14 @@ public class UserResourceTest {
     @Test
     public void update() throws Exception {
         UserVM userVM = userService.create(vm);
-        userVM.setPassword(UPDATE_PASSWORD);
+        UpdateUserVM updateUserVM = new UpdateUserVM();
+        updateUserVM.setId(userVM.getId());
+        updateUserVM.setAuthorities(userVM.getAuthorities());
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
         ResultActions actions = mvc.perform(put("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userVM)));
+                .content(objectMapper.writeValueAsString(updateUserVM)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
         List<MyUser> currAll = userRepository.findAll();
@@ -141,7 +143,7 @@ public class UserResourceTest {
         MyUser currUser = currAll.get(currAll.size() - 1);
         Assertions.assertThat(currUser.getId()).isEqualTo(prevUser.getId());
         Assertions.assertThat(currUser.getUsername()).isEqualTo(prevUser.getUsername());
-        Assertions.assertThat(currUser.getPassword()).isEqualTo(UPDATE_PASSWORD);
+        Assertions.assertThat(currUser.getPassword()).isEqualTo(prevUser.getPassword());
         Assertions.assertThat(currUser.getAuthorities()).isEqualTo(prevUser.getAuthorities());
         Assertions.assertThat(currUser.getCreatedBy()).isEqualTo(prevUser.getCreatedBy());
         Assertions.assertThat(currUser.getCreatedDate()).isEqualTo(prevUser.getCreatedDate());

@@ -21,14 +21,14 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
 
     private String lastModifiedBy;
 
-    private String lastModifiedDate_zh;
+    private String lastModifiedDate_text;
 
     public static PermissionsLevelVM adapt(Permissions permissions) {
         PermissionsLevelVM vm = new PermissionsLevelVM();
         BeanUtils.copyProperties(permissions, vm);
         if (permissions.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(permissions.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_zh(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
         return vm;
     }
@@ -77,11 +77,11 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getLastModifiedDate_zh() {
-        return lastModifiedDate_zh;
+    public String getLastModifiedDate_text() {
+        return lastModifiedDate_text;
     }
 
-    public void setLastModifiedDate_zh(String lastModifiedDate_zh) {
-        this.lastModifiedDate_zh = lastModifiedDate_zh;
+    public void setLastModifiedDate_text(String lastModifiedDate_text) {
+        this.lastModifiedDate_text = lastModifiedDate_text;
     }
 }

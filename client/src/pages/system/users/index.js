@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useGetSet } from 'react-use';
-import { Divider, Button, Modal } from 'antd';
+import { Divider, Button, Tag, Modal } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { SearchTable } from '@/components';
+import { COLOR } from '@/constant';
 import { EditModal } from './components';
 
 const IndexPage = ({ users, loading, dispatch }) => {
@@ -21,21 +22,24 @@ const IndexPage = ({ users, loading, dispatch }) => {
     },
     {
       title: '角色信息',
-      dataIndex: 'authorities_zh',
-      key: 'authorities_zh',
+      dataIndex: 'authorities_text',
+      key: 'authorities_text',
       render: (text = []) => text.join('，'),
     },
     {
       title: '最后修改时间',
       width: 200,
-      dataIndex: 'lastModifiedDate_zh',
-      key: 'lastModifiedDate_zh',
+      dataIndex: 'lastModifiedDate_text',
+      key: 'lastModifiedDate_text',
     },
     {
       title: '状态',
       width: 100,
-      dataIndex: 'state_zh',
-      key: 'state_zh',
+      dataIndex: 'state_text',
+      key: 'state_text',
+      render: (text = [], { state }) => {
+        return <Tag color={state === 1 ? COLOR['green'] : COLOR['red']}>{text}</Tag>;
+      },
     },
     {
       title: '操作',
