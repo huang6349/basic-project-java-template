@@ -37,8 +37,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser(username = "admin", password = "123456")
 public class PermissionsResourceTest {
 
-    private static final String DEFAULT_NAME = "测试权限";
-    private static final String UPDATE_NAME = "修改测试权限";
+    private static final String DEFAULT_NAME = "测试菜单";
+    private static final String UPDATE_NAME = "修改测试菜单";
 
     @Autowired
     private MockMvc mvc;
@@ -135,7 +135,7 @@ public class PermissionsResourceTest {
     @Test
     public void update() throws Exception {
         PermissionsVM parentPermissionsVM = new PermissionsVM();
-        parentPermissionsVM.setName("父级测试权限");
+        parentPermissionsVM.setName("父级测试菜单");
         PermissionsVM newParentPermissionsVM = permissionsService.create(parentPermissionsVM);
         PermissionsVM permissionsVM = permissionsService.create(vm);
         permissionsVM.setName(UPDATE_NAME);

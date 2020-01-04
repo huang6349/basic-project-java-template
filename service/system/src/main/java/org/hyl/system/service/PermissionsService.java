@@ -39,7 +39,7 @@ public class PermissionsService {
 
     public PermissionsVM create(PermissionsVM vm) {
         if (permissionsRepository.findByNameIgnoreCase(vm.getName()).isPresent()) {
-            throw new DataAlreadyExistException("权限名称为【" + vm.getName() + "】的信息已经存在了");
+            throw new DataAlreadyExistException("菜单名称为【" + vm.getName() + "】的信息已经存在了");
         }
         Permissions permissions = new Permissions();
         BeanUtils.copyProperties(vm, permissions);
@@ -51,14 +51,14 @@ public class PermissionsService {
     public PermissionsVM update(PermissionsVM vm) {
         Optional<Permissions> optional = permissionsRepository.findById(vm.getId());
         if (!optional.isPresent()) {
-            throw new BadRequestException("未找到需要修改的权限信息");
+            throw new BadRequestException("未找到需要修改的菜单信息");
         }
         Permissions permissions = optional.get();
         if (vm.getState() == null || !vm.getState().equals(permissions.getState())) {
-            throw new BadRequestException("权限状态不允许修改");
+            throw new BadRequestException("菜单状态不允许修改");
         }
         if (permissionsRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
-            throw new DataAlreadyExistException("权限名称为【" + vm.getName() + "】的信息已经存在了");
+            throw new DataAlreadyExistException("菜单名称为【" + vm.getName() + "】的信息已经存在了");
         }
         String beforeLevel = permissions.getLevel();
         String afterLevel = LevelUtil.calculateLevel(getLevel(vm.getPid()), vm.getPid());
@@ -76,7 +76,7 @@ public class PermissionsService {
     public PermissionsVM delete(Long id) {
         Optional<Permissions> optional = permissionsRepository.findById(id);
         if (!optional.isPresent()) {
-            throw new BadRequestException("未找到需要删除的权限信息");
+            throw new BadRequestException("未找到需要删除的菜单信息");
         }
         Permissions permissions = optional.get();
         permissions.setState(DataConstants.DATA_DELETE_STATE);

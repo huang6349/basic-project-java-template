@@ -1,5 +1,7 @@
 package org.hyl.system.web.rest;
 
+import com.github.wenhao.jpa.Specifications;
+import org.apache.commons.lang3.StringUtils;
 import org.hyl.system.commons.result.enums.RestTypeEnum;
 import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.hyl.data.auditing.DefaultLevelUtil;
@@ -15,6 +17,7 @@ import org.hyl.system.web.rest.vm.PermissionsLevelVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,8 +66,11 @@ public class PermissionsResource {
     }
 
     @GetMapping("/permissions/tree")
-    public Message queryToTree() {
-        return RESTful.success(RestTypeEnum.GET, levelUtil.listToTree(permissionsRepository.findAll().stream().map(PermissionsLevelVM::adapt).collect(Collectors.toList())));
+    public Message queryToTree(String name) {
+        Specification<Permissions> specification = Specifications.<Permissions>and()
+                .like(StringUtils.isNotBlank(name), "name", "%" + StringUtils.trim(name) + "%")
+                .build();
+        return RESTful.success(RestTypeEnum.GET, levelUtil.listToTree(permissionsRepository.findAll(specification).stream().map(PermissionsLevelVM::adapt).collect(Collectors.toList())));
     }
 
     @PutMapping("/permissions")

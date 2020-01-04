@@ -155,7 +155,7 @@ public class AuthorityResourceTest {
         UpdateAuthorityPermissionsVM vm = new UpdateAuthorityPermissionsVM();
         vm.setId(authorityVM.getId());
         PermissionsVM permissionsVM = new PermissionsVM();
-        permissionsVM.setName("测试权限");
+        permissionsVM.setName("测试菜单");
         permissionsVM.setPid(0L);
         PermissionsVM newPermissionsVM = permissionsService.create(permissionsVM);
         vm.setPermissions(Sets.newHashSet(newPermissionsVM.getId()));

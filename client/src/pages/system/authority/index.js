@@ -28,7 +28,7 @@ const IndexPage = ({ authority, loading, dispatch }) => {
     },
     {
       title: '排序',
-      width: 180,
+      width: 80,
       dataIndex: 'seq',
       key: 'seq',
     },

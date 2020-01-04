@@ -21,7 +21,7 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, authoritys })
         });
       }}
     >
-      <Form layout="vertical" hideRequiredMark={!0}>
+      <Form layout="vertical" hideRequiredMark={!1}>
         <Row gutter={15}>
           <Col span={12}>
             <Form.Item label="用户名">

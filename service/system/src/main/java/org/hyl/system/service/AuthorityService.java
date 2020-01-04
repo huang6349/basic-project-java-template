@@ -88,7 +88,7 @@ public class AuthorityService {
         return permissions.stream().map(permission -> {
             Optional<Permissions> optional = permissionsRepository.findById(permission);
             if (!optional.isPresent()) {
-                throw new BadRequestException("未能在系统中找到数据编号为【" + permission + "】的权限信息");
+                throw new BadRequestException("未能在系统中找到数据编号为【" + permission + "】的菜单信息");
             }
             return optional.get();
         }).collect(Collectors.toSet());

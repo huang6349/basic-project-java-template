@@ -7,7 +7,7 @@ export default function DrawerView({ confirmLoading, visible, maskClosable, titl
   return (
     <Drawer
       className={styles['drawer']}
-      closable={!1}
+      closable={!0}
       destroyOnClose={!0}
       maskClosable={maskClosable}
       title={title}

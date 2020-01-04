@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PermissionsRepository extends JpaRepository<Permissions, Long>, JpaSpecificationExecutor<PermissionsRepository> {
+public interface PermissionsRepository extends JpaRepository<Permissions, Long>, JpaSpecificationExecutor<Permissions> {
 
     Optional<Permissions> findByNameIgnoreCase(String name);
 

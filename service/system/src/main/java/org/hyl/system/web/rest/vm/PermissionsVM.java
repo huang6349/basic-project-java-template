@@ -15,8 +15,8 @@ public class PermissionsVM extends AbstractIdAuditingVM {
 
     private Long pid = 0L;
 
-    @NotBlank(message = "角色名称不能为空")
-    @Size(max = 50, message = "角色名称的长度只能小于50个字符")
+    @NotBlank(message = "菜单名称不能为空")
+    @Size(max = 50, message = "菜单名称的长度只能小于50个字符")
     private String name;
 
     private String path;

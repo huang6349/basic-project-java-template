@@ -6,12 +6,14 @@ import styles from './index.css';
 
 export default function SearchTableView({
   rowKey,
+  numWidth,
   hasSearch,
   defaultSearch,
   searchPlaceholder,
   columns,
   dataSource,
   loading,
+  hasPagination,
   pagination,
   onParamsChange,
   children,
@@ -25,7 +27,7 @@ export default function SearchTableView({
   };
   const num = {
     title: '#序号',
-    width: 80,
+    width: numWidth,
     dataIndex: '_num',
     render: (text, record, index) => {
       const { current, pageSize } = pagination;
@@ -68,7 +70,7 @@ export default function SearchTableView({
         columns={cols}
         dataSource={dataSource}
         loading={loading}
-        pagination={paging}
+        pagination={hasPagination ? paging : hasPagination}
         rowKey={rowKey}
         onChange={handleChange}
       />
@@ -78,21 +80,25 @@ export default function SearchTableView({
 
 SearchTableView.propTypes = {
   rowKey: PropTypes.string.isRequired,
+  numWidth: PropTypes.number,
   hasSearch: PropTypes.bool,
   defaultSearch: PropTypes.string,
   searchPlaceholder: PropTypes.string,
   columns: PropTypes.array,
   dataSource: PropTypes.array,
   loading: PropTypes.bool,
+  hasPagination: PropTypes.bool,
   pagination: PropTypes.object,
   onParamsChange: PropTypes.func,
 };
 
 SearchTableView.defaultProps = {
   rowKey: 'id',
+  numWidth: 80,
   hasSearch: !0,
   searchPlaceholder: '请输入关键词',
   columns: [],
   dataSource: [],
+  hasPagination: !0,
   pagination: {},
 };

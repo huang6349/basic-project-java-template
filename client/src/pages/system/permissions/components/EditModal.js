@@ -11,7 +11,7 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
     <Drawer
       confirmLoading={loading}
       visible={visible}
-      title={`${has(data, 'name') ? '编辑' : '新增'}角色信息`}
+      title={`${has(data, 'name') ? '编辑' : '新增'}菜单信息`}
       onCancel={onCancel}
       onOk={() => {
         form.validateFields((errors, values) => {
@@ -24,19 +24,25 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
       <Form layout="vertical" hideRequiredMark={!1}>
         <Row gutter={15}>
           <Col span={12}>
-            <Form.Item label="角色名称">
+            <Form.Item label="菜单名称">
               {getFieldDecorator('name', {
                 initialValue: data['name'],
-                rules: [{ required: true, message: '角色名称不能为空' }],
-              })(<Input placeholder="请输入角色名称" />)}
+                rules: [{ required: true, message: '菜单名称不能为空' }],
+              })(<Input placeholder="请输入菜单名称" />)}
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="唯一标识码">
-              {getFieldDecorator('code', {
-                initialValue: data['code'],
-                rules: [{ required: true, message: '唯一标识码不能为空' }],
-              })(<Input placeholder="请输入唯一标识码" />)}
+            <Form.Item label="菜单路径">
+              {getFieldDecorator('path', {
+                initialValue: data['path'],
+              })(<Input placeholder="请输入菜单路径" />)}
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label="菜单图标">
+              {getFieldDecorator('icon', {
+                initialValue: data['icon'],
+              })(<Input placeholder="请输入菜单图标" />)}
             </Form.Item>
           </Col>
           <Col span={12}>
