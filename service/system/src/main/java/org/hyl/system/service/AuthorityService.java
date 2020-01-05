@@ -80,6 +80,9 @@ public class AuthorityService {
             throw new BadRequestException("未找到需要删除的角色信息");
         }
         Authority authority = optional.get();
+        if (DataConstants.DATA_KEEP_STATE.equals(authority.getState())) {
+            throw new BadRequestException("该角色为系统保留角色，不允许删除");
+        }
         authority.setState(DataConstants.DATA_DELETE_STATE);
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }

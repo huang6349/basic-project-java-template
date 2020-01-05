@@ -1,5 +1,7 @@
 package org.hyl.system.service;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
 import org.hyl.system.web.rest.vm.UpdateUserVM;
@@ -57,6 +59,12 @@ public class UserService {
         if (vm.getState() == null || !vm.getState().equals(user.getState())) {
             throw new BadRequestException("用户状态不允许修改信息");
         }
+        if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
+            Set<Long> authorities = user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet());
+            if (!CollectionUtils.isEqualCollection(authorities, vm.getAuthorities())) {
+                throw new BadRequestException("该用户为系统保留用户，不允许修改权限信息");
+            }
+        }
         BeanUtils.copyProperties(vm, user);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
@@ -68,6 +76,9 @@ public class UserService {
             throw new BadRequestException("未找到需要删除的用户");
         }
         MyUser user = optional.get();
+        if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
+            throw new BadRequestException("该用户为系统保留用户，不允许删除");
+        }
         user.setState(DataConstants.DATA_DELETE_STATE);
         return UserVM.adapt(userRepository.save(user));
     }
