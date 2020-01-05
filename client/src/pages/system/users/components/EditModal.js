@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Select } from 'antd';
-import { Drawer } from '@/components';
 import has from 'lodash/has';
+import { Drawer } from '@/components';
 
 function EditModal({ form, loading, visible, onCancel, onOk, data, authoritys }) {
   const { getFieldDecorator } = form;

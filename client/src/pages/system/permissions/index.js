@@ -128,6 +128,7 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
         onCancel={handleEditModalCancel}
         onOk={handleEditModalOk}
         data={getEditModalData()}
+        permissions={list}
       />
     </PageHeaderWrapper>
   );

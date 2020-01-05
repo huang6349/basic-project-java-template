@@ -17,6 +17,8 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
 
     private String icon;
 
+    private Integer seq = 0;
+
     private String desc;
 
     private String lastModifiedBy;
@@ -59,6 +61,14 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public String getDesc() {

@@ -1,10 +1,24 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Form, Row, Col, Input, InputNumber } from 'antd';
-import { Drawer } from '@/components';
+import { Form, Row, Col, TreeSelect, Input, InputNumber } from 'antd';
 import has from 'lodash/has';
+import { Drawer } from '@/components';
 
-function EditModal({ form, loading, visible, onCancel, onOk, data }) {
+function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }) {
+  const [treeData, setTreeData] = React.useState([]);
+
+  React.useEffect(() => {
+    function formatPermissions(permissions = []) {
+      return permissions.map(({ id, pid, name, children }) => ({
+        title: name,
+        value: id,
+        key: `permissions-${pid}-${id}`,
+        children: formatPermissions(children),
+      }));
+    }
+    setTreeData(formatPermissions(permissions));
+  }, [permissions]);
+
   const { getFieldDecorator } = form;
 
   return (
@@ -31,10 +45,21 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
               })(<Input placeholder="请输入菜单名称" />)}
             </Form.Item>
           </Col>
+          {data['pid'] !== 0 && (
+            <Col span={12}>
+              <Form.Item label="上级菜单">
+                {getFieldDecorator('pid', {
+                  initialValue: data['pid'],
+                  rules: [{ required: true, message: '上级菜单不能为空' }],
+                })(<TreeSelect allowClear={!0} placeholder="请选择上级菜单" treeData={treeData} />)}
+              </Form.Item>
+            </Col>
+          )}
           <Col span={12}>
             <Form.Item label="菜单路径">
               {getFieldDecorator('path', {
                 initialValue: data['path'],
+                rules: [{ required: true, message: '菜单路径不能为空' }],
               })(<Input placeholder="请输入菜单路径" />)}
             </Form.Item>
           </Col>
@@ -73,12 +98,14 @@ EditModal.propTypes = {
   onCancel: PropTypes.func,
   onOk: PropTypes.func,
   data: PropTypes.object,
+  permissions: PropTypes.array,
 };
 
 EditModal.defaultProps = {
   loading: false,
   visible: false,
   data: {},
+  permissions: [],
 };
 
 export default Form.create()(EditModal);
