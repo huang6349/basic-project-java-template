@@ -6,7 +6,11 @@ public interface DataConstants {
 
     Byte DATA_DELETE_STATE = 0;
 
+    Byte DATA_KEEP_STATE = 2;
+
     String DATA_NORMAL_STATE_TEXT = "正常";
 
     String DATA_DELETE_STATE_TEXT = "已删除";
+
+    String DATA_KEEP_STATE_TEXT = "系统保留";
 }

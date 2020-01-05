@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useGetSet } from 'react-use';
-import { Divider, Button, Tag, Modal } from 'antd';
+import { Divider, Button, Modal } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
-import { SearchTable } from '@/components';
-import { COLOR } from '@/constant';
+import { SearchTable, DataStateTag } from '@/components';
 import { EditModal } from './components';
 
 const IndexPage = ({ permissions, loading, dispatch }) => {
@@ -55,7 +54,7 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
       dataIndex: 'state_text',
       key: 'state_text',
       render: (text = [], { state }) => {
-        return <Tag color={state === 1 ? COLOR['green'] : COLOR['red']}>{text}</Tag>;
+        return <DataStateTag state={state} text={text} />;
       },
     },
     {
