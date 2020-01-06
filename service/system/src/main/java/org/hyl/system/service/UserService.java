@@ -62,7 +62,7 @@ public class UserService {
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
             Set<Long> authorities = user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet());
             if (!CollectionUtils.isEqualCollection(authorities, vm.getAuthorities())) {
-                throw new BadRequestException("该用户为系统保留用户，不允许修改权限信息");
+                throw new BadRequestException("该用户为系统保留用户，无法进行权限修改操作");
             }
         }
         BeanUtils.copyProperties(vm, user);
@@ -73,13 +73,39 @@ public class UserService {
     public UserVM delete(Long id) {
         Optional<MyUser> optional = userRepository.findById(id);
         if (!optional.isPresent()) {
-            throw new BadRequestException("未找到需要删除的用户");
+            throw new BadRequestException("未找到需要删除的用户信息");
         }
         MyUser user = optional.get();
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
-            throw new BadRequestException("该用户为系统保留用户，不允许删除");
+            throw new BadRequestException("该用户为系统保留用户，无法进行删除操作");
         }
         user.setState(DataConstants.DATA_DELETE_STATE);
+        return UserVM.adapt(userRepository.save(user));
+    }
+
+    public UserVM enable(Long id) {
+        Optional<MyUser> optional = userRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未找到需要启用的用户信息");
+        }
+        MyUser user = optional.get();
+        if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
+            throw new BadRequestException("该用户为系统保留用户，无法进行启用操作");
+        }
+        user.setState(DataConstants.DATA_NORMAL_STATE);
+        return UserVM.adapt(userRepository.save(user));
+    }
+
+    public UserVM disable(Long id) {
+        Optional<MyUser> optional = userRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未找到需要禁用的用户信息");
+        }
+        MyUser user = optional.get();
+        if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
+            throw new BadRequestException("该用户为系统保留用户，无法进行禁用操作");
+        }
+        user.setState(DataConstants.DATA_DISABLED_STATE);
         return UserVM.adapt(userRepository.save(user));
     }
 

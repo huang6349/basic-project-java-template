@@ -72,4 +72,14 @@ public class UserResource {
     public Message delete(@PathVariable Long id) {
         return RESTful.success(RestTypeEnum.DELETE, userService.delete(id));
     }
+
+    @PutMapping("/users/enable/{id}")
+    public Message enable(@PathVariable Long id) {
+        return RESTful.success(RestTypeEnum.PUT, userService.enable(id));
+    }
+
+    @PutMapping("/users/disable/{id}")
+    public Message disable(@PathVariable Long id) {
+        return RESTful.success(RestTypeEnum.PUT, userService.disable(id));
+    }
 }

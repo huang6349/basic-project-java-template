@@ -3,6 +3,7 @@ package org.hyl.system.web.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
 import org.assertj.core.api.Assertions;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.AuthorityService;
@@ -161,5 +162,53 @@ public class UserResourceTest {
         actions.andExpect(status().isOk()).andDo(print());
         List<MyUser> currAll = userRepository.findAll();
         Assertions.assertThat(currAll).hasSize(prevAll.size() - 1);
+    }
+
+    @Test
+    public void enable() throws Exception {
+        UserVM userVM = userService.create(vm);
+        List<MyUser> prevAll = userRepository.findAll();
+        MyUser prevUser = prevAll.get(prevAll.size() - 1);
+        Assertions.assertThat(DataConstants.DATA_DISABLED_STATE).isEqualTo(userService.disable(prevUser.getId()).getState());
+        ResultActions actions = mvc.perform(put("/api/users/enable/" + userVM.getId())
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+        List<MyUser> currAll = userRepository.findAll();
+        Assertions.assertThat(currAll).hasSize(prevAll.size());
+        MyUser currUser = currAll.get(currAll.size() - 1);
+        Assertions.assertThat(currUser.getId()).isEqualTo(prevUser.getId());
+        Assertions.assertThat(currUser.getUsername()).isEqualTo(prevUser.getUsername());
+        Assertions.assertThat(currUser.getPassword()).isEqualTo(prevUser.getPassword());
+        Assertions.assertThat(currUser.getAuthorities()).isEqualTo(prevUser.getAuthorities());
+        Assertions.assertThat(currUser.getCreatedBy()).isEqualTo(prevUser.getCreatedBy());
+        Assertions.assertThat(currUser.getCreatedDate()).isEqualTo(prevUser.getCreatedDate());
+        Assertions.assertThat(currUser.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currUser.getLastModifiedDate()).isNotNull();
+        Assertions.assertThat(currUser.getState()).isEqualTo(DataConstants.DATA_NORMAL_STATE);
+    }
+
+    @Test
+    public void disable() throws Exception {
+        UserVM userVM = userService.create(vm);
+        List<MyUser> prevAll = userRepository.findAll();
+        MyUser prevUser = prevAll.get(prevAll.size() - 1);
+        Assertions.assertThat(DataConstants.DATA_NORMAL_STATE).isEqualTo(prevUser.getState());
+        ResultActions actions = mvc.perform(put("/api/users/disable/" + userVM.getId())
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+        List<MyUser> currAll = userRepository.findAll();
+        Assertions.assertThat(currAll).hasSize(prevAll.size());
+        MyUser currUser = currAll.get(currAll.size() - 1);
+        Assertions.assertThat(currUser.getId()).isEqualTo(prevUser.getId());
+        Assertions.assertThat(currUser.getUsername()).isEqualTo(prevUser.getUsername());
+        Assertions.assertThat(currUser.getPassword()).isEqualTo(prevUser.getPassword());
+        Assertions.assertThat(currUser.getAuthorities()).isEqualTo(prevUser.getAuthorities());
+        Assertions.assertThat(currUser.getCreatedBy()).isEqualTo(prevUser.getCreatedBy());
+        Assertions.assertThat(currUser.getCreatedDate()).isEqualTo(prevUser.getCreatedDate());
+        Assertions.assertThat(currUser.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currUser.getLastModifiedDate()).isNotNull();
+        Assertions.assertThat(currUser.getState()).isEqualTo(DataConstants.DATA_DISABLED_STATE);
     }
 }

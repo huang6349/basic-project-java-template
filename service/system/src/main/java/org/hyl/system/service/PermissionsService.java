@@ -80,7 +80,7 @@ public class PermissionsService {
         }
         Permissions permissions = optional.get();
         if (DataConstants.DATA_KEEP_STATE.equals(permissions.getState())) {
-            throw new BadRequestException("该菜单为系统保留菜单，不允许删除");
+            throw new BadRequestException("该菜单为系统保留菜单，无法进行删除操作");
         }
         permissions.setState(DataConstants.DATA_DELETE_STATE);
         batchUpdateState(optional.get().getLevel(), DataConstants.DATA_DELETE_STATE, id);
