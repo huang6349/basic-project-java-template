@@ -10,6 +10,10 @@ export async function authenticate(login) {
   return success;
 }
 
+export async function unAuthenticate() {
+  await localforage.removeItem(TOKEN['name']);
+}
+
 export async function authorities() {
   return await request.get('/authorities/tree');
 }

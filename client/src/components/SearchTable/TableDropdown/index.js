@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Dropdown, Menu, Button } from 'antd';
 
-export default function TableDropdown({ menus, text, onSelect }) {
+export default function TableDropdownView({ menus, text, onSelect }) {
   const filterMenus = menus.filter(({ hideMenu }) => !hideMenu);
 
   const menu = (
@@ -19,7 +19,7 @@ export default function TableDropdown({ menus, text, onSelect }) {
   );
 }
 
-TableDropdown.propTypes = {
+TableDropdownView.propTypes = {
   menus: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
@@ -31,7 +31,7 @@ TableDropdown.propTypes = {
   onSelect: PropTypes.func,
 };
 
-TableDropdown.defaultProps = {
+TableDropdownView.defaultProps = {
   menus: [],
   text: '更多操作',
 };

@@ -6,6 +6,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import pathToRegexp from 'path-to-regexp';
 import localforage from 'localforage';
+import { RightContent } from './components';
 import { TOKEN } from '@/constant';
 import styles from './index.css';
 
@@ -50,11 +51,16 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
     return <React.Fragment>{children}</React.Fragment>;
   }
 
+  function handlePoweroff() {
+    dispatch({ type: 'global/logout' });
+  }
+
   return (
     <ProLayout
       className={styles['layout']}
       location={location}
       title="basic"
+      logo={!1}
       menuHeaderRender={() => {
         return <div className={styles['header']} />;
       }}
@@ -64,6 +70,9 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       fixedHeader={!0}
       fixSiderbar={!1}
       collapsedButtonRender={!1}
+      rightContentRender={() => {
+        return <RightContent onPoweroff={handlePoweroff} />;
+      }}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps['children'] || !menuItemProps['path']) {
           return defaultDom;

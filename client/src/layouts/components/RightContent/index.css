@@ -1,0 +1,18 @@
+.layout:global(.ant-menu) {
+  background-color: transparent;
+  border: none;
+}
+
+.layout:global(.ant-menu .ant-menu-item) {
+  height: 64px;
+  line-height: 64px;
+  border: none;
+  top: -1px;
+  margin: 0;
+  padding: 0 12px;
+  color: #ffffff;
+}
+
+.layout:global(.ant-menu .ant-menu-item.ant-menu-item-active) {
+  background-color: #252930;
+}

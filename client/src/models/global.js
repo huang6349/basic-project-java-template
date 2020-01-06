@@ -1,4 +1,4 @@
-import { authenticate, authorities } from '@/services/users';
+import { authenticate, unAuthenticate, authorities } from '@/services/users';
 
 export default {
   state: {
@@ -10,6 +10,10 @@ export default {
     *login({ payload }, { put, call, select }) {
       const isLogin = yield call(authenticate, payload) || {};
       yield put({ type: 'updateState', payload: { isLogin } });
+    },
+    *logout({ payload }, { put, call, select }) {
+      yield call(unAuthenticate, payload) || {};
+      yield put({ type: 'updateState', payload: { isLogin: !1 } });
     },
     *keep({ payload }, { put, call, select }) {
       const { hasToken } = payload;
