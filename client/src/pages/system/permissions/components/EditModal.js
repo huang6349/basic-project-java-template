@@ -50,7 +50,6 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }
               <Form.Item label="上级菜单">
                 {getFieldDecorator('pid', {
                   initialValue: data['pid'],
-                  rules: [{ required: true, message: '上级菜单不能为空' }],
                 })(<TreeSelect allowClear={!0} placeholder="请选择上级菜单" treeData={treeData} />)}
               </Form.Item>
             </Col>

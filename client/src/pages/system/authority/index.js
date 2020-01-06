@@ -3,7 +3,7 @@ import { useGetSet } from 'react-use';
 import { Divider, Button, Modal } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
-import { SearchTable, DataStateTag } from '@/components';
+import { SearchTable } from '@/components';
 import { EditModal } from './components';
 
 const IndexPage = ({ authority, loading, dispatch }) => {
@@ -48,18 +48,23 @@ const IndexPage = ({ authority, loading, dispatch }) => {
       dataIndex: 'state_text',
       key: 'state_text',
       render: (text = [], { state }) => {
-        return <DataStateTag state={state} text={text} />;
+        return <SearchTable.DataStateTag state={state} text={text} />;
       },
     },
     {
       title: '操作',
-      width: 250,
+      width: 165,
       key: 'action',
       render: (text, record) => (
         <React.Fragment>
-          <span onClick={() => handleEdit(record)}>编辑</span>
+          <Button type="link" icon="edit" onClick={() => handleEdit(record)}>
+            编辑
+          </Button>
           <Divider type="vertical" />
-          <span onClick={() => handleDelete(record)}>删除</span>
+          <SearchTable.TableDropdown
+            menus={[{ key: 'delete', name: '删除' }]}
+            onSelect={(key) => handleTableDropdownSelect(key, record)}
+          />
         </React.Fragment>
       ),
     },
@@ -77,6 +82,10 @@ const IndexPage = ({ authority, loading, dispatch }) => {
     setEditModalType(!1);
     setEditModalData(record);
     setEditModalVisible(!0);
+  }
+
+  function handleTableDropdownSelect(key, record) {
+    key === 'delete' && handleDelete(record);
   }
 
   function handleDelete({ id, name } = {}) {

@@ -1,5 +1,5 @@
 import pathToRegexp from 'path-to-regexp';
-import { createUser, queryUserByPageable, updateUser, deleteUser } from '@/services/users';
+import { createUser, queryUserByPageable, updateUser, deleteUser, enableUser, disableUser } from '@/services/users';
 import { queryAuthority } from '@/services/authority';
 
 export default {
@@ -58,6 +58,16 @@ export default {
     *deleteUser({ payload }, { select, call, put }) {
       const { current, pageSize, search } = yield select(({ users }) => users);
       yield call(deleteUser, payload['id']);
+      yield put({ type: 'fetchUsers', payload: { current, pageSize, search } });
+    },
+    *enableUser({ payload }, { select, call, put }) {
+      const { current, pageSize, search } = yield select(({ users }) => users);
+      yield call(enableUser, payload['id']);
+      yield put({ type: 'fetchUsers', payload: { current, pageSize, search } });
+    },
+    *disableUser({ payload }, { select, call, put }) {
+      const { current, pageSize, search } = yield select(({ users }) => users);
+      yield call(disableUser, payload['id']);
       yield put({ type: 'fetchUsers', payload: { current, pageSize, search } });
     },
   },

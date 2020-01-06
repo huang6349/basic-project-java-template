@@ -29,3 +29,11 @@ export async function updateUser(user) {
 export async function deleteUser(id) {
   return await request.delete(`/users/${id}`);
 }
+
+export async function enableUser(id) {
+  return await request.put(`/users/enable/${id}`);
+}
+
+export async function disableUser(id) {
+  return await request.put(`/users/disable/${id}`);
+}

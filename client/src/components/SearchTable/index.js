@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { useSetState } from 'react-use';
 import { Table, Input } from 'antd';
+import DataStateTag from './DataStateTag';
+import TableDropdown from './TableDropdown';
 import styles from './index.css';
 
 export default function SearchTableView({
@@ -102,3 +104,6 @@ SearchTableView.defaultProps = {
   hasPagination: !0,
   pagination: {},
 };
+
+SearchTableView.DataStateTag = DataStateTag;
+SearchTableView.TableDropdown = TableDropdown;

@@ -7,6 +7,7 @@ export default function DataStateTagView({ state, text }) {
   let color = COLOR['green'];
   if (state === 0) color = COLOR['red'];
   if (state === 2) color = COLOR['gold'];
+  if (state === 3) color = COLOR['magenta'];
   return <Tag color={color}>{text}</Tag>;
 }
 

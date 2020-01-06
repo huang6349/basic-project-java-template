@@ -29,6 +29,11 @@
   cursor: pointer;
 }
 
+.layout :global(.ant-table-tbody) > tr :global(.ant-btn-link) {
+  padding: 0;
+  height: auto;
+}
+
 .layout :global(.ant-table-tbody) > tr span:hover {
   color: #40a9ff;
 }
