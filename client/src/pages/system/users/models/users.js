@@ -75,8 +75,8 @@ export default {
     updateState: function(state, { payload }) {
       return { ...state, ...payload };
     },
-    resetState: function() {
-      return { authoritys: [] };
+    resetState: function(state) {
+      return { ...state, authoritys: [] };
     },
   },
 };
