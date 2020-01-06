@@ -37,16 +37,19 @@ export default {
     *createPermissions({ payload }, { select, call, put }) {
       yield call(createPermissions, payload);
       yield put({ type: 'fetchPermissions', payload: {} });
+      yield put({ type: 'global/fetchUser', payload: {} });
     },
     *updatePermissions({ payload }, { select, call, put }) {
       const { search } = yield select(({ permissions }) => permissions);
       yield call(updatePermissions, payload);
       yield put({ type: 'fetchPermissions', payload: { search } });
+      yield put({ type: 'global/fetchUser', payload: {} });
     },
     *deletePermissions({ payload }, { select, call, put }) {
       const { search } = yield select(({ permissions }) => permissions);
       yield call(deletePermissions, payload['id']);
       yield put({ type: 'fetchPermissions', payload: { search } });
+      yield put({ type: 'global/fetchUser', payload: {} });
     },
   },
   reducers: {
