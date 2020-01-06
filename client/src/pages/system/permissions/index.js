@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useGetSet } from 'react-use';
-import { Divider, Button, Modal } from 'antd';
+import { Divider, Button, Modal, Icon } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { SearchTable } from '@/components';
@@ -30,6 +30,9 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
       width: 180,
       dataIndex: 'icon',
       key: 'icon',
+      render: (text) => {
+        return <Icon type={text} />;
+      },
     },
     {
       title: '排序',
