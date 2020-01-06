@@ -37,12 +37,15 @@ public class DomainUserDetailsService implements UserDetailsService {
 
         return userRepository.findByUsernameIgnoreCase(login)
                 .map(user -> createUserDetails(login, user))
-                .orElseThrow(() -> new UsernameNotFoundException("您输入的帐号或者密码不正确，请重试"));
+                .orElseThrow(() -> new UsernameNotFoundException("用户信息未找到 : " + login));
     }
 
     private User createUserDetails(String login, MyUser user) {
-        if (!DataConstants.DATA_NORMAL_STATE.equals(user.getState())) {
-            throw new UserNotActivatedException("您的账号已被禁用，请联系管理员");
+        if (DataConstants.DATA_DELETE_STATE.equals(user.getState())) {
+            throw new UsernameNotFoundException("用户信息已删除 : " + login);
+        }
+        if (DataConstants.DATA_DISABLED_STATE.equals(user.getState())) {
+            throw new UserNotActivatedException();
         }
         List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getCode()))

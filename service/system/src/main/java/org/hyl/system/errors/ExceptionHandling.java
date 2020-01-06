@@ -5,6 +5,8 @@ import org.hyl.system.commons.result.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -38,11 +40,29 @@ public class ExceptionHandling {
         return RESTful.error(e.getClass().getName(), HttpStatus.BAD_REQUEST.value(), e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Message handleBadCredentialsException(final BadCredentialsException e) {
+        log.info("【全局异常拦截】 BadCredentialsException: {}", e.getMessage());
+
+        return RESTful.error(e.getClass().getName(), HttpStatus.UNAUTHORIZED.value(), "您输入的帐号或者密码不正确，请重试");
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public Message handleInternalAuthenticationServiceException(final InternalAuthenticationServiceException e) {
+        log.info("【全局异常拦截】 InternalAuthenticationServiceException: {}", e.getMessage());
+
+        return RESTful.error(e.getClass().getName(), HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+    }
+
     @ExceptionHandler(InternalServerErrorException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Message handleInternalServerErrorException(final InternalServerErrorException e) {
-        log.info("【全局异常拦截】 InternalServerErrorException: 异常信息 {}", e.getMessage());
+        log.info("【全局异常拦截】 InternalServerErrorException: {}", e.getMessage());
 
         return RESTful.error(e.getType(), e.getClass().getName(), e.getState(), e.getMessage(), e.getData(), e.getParams());
     }
@@ -51,7 +71,7 @@ public class ExceptionHandling {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Message handleThrowable(final Throwable throwable) {
-        log.info("【全局异常拦截】 Throwable: 异常信息 {}", throwable.getMessage());
+        log.info("【全局异常拦截】 Throwable: {}", throwable.getMessage());
 
         return RESTful.error(throwable.getClass().getName());
     }

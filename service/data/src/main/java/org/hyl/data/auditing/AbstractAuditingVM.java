@@ -24,6 +24,9 @@ public class AbstractAuditingVM {
         if (DataConstants.DATA_KEEP_STATE.equals(state)) {
             state_text = DataConstants.DATA_KEEP_STATE_TEXT;
         }
+        if (DataConstants.DATA_DISABLED_STATE.equals(state)) {
+            state_text = DataConstants.DATA_DISABLED_STATE_TEXT;
+        }
         return state_text;
     }
 
