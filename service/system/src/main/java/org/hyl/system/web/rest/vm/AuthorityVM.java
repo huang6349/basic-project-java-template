@@ -1,5 +1,7 @@
 package org.hyl.system.web.rest.vm;
 
+import com.google.common.collect.Sets;
+import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.system.domain.Authority;
@@ -11,6 +13,8 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AuthorityVM extends AbstractIdAuditingVM {
 
@@ -31,6 +35,8 @@ public class AuthorityVM extends AbstractIdAuditingVM {
 
     private String lastModifiedDate_text;
 
+    private Set<Long> permissions = Sets.newHashSet();
+
     public static AuthorityVM adapt(Authority authority) {
         AuthorityVM vm = new AuthorityVM();
         BeanUtils.copyProperties(authority, vm);
@@ -38,6 +44,7 @@ public class AuthorityVM extends AbstractIdAuditingVM {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(authority.getLastModifiedDate(), ZoneId.systemDefault());
             vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
+        vm.setPermissions(authority.getPermissions().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         return vm;
     }
 
@@ -91,5 +98,13 @@ public class AuthorityVM extends AbstractIdAuditingVM {
 
     public void setLastModifiedDate_text(String lastModifiedDate_text) {
         this.lastModifiedDate_text = lastModifiedDate_text;
+    }
+
+    public Set<Long> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Long> permissions) {
+        this.permissions = permissions;
     }
 }

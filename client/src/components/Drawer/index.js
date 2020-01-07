@@ -3,7 +3,17 @@ import * as PropTypes from 'prop-types';
 import { Drawer, Button } from 'antd';
 import styles from './index.css';
 
-export default function DrawerView({ confirmLoading, visible, maskClosable, title, onCancel, onOk, children }) {
+export default function DrawerView({ confirmLoading, visible, maskClosable, title, width, onCancel, onOk, children }) {
+  const [myVisible, setMyVisible] = React.useState(visible);
+
+  React.useEffect(() => {
+    if (!visible) {
+      setTimeout(() => setMyVisible(visible), 10);
+    } else {
+      setMyVisible(visible);
+    }
+  }, [visible]);
+
   return (
     <Drawer
       className={styles['drawer']}
@@ -11,8 +21,8 @@ export default function DrawerView({ confirmLoading, visible, maskClosable, titl
       destroyOnClose={!0}
       maskClosable={maskClosable}
       title={title}
-      visible={visible}
-      width={720}
+      visible={myVisible}
+      width={width}
       placement="right"
       onClose={onCancel}
     >
@@ -30,6 +40,7 @@ DrawerView.propTypes = {
   visible: PropTypes.bool.isRequired,
   maskClosable: PropTypes.bool,
   title: PropTypes.string,
+  width: PropTypes.number,
   onCancel: PropTypes.func,
   onOk: PropTypes.func,
 };
@@ -37,5 +48,6 @@ DrawerView.propTypes = {
 DrawerView.defaultProps = {
   confirmLoading: !1,
   visible: !1,
+  width: 720,
   maskClosable: !1,
 };

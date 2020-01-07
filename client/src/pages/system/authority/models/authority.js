@@ -1,5 +1,12 @@
 import pathToRegexp from 'path-to-regexp';
-import { createAuthority, queryAuthorityByPageable, updateAuthority, deleteAuthority } from '@/services/authority';
+import {
+  createAuthority,
+  queryAuthorityByPageable,
+  updateAuthority,
+  updateAuthorityPermissions,
+  deleteAuthority,
+} from '@/services/authority';
+import { queryPermissionsToTree } from '@/services/permissions';
 
 export default {
   state: {
@@ -7,13 +14,16 @@ export default {
     pageSize: 10,
     total: 0,
     list: [],
+    permissions: [],
   },
   subscriptions: {
     setup: function({ dispatch, history }) {
       history.listen(function({ pathname }) {
         const match = pathToRegexp('/system/authority').exec(pathname);
         if (!match) return;
+        dispatch({ type: 'resetState' });
         dispatch({ type: 'fetchAuthority', payload: { init: !0 } });
+        dispatch({ type: 'fetchPermissions' });
       });
     },
   },
@@ -37,6 +47,10 @@ export default {
         },
       });
     },
+    *fetchPermissions({ payload }, { select, call, put }) {
+      const { data } = yield call(queryPermissionsToTree);
+      yield put({ type: 'updateState', payload: { permissions: data } });
+    },
     *createAuthority({ payload }, { select, call, put }) {
       const { pageSize } = yield select(({ authority }) => authority);
       yield call(createAuthority, payload);
@@ -47,6 +61,12 @@ export default {
       yield call(updateAuthority, payload);
       yield put({ type: 'fetchAuthority', payload: { current, pageSize, search } });
     },
+    *updateAuthorityPermissions({ payload }, { select, call, put }) {
+      const { current, pageSize, search } = yield select(({ authority }) => authority);
+      yield call(updateAuthorityPermissions, payload);
+      yield put({ type: 'fetchAuthority', payload: { current, pageSize, search } });
+      yield put({ type: 'global/fetchUser', payload: {} });
+    },
     *deleteAuthority({ payload }, { select, call, put }) {
       const { current, pageSize, search } = yield select(({ authority }) => authority);
       yield call(deleteAuthority, payload['id']);
@@ -56,6 +76,9 @@ export default {
   reducers: {
     updateState: function(state, { payload }) {
       return { ...state, ...payload };
+    },
+    resetState: function(state) {
+      return { ...state, permissions: [] };
     },
   },
 };

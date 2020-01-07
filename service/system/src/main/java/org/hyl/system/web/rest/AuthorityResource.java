@@ -56,7 +56,7 @@ public class AuthorityResource {
     }
 
     @GetMapping("/authority/pageable")
-    public Message query(@PageableDefault(sort = "seq", direction = Sort.Direction.DESC) Pageable pageable, String name) {
+    public Message query(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable, String name) {
         Specification<Authority> specification = Specifications.<Authority>and()
                 .like(StringUtils.isNotBlank(name), "name", "%" + StringUtils.trim(name) + "%")
                 .build();

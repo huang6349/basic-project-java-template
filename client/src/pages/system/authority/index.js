@@ -4,13 +4,15 @@ import { Divider, Button, Modal } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { SearchTable } from '@/components';
-import { EditModal } from './components';
+import { EditModal, AuthorizeModal } from './components';
 
 const IndexPage = ({ authority, loading, dispatch }) => {
   const [getEditModalType, setEditModalType] = useGetSet(!0);
   const [getEditModalData, setEditModalData] = useGetSet({});
-  const [getEditModalVisible, setEditModalVisible] = useGetSet(false);
-  const { current, pageSize, total, list, search } = authority;
+  const [getEditModalVisible, setEditModalVisible] = useGetSet(!1);
+  const [getAuthorizeModalData, setAuthorizeModalData] = useGetSet({});
+  const [getAuthorizeModalVisible, setAuthorizeModalVisible] = useGetSet(!1);
+  const { current, pageSize, total, list, search, permissions } = authority;
 
   const columns = [
     {
@@ -62,7 +64,10 @@ const IndexPage = ({ authority, loading, dispatch }) => {
           </Button>
           <Divider type="vertical" />
           <SearchTable.TableDropdown
-            menus={[{ key: 'delete', name: '删除' }]}
+            menus={[
+              { key: 'authorize', name: '授权' },
+              { key: 'delete', name: '删除' },
+            ]}
             onSelect={(key) => handleTableDropdownSelect(key, record)}
           />
         </React.Fragment>
@@ -85,7 +90,13 @@ const IndexPage = ({ authority, loading, dispatch }) => {
   }
 
   function handleTableDropdownSelect(key, record) {
+    key === 'authorize' && handleAuthorize(record);
     key === 'delete' && handleDelete(record);
+  }
+
+  function handleAuthorize(record) {
+    setAuthorizeModalData(record);
+    setAuthorizeModalVisible(!0);
   }
 
   function handleDelete({ id, name } = {}) {
@@ -110,6 +121,19 @@ const IndexPage = ({ authority, loading, dispatch }) => {
     }).then(() => {
       setEditModalVisible(!1);
     });
+  }
+
+  function handleAuthorizeModalOk(data) {
+    dispatch({
+      type: `authority/updateAuthorityPermissions`,
+      payload: data,
+    }).then(() => {
+      setAuthorizeModalVisible(!1);
+    });
+  }
+
+  function handleAuthorizeModalCancel() {
+    setAuthorizeModalVisible(!1);
   }
 
   function handleParamsChange(search, { current, pageSize }) {
@@ -140,6 +164,14 @@ const IndexPage = ({ authority, loading, dispatch }) => {
         onCancel={handleEditModalCancel}
         onOk={handleEditModalOk}
         data={getEditModalData()}
+      />
+      <AuthorizeModal
+        loading={loading}
+        visible={getAuthorizeModalVisible()}
+        onCancel={handleAuthorizeModalCancel}
+        onOk={handleAuthorizeModalOk}
+        data={getAuthorizeModalData()}
+        permissions={permissions}
       />
     </PageHeaderWrapper>
   );

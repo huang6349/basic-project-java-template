@@ -13,7 +13,7 @@ export default function TableDropdownView({ menus, text, onSelect }) {
     </Menu>
   );
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={menu} overlayStyle={{ zIndex: 999 }}>
       <Button type="link">{text}</Button>
     </Dropdown>
   );

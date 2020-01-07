@@ -16,6 +16,10 @@ export async function updateAuthority(authority) {
   return await request.put('/authority', { data: authority });
 }
 
+export async function updateAuthorityPermissions(authority) {
+  return await request.put('/authority/permissions', { data: authority });
+}
+
 export async function deleteAuthority(id) {
   return await request.delete(`/authority/${id}`);
 }

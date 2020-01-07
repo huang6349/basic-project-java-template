@@ -57,6 +57,17 @@ public class PermissionsService {
         if (vm.getState() == null || !vm.getState().equals(permissions.getState())) {
             throw new BadRequestException("菜单状态不允许修改");
         }
+        if (DataConstants.DATA_KEEP_STATE.equals(permissions.getState())) {
+            if (vm.getName() == null || !vm.getName().equals(permissions.getName())) {
+                throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单名称修改操作");
+            }
+            if (vm.getPath() == null || !vm.getPath().equals(permissions.getPath())) {
+                throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单路径修改操作");
+            }
+            if (vm.getIcon() == null || !vm.getIcon().equals(permissions.getIcon())) {
+                throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单图标修改操作");
+            }
+        }
         if (permissionsRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("菜单名称为【" + vm.getName() + "】的信息已经存在了");
         }

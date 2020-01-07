@@ -54,22 +54,33 @@ public class AuthorityService {
         if (vm.getState() == null || !vm.getState().equals(authority.getState())) {
             throw new BadRequestException("角色状态不允许修改");
         }
+        if (DataConstants.DATA_KEEP_STATE.equals(authority.getState())) {
+            if (vm.getName() == null || !vm.getName().equals(authority.getName())) {
+                throw new BadRequestException("该角色为系统保留角色，无法进行角色名称修改操作");
+            }
+            if (vm.getCode() == null || !vm.getCode().equals(authority.getCode())) {
+                throw new BadRequestException("该角色为系统保留角色，无法进行角色唯一标识码修改操作");
+            }
+        }
         if (authorityRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
         if (authorityRepository.findByCodeIgnoreCaseAndIdNot(vm.getCode(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
-        BeanUtils.copyProperties(vm, authority);
+        BeanUtils.copyProperties(vm, authority, "permissions");
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
 
     public AuthorityVM update(UpdateAuthorityPermissionsVM vm) {
         Optional<Authority> optional = authorityRepository.findById(vm.getId());
         if (!optional.isPresent()) {
-            throw new BadRequestException("未找到需要修改的角色信息");
+            throw new BadRequestException("未找到需要授权的角色信息");
         }
         Authority authority = optional.get();
+        if (DataConstants.DATA_KEEP_STATE.equals(authority.getState())) {
+            throw new BadRequestException("该角色为系统保留角色，无法进行授权操作");
+        }
         authority.setPermissions(setPermissions(vm.getPermissions()));
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }

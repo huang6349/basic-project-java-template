@@ -31,7 +31,7 @@ public class Authority extends AbstractIdAuditingEntity {
     private Set<MyUser> users = Sets.newHashSet();
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "TB_AUTHORITY_PERMISSIONS",
             joinColumns = @JoinColumn(name = "AUTHORITY_ID"),
