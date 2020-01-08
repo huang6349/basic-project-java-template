@@ -19,6 +19,12 @@ function EditModal({ loading, visible, onCancel, onOk, data, permissions }) {
     }));
   }
 
+  function handleSubmit() {
+    if (!has(data, 'id')) return;
+    const newData = { id: data['id'], permissions: targetKeys };
+    typeof onOk === 'function' && onOk(newData);
+  }
+
   return (
     <Drawer
       confirmLoading={loading}
@@ -26,11 +32,6 @@ function EditModal({ loading, visible, onCancel, onOk, data, permissions }) {
       title={`角色权限配置【${data['name']}】`}
       width={590}
       onCancel={onCancel}
-      onOk={() => {
-        if (!has(data, 'id')) return;
-        const newData = { id: data['id'], permissions: targetKeys };
-        typeof onOk === 'function' && onOk(newData);
-      }}
     >
       <TreeTransfer
         className={styles['transfer']}
@@ -41,6 +42,7 @@ function EditModal({ loading, visible, onCancel, onOk, data, permissions }) {
         titles={['未拥有的权限', '已拥有的权限']}
         onChange={(targetKeys) => setTargetKeys(targetKeys)}
       />
+      <Drawer.FooterSubmit onSubmit={handleSubmit} />
     </Drawer>
   );
 }

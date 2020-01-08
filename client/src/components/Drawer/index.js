@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Drawer, Button } from 'antd';
+import { Drawer } from 'antd';
+import FooterSubmit from './Footer.Submit';
 import styles from './index.css';
 
-export default function DrawerView({ confirmLoading, visible, maskClosable, title, width, onCancel, onOk, children }) {
+export default function DrawerView({ confirmLoading, visible, onCancel, children, ...restProps }) {
   const [myVisible, setMyVisible] = React.useState(visible);
 
   React.useEffect(() => {
@@ -16,21 +17,23 @@ export default function DrawerView({ confirmLoading, visible, maskClosable, titl
 
   return (
     <Drawer
-      className={styles['drawer']}
       closable={!0}
       destroyOnClose={!0}
-      maskClosable={maskClosable}
-      title={title}
-      visible={myVisible}
-      width={width}
+      maskClosable={!1}
+      width={720}
       placement="right"
+      zIndex={998}
+      {...restProps}
+      className={styles['drawer']}
+      visible={myVisible}
       onClose={onCancel}
     >
-      <React.Fragment>{children}</React.Fragment>
-      <div className={styles['footer']}>
-        <Button onClick={onCancel}>取消</Button>
-        <Button type="primary" loading={confirmLoading} onClick={onOk}>确定</Button>
-      </div>
+      {React.Children.map(children, (child) => {
+        if (child.type === FooterSubmit) {
+          return React.cloneElement(child, { confirmLoading, onCancel });
+        }
+        return child;
+      })}
     </Drawer>
   );
 }
@@ -38,16 +41,12 @@ export default function DrawerView({ confirmLoading, visible, maskClosable, titl
 DrawerView.propTypes = {
   confirmLoading: PropTypes.bool.isRequired,
   visible: PropTypes.bool.isRequired,
-  maskClosable: PropTypes.bool,
-  title: PropTypes.string,
-  width: PropTypes.number,
   onCancel: PropTypes.func,
-  onOk: PropTypes.func,
 };
 
 DrawerView.defaultProps = {
   confirmLoading: !1,
   visible: !1,
-  width: 720,
-  maskClosable: !1,
 };
+
+DrawerView.FooterSubmit = FooterSubmit;

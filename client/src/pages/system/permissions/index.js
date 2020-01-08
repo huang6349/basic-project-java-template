@@ -145,8 +145,8 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
   );
 };
 
-function mapStateToProps({ permissions, loading: { global } }) {
-  return { permissions, loading: global };
+function mapStateToProps({ permissions, loading: { models } }) {
+  return { permissions, loading: models['permissions'] };
 }
 
 export default connect(mapStateToProps)(IndexPage);

@@ -61,8 +61,12 @@ public class DictResource {
     }
 
     @GetMapping("/dict/pageable")
-    public Message query(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return PaginationUtil.execute(dictRepository.findAll(pageable).map(DictVM::adapt));
+    public Message query(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Long pid, String name) {
+        Specification<Dict> specification = Specifications.<Dict>and()
+                .eq(pid != null, "pid", pid)
+                .like(StringUtils.isNotBlank(name), "name", "%" + StringUtils.trim(name) + "%")
+                .build();
+        return PaginationUtil.execute(dictRepository.findAll(specification, pageable).map(DictVM::adapt));
     }
 
     @GetMapping("/dict/tree")

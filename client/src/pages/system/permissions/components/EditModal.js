@@ -21,19 +21,20 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }
 
   const { getFieldDecorator } = form;
 
+  function handleSubmit() {
+    form.validateFields((errors, values) => {
+      if (errors) return;
+      const newData = { ...data, ...values };
+      typeof onOk === 'function' && onOk(newData);
+    });
+  }
+
   return (
     <Drawer
       confirmLoading={loading}
       visible={visible}
-      title={`${has(data, 'name') ? '编辑' : '新增'}菜单信息`}
+      title={`${has(data, 'id') ? '编辑' : '新增'}菜单信息`}
       onCancel={onCancel}
-      onOk={() => {
-        form.validateFields((errors, values) => {
-          if (errors) return;
-          const newData = { ...data, ...values };
-          typeof onOk === 'function' && onOk(newData);
-        });
-      }}
     >
       <Form layout="vertical" hideRequiredMark={!1}>
         <Row gutter={15}>
@@ -87,6 +88,7 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }
           </Col>
         </Row>
       </Form>
+      <Drawer.FooterSubmit onSubmit={handleSubmit} />
     </Drawer>
   );
 }

@@ -161,8 +161,8 @@ const IndexPage = ({ users, loading, dispatch }) => {
   );
 };
 
-function mapStateToProps({ users, loading: { global } }) {
-  return { users, loading: global };
+function mapStateToProps({ users, loading: { models } }) {
+  return { users, loading: models['users'] };
 }
 
 export default connect(mapStateToProps)(IndexPage);

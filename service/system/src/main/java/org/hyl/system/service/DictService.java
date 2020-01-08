@@ -59,15 +59,7 @@ public class DictService {
             throw new BadRequestException("字典状态不允许修改");
         }
         if (DataConstants.DATA_KEEP_STATE.equals(dict.getState())) {
-            if (vm.getName() == null || !vm.getName().equals(dict.getName())) {
-                throw new BadRequestException("该字典为系统保留字典，无法进行字典名称修改操作");
-            }
-            if (vm.getCode() == null || !vm.getCode().equals(dict.getCode())) {
-                throw new BadRequestException("该字典为系统保留字典，无法进行字典唯一标识码修改操作");
-            }
-            if (vm.getData() == null || !vm.getData().equals(dict.getData())) {
-                throw new BadRequestException("该字典为系统保留字典，无法进行字典数据修改操作");
-            }
+            throw new BadRequestException("该字典为系统保留字典，无法进行修改操作");
         }
         if ((vm.getPid() == null || vm.getPid().equals(0L)) && vm.getCode() == null) {
             throw new BadRequestException("一级字典信息的唯一标识码不能为空");
@@ -104,7 +96,7 @@ public class DictService {
         }
         Dict dict = optional.get();
         if (DataConstants.DATA_KEEP_STATE.equals(dict.getState())) {
-            throw new BadRequestException("该菜单为系统保留字典，无法进行删除操作");
+            throw new BadRequestException("该字典为系统保留字典，无法进行删除操作");
         }
         dict.setState(DataConstants.DATA_DELETE_STATE);
         batchUpdateState(optional.get().getLevel(), DataConstants.DATA_DELETE_STATE, id);

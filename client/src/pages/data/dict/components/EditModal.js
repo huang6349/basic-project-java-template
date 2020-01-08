@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Form, Row, Col, Input, InputNumber } from 'antd';
+import { Form, Row, Col, Input } from 'antd';
 import { Drawer } from '@/components';
 import has from 'lodash/has';
 
@@ -19,17 +19,17 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
     <Drawer
       confirmLoading={loading}
       visible={visible}
-      title={`${has(data, 'id') ? '编辑' : '新增'}角色信息`}
+      title={`${has(data, 'id') ? '编辑' : '新增'}字典信息`}
       onCancel={onCancel}
     >
       <Form layout="vertical" hideRequiredMark={!1}>
         <Row gutter={15}>
           <Col span={12}>
-            <Form.Item label="角色名称">
+            <Form.Item label="字典名称">
               {getFieldDecorator('name', {
                 initialValue: data['name'],
-                rules: [{ required: true, message: '角色名称不能为空' }],
-              })(<Input placeholder="请输入角色名称" />)}
+                rules: [{ required: true, message: '字典名称不能为空' }],
+              })(<Input placeholder="请输入字典名称" />)}
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -38,13 +38,6 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
                 initialValue: data['code'],
                 rules: [{ required: true, message: '唯一标识码不能为空' }],
               })(<Input placeholder="请输入唯一标识码" />)}
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="排序">
-              {getFieldDecorator('seq', {
-                initialValue: data['seq'],
-              })(<InputNumber placeholder="请输入排序" min={0} max={999} style={{ width: 180 }} />)}
             </Form.Item>
           </Col>
         </Row>
