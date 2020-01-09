@@ -28,12 +28,6 @@ const IndexPage = ({ authority, loading, dispatch }) => {
       key: 'code',
     },
     {
-      title: '排序',
-      width: 80,
-      dataIndex: 'seq',
-      key: 'seq',
-    },
-    {
       title: '描述',
       dataIndex: 'desc',
       key: 'desc',

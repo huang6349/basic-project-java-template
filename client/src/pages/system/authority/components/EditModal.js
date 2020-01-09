@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Form, Row, Col, Input, InputNumber } from 'antd';
+import { Form, Row, Col, Input } from 'antd';
 import { Drawer } from '@/components';
 import has from 'lodash/has';
 
@@ -38,13 +38,6 @@ function EditModal({ form, loading, visible, onCancel, onOk, data }) {
                 initialValue: data['code'],
                 rules: [{ required: true, message: '唯一标识码不能为空' }],
               })(<Input placeholder="请输入唯一标识码" />)}
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="排序">
-              {getFieldDecorator('seq', {
-                initialValue: data['seq'],
-              })(<InputNumber placeholder="请输入排序" min={0} max={999} style={{ width: 180 }} />)}
             </Form.Item>
           </Col>
         </Row>

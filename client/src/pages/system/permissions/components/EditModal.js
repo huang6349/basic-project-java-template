@@ -51,7 +51,14 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }
               <Form.Item label="上级菜单">
                 {getFieldDecorator('pid', {
                   initialValue: data['pid'],
-                })(<TreeSelect allowClear={!0} placeholder="请选择上级菜单" treeData={treeData} />)}
+                })(
+                  <TreeSelect
+                    allowClear={!0}
+                    placeholder="请选择上级菜单"
+                    treeData={treeData}
+                    disabled={has(data, 'id')}
+                  />
+                )}
               </Form.Item>
             </Col>
           )}

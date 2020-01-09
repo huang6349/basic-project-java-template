@@ -27,16 +27,16 @@ public class DictService {
     }
 
     public DictVM create(DictVM vm) {
-        if ((vm.getPid() == null || vm.getPid().equals(0L)) && vm.getCode() == null) {
+        if ((vm.getPid() == null || vm.getPid().equals(0L)) && StringUtils.isBlank(vm.getCode())) {
             throw new BadRequestException("一级字典信息的唯一标识码不能为空");
         }
-        if ((vm.getPid() == null || vm.getPid().equals(0L)) && vm.getData() != null) {
+        if ((vm.getPid() == null || vm.getPid().equals(0L)) && StringUtils.isNotBlank(vm.getData())) {
             throw new BadRequestException("一级字典信息的数据必须为空");
         }
-        if (vm.getPid() != null && !vm.getPid().equals(0L) && vm.getCode() != null) {
+        if (vm.getPid() != null && !vm.getPid().equals(0L) && StringUtils.isNotBlank(vm.getCode())) {
             throw new BadRequestException("子级字典信息的唯一标识码必须为空");
         }
-        if (vm.getPid() != null && !vm.getPid().equals(0L) && vm.getData() == null) {
+        if (vm.getPid() != null && !vm.getPid().equals(0L) && StringUtils.isBlank(vm.getData())) {
             throw new BadRequestException("子级字典信息的数据不能为空");
         }
         if ((vm.getPid() == null || vm.getPid().equals(0L)) && dictRepository.findByCodeIgnoreCase(vm.getCode()).isPresent()) {
@@ -59,18 +59,26 @@ public class DictService {
             throw new BadRequestException("字典状态不允许修改");
         }
         if (DataConstants.DATA_KEEP_STATE.equals(dict.getState())) {
-            throw new BadRequestException("该字典为系统保留字典，无法进行修改操作");
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getName()), StringUtils.trimToNull(dict.getName()))) {
+                throw new BadRequestException("该字典为系统保留字典，无法进行字典名称修改操作");
+            }
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getCode()), StringUtils.trimToNull(dict.getCode()))) {
+                throw new BadRequestException("该字典为系统保留字典，无法进行字典唯一标识码修改操作");
+            }
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getData()), StringUtils.trimToNull(dict.getData()))) {
+                throw new BadRequestException("该字典为系统保留字典，无法进行字典数据修改操作");
+            }
         }
-        if ((vm.getPid() == null || vm.getPid().equals(0L)) && vm.getCode() == null) {
+        if ((vm.getPid() == null || vm.getPid().equals(0L)) && StringUtils.isBlank(vm.getCode())) {
             throw new BadRequestException("一级字典信息的唯一标识码不能为空");
         }
-        if ((vm.getPid() == null || vm.getPid().equals(0L)) && vm.getData() != null) {
+        if ((vm.getPid() == null || vm.getPid().equals(0L)) && StringUtils.isNotBlank(vm.getData())) {
             throw new BadRequestException("一级字典信息的数据必须为空");
         }
-        if (vm.getPid() != null && !vm.getPid().equals(0L) && vm.getCode() != null) {
+        if (vm.getPid() != null && !vm.getPid().equals(0L) && StringUtils.isNotBlank(vm.getCode())) {
             throw new BadRequestException("子级字典信息的唯一标识码必须为空");
         }
-        if (vm.getPid() != null && !vm.getPid().equals(0L) && vm.getData() == null) {
+        if (vm.getPid() != null && !vm.getPid().equals(0L) && StringUtils.isBlank(vm.getData())) {
             throw new BadRequestException("子级字典信息的数据不能为空");
         }
         if ((vm.getPid() == null || vm.getPid().equals(0L)) && dictRepository.findByCodeIgnoreCaseAndIdNot(vm.getCode(), vm.getId()).isPresent()) {

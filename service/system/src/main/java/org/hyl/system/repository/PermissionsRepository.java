@@ -19,5 +19,5 @@ public interface PermissionsRepository extends JpaRepository<Permissions, Long>,
 
     List<Permissions> findByLevelIgnoreCaseStartingWith(String level);
 
-    List<Permissions> findByAuthoritiesIn(Collection<Authority> authorities);
+    List<Permissions> findByAuthoritiesInOrderBySeqDesc(Collection<Authority> authorities);
 }

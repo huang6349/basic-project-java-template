@@ -1,5 +1,6 @@
 package org.hyl.system.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
 import org.hyl.system.errors.DataAlreadyExistException;
@@ -55,10 +56,10 @@ public class AuthorityService {
             throw new BadRequestException("角色状态不允许修改");
         }
         if (DataConstants.DATA_KEEP_STATE.equals(authority.getState())) {
-            if (vm.getName() == null || !vm.getName().equals(authority.getName())) {
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getName()), StringUtils.trimToNull(authority.getName()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色名称修改操作");
             }
-            if (vm.getCode() == null || !vm.getCode().equals(authority.getCode())) {
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getCode()), StringUtils.trimToNull(authority.getCode()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色唯一标识码修改操作");
             }
         }

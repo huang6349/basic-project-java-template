@@ -21,9 +21,6 @@ public class Authority extends AbstractIdAuditingEntity {
     @Column(name = "CODE", length = 50, nullable = false)
     private String code;
 
-    @Column(name = "SEQ", nullable = false, columnDefinition = "INTEGER DEFAULT 0")
-    private Integer seq = 0;
-
     private String desc;
 
     @JsonIgnore
@@ -55,14 +52,6 @@ public class Authority extends AbstractIdAuditingEntity {
         this.code = code;
     }
 
-    public Integer getSeq() {
-        return seq;
-    }
-
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -92,7 +81,6 @@ public class Authority extends AbstractIdAuditingEntity {
         return "Authority{" +
                 "name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", seq=" + seq +
                 ", desc='" + desc + '\'' +
                 ", users=" + users +
                 ", permissions=" + permissions +

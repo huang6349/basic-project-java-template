@@ -82,7 +82,6 @@ public class AuthorityResourceTest {
         Assertions.assertThat(authority.getId()).isNotNull();
         Assertions.assertThat(authority.getName()).isEqualTo(DEFAULT_NAME);
         Assertions.assertThat(authority.getCode()).isEqualTo(DEFAULT_CODE);
-        Assertions.assertThat(authority.getSeq()).isEqualTo(0);
         Assertions.assertThat(authority.getDesc()).isNull();
         Assertions.assertThat(authority.getUsers()).isEmpty();
         Assertions.assertThat(authority.getPermissions()).isEmpty();
@@ -139,7 +138,6 @@ public class AuthorityResourceTest {
         Assertions.assertThat(currAuthority.getId()).isEqualTo(prevAuthority.getId());
         Assertions.assertThat(currAuthority.getName()).isEqualTo(UPDATE_NAME);
         Assertions.assertThat(currAuthority.getCode()).isEqualTo(UPDATE_CODE);
-        Assertions.assertThat(currAuthority.getSeq()).isEqualTo(prevAuthority.getSeq());
         Assertions.assertThat(currAuthority.getDesc()).isEqualTo(prevAuthority.getDesc());
         Assertions.assertThat(currAuthority.getUsers()).isEqualTo(prevAuthority.getUsers());
         Assertions.assertThat(currAuthority.getPermissions()).isEqualTo(prevAuthority.getPermissions());
@@ -172,7 +170,6 @@ public class AuthorityResourceTest {
         Assertions.assertThat(currAuthority.getId()).isEqualTo(prevAuthority.getId());
         Assertions.assertThat(currAuthority.getName()).isEqualTo(prevAuthority.getName());
         Assertions.assertThat(currAuthority.getCode()).isEqualTo(prevAuthority.getCode());
-        Assertions.assertThat(currAuthority.getSeq()).isEqualTo(prevAuthority.getSeq());
         Assertions.assertThat(currAuthority.getDesc()).isEqualTo(prevAuthority.getDesc());
         Assertions.assertThat(currAuthority.getUsers()).isEqualTo(prevAuthority.getUsers());
         Assertions.assertThat(currAuthority.getPermissions()).hasSize(1);

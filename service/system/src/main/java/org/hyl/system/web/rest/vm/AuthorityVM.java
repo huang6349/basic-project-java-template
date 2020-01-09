@@ -27,8 +27,6 @@ public class AuthorityVM extends AbstractIdAuditingVM {
     @Pattern(regexp = "^[A-Z]+[A-Z_]+[A-Z]+$", message = "角色唯一标识码必须满足“ROLE_ADMIN”规则，即开头和结尾是大写字母中间包含至少一个“_”")
     private String code;
 
-    private Integer seq = 0;
-
     private String desc;
 
     private String lastModifiedBy;
@@ -66,14 +64,6 @@ public class AuthorityVM extends AbstractIdAuditingVM {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Integer getSeq() {
-        return seq;
-    }
-
-    public void setSeq(Integer seq) {
-        this.seq = seq;
     }
 
     public String getDesc() {

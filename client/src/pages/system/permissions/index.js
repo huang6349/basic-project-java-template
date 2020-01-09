@@ -31,7 +31,7 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
       dataIndex: 'icon',
       key: 'icon',
       render: (text) => {
-        return <Icon type={text} />;
+        return text && <Icon type={text} />;
       },
     },
     {

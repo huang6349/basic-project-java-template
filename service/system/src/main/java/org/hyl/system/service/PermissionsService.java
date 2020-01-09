@@ -58,13 +58,13 @@ public class PermissionsService {
             throw new BadRequestException("菜单状态不允许修改");
         }
         if (DataConstants.DATA_KEEP_STATE.equals(permissions.getState())) {
-            if (vm.getName() == null || !vm.getName().equals(permissions.getName())) {
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getName()), StringUtils.trimToNull(permissions.getName()))) {
                 throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单名称修改操作");
             }
-            if (vm.getPath() == null || !vm.getPath().equals(permissions.getPath())) {
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getPath()), StringUtils.trimToNull(permissions.getPath()))) {
                 throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单路径修改操作");
             }
-            if (vm.getIcon() == null || !vm.getIcon().equals(permissions.getIcon())) {
+            if (!StringUtils.equals(StringUtils.trimToNull(vm.getIcon()), StringUtils.trimToNull(permissions.getIcon()))) {
                 throw new BadRequestException("该菜单为系统保留菜单，无法进行菜单图标修改操作");
             }
         }
@@ -102,7 +102,7 @@ public class PermissionsService {
     public Optional<List<PermissionsLevelVM>> getUserPermissions() {
         return SecurityUtils.getCurrentUserUsername()
                 .flatMap(userRepository::findByUsernameIgnoreCase)
-                .map(user -> permissionsRepository.findByAuthoritiesIn(user.getAuthorities())
+                .map(user -> permissionsRepository.findByAuthoritiesInOrderBySeqDesc(user.getAuthorities())
                         .stream()
                         .distinct()
                         .map(PermissionsLevelVM::adapt)
@@ -114,7 +114,7 @@ public class PermissionsService {
     public Optional<List<PermissionsLevelVM>> getUserPermissionsToTree() {
         return SecurityUtils.getCurrentUserUsername()
                 .flatMap(userRepository::findByUsernameIgnoreCase)
-                .map(user -> levelUtil.listToTree(permissionsRepository.findByAuthoritiesIn(user.getAuthorities())
+                .map(user -> levelUtil.listToTree(permissionsRepository.findByAuthoritiesInOrderBySeqDesc(user.getAuthorities())
                         .stream()
                         .distinct()
                         .map(PermissionsLevelVM::adapt)
