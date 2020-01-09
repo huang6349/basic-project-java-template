@@ -80,7 +80,8 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, permissions }
           <Col span={12}>
             <Form.Item label="排序">
               {getFieldDecorator('seq', {
-                initialValue: data['seq'],
+                initialValue: data['seq'] || 0,
+                rules: [{ required: true, message: '排序不能为空' }],
               })(<InputNumber placeholder="请输入排序" min={0} max={999} style={{ width: 180 }} />)}
             </Form.Item>
           </Col>

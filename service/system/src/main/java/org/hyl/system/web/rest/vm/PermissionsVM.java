@@ -6,6 +6,7 @@ import org.hyl.system.domain.Permissions;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,6 +24,7 @@ public class PermissionsVM extends AbstractIdAuditingVM {
 
     private String icon;
 
+    @NotNull(message = "排序不能为空")
     private Integer seq = 0;
 
     private String desc;
