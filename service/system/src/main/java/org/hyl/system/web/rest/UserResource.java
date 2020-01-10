@@ -9,7 +9,6 @@ import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.DataNotAlreadyIDException;
 import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.UserService;
-import org.hyl.system.web.rest.vm.UpdateUserVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.commons.result.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +63,7 @@ public class UserResource {
     }
 
     @PutMapping("/users")
-    public Message update(@Valid @RequestBody UpdateUserVM vm) {
+    public Message update(@Valid @RequestBody UserVM vm) {
         return RESTful.success(RestTypeEnum.PUT, userService.update(vm));
     }
 

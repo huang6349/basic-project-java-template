@@ -20,12 +20,8 @@ import java.util.stream.Collectors;
 public class UserVM extends AbstractIdAuditingVM {
 
     @NotBlank(message = "用户名不能为空")
-    @Pattern(regexp = "^[A-Za-z]+[A-Za-z0-9]{3,16}$", message = "用户名只能是数字和字母的组合，且长度在4-16个字符之间、首位必须是字母")
+    @Pattern(regexp = "^[a-zA-Z][-_a-zA-Z0-9]{5,19}$", message = "用户名只能是5-19个字母，数字，减号，下划线的组合，且首位必须是字母")
     private String username;
-
-    @NotBlank(message = "用户密码不能为空")
-    @Pattern(regexp = "^[A-Za-z0-9]{4,16}$", message = "密码只能是数字和字母的组合，且长度在4-16个字符之间")
-    private String password;
 
     private String lastModifiedBy;
 
@@ -58,14 +54,6 @@ public class UserVM extends AbstractIdAuditingVM {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getLastModifiedBy() {

@@ -9,7 +9,6 @@ import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.AuthorityService;
 import org.hyl.system.service.UserService;
 import org.hyl.system.web.rest.vm.AuthorityVM;
-import org.hyl.system.web.rest.vm.UpdateUserVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,8 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser(username = "admin", password = "123456")
 public class UserResourceTest {
 
-    private static final String DEFAULT_USERNAME = "test";
-    private static final String DEFAULT_PASSWORD = "test123456";
+    private static final String DEFAULT_USERNAME = "test01";
+    private static final String DEFAULT_PASSWORD = "123456";
 
     @Autowired
     private MockMvc mvc;
@@ -72,7 +71,6 @@ public class UserResourceTest {
         AuthorityVM newAuthorityVM = authorityService.create(authorityVM);
         vm = new UserVM();
         vm.setUsername(DEFAULT_USERNAME);
-        vm.setPassword(DEFAULT_PASSWORD);
         vm.setAuthorities(Sets.newHashSet(newAuthorityVM.getId()));
     }
 
@@ -129,14 +127,11 @@ public class UserResourceTest {
     @Test
     public void update() throws Exception {
         UserVM userVM = userService.create(vm);
-        UpdateUserVM updateUserVM = new UpdateUserVM();
-        updateUserVM.setId(userVM.getId());
-        updateUserVM.setAuthorities(userVM.getAuthorities());
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
         ResultActions actions = mvc.perform(put("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(updateUserVM)));
+                .content(objectMapper.writeValueAsString(userVM)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
         List<MyUser> currAll = userRepository.findAll();

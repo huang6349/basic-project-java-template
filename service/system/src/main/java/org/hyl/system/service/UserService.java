@@ -1,10 +1,10 @@
 package org.hyl.system.service;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
-import org.hyl.system.web.rest.vm.UpdateUserVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.BadRequestException;
@@ -44,26 +44,29 @@ public class UserService {
         }
         MyUser user = new MyUser();
         BeanUtils.copyProperties(vm, user);
-        user.setPassword(passwordEncoder.encode(vm.getPassword()));
+        user.setPassword(passwordEncoder.encode("123456"));
         user.setState(DataConstants.DATA_NORMAL_STATE);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
     }
 
-    public UserVM update(UpdateUserVM vm) {
+    public UserVM update(UserVM vm) {
         Optional<MyUser> optional = userRepository.findById(vm.getId());
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的用户信息");
         }
         MyUser user = optional.get();
         if (vm.getState() == null || !vm.getState().equals(user.getState())) {
-            throw new BadRequestException("用户状态不允许修改信息");
+            throw new BadRequestException("用户状态不允许修改");
         }
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
             Set<Long> authorities = user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet());
             if (!CollectionUtils.isEqualCollection(authorities, vm.getAuthorities())) {
                 throw new BadRequestException("该用户为系统保留用户，无法进行权限修改操作");
             }
+        }
+        if (!StringUtils.equals(vm.getUsername(), user.getUsername())) {
+            throw new BadRequestException("用户名不允许修改");
         }
         BeanUtils.copyProperties(vm, user);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));

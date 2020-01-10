@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserJWTControllerTest {
 
     private static final String DEFAULT_USERNAME = "test";
-    private static final String DEFAULT_PASSWORD = "test123456";
 
     @Autowired
     private MockMvc mvc;
@@ -41,11 +40,10 @@ public class UserJWTControllerTest {
     public void authorize() throws Exception {
         UserVM userVM = new UserVM();
         userVM.setUsername(DEFAULT_USERNAME);
-        userVM.setPassword(DEFAULT_PASSWORD);
         userService.create(userVM);
         LoginVM vm = new LoginVM();
         vm.setUsername(DEFAULT_USERNAME);
-        vm.setPassword(DEFAULT_PASSWORD);
+        vm.setPassword("123456");
         ResultActions actions = mvc.perform(post("/api/authenticate")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));

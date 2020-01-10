@@ -32,16 +32,6 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, authoritys })
               })(<Input placeholder="请输入用户名" disabled={has(data, 'id')} />)}
             </Form.Item>
           </Col>
-          {!has(data, 'id') && (
-            <Col span={12}>
-              <Form.Item label="密码">
-                {getFieldDecorator('password', {
-                  initialValue: data['password'] || '123456',
-                  rules: [{ required: true, message: '用户密码不能为空' }],
-                })(<Input placeholder="请输入密码" />)}
-              </Form.Item>
-            </Col>
-          )}
           <Col span={12}>
             <Form.Item label="选择角色">
               {getFieldDecorator('authorities', {
