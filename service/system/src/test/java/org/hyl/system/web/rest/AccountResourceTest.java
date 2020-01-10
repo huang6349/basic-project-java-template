@@ -27,6 +27,14 @@ public class AccountResourceTest {
     private MockMvc mvc;
 
     @Test
+    public void account() throws Exception {
+        ResultActions actions = mvc.perform(get("/api/account")
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
     public void authorities() throws Exception {
         ResultActions actions = mvc.perform(get("/api/authorities")
                 .accept(MediaType.APPLICATION_JSON));

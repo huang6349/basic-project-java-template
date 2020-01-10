@@ -20,7 +20,7 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
     dispatch({ type: 'global/keep', payload: { hasToken } });
   }, [hasToken]);
 
-  const { isLogin, menuData } = global;
+  const { isLogin, username, menuData } = global;
 
   React.useEffect(() => {
     if (loading || !isLogin || isLogin === null) return;
@@ -71,7 +71,7 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       fixSiderbar={!1}
       collapsedButtonRender={!1}
       rightContentRender={() => {
-        return <RightContent onPoweroff={handlePoweroff} />;
+        return <RightContent username={username} onPoweroff={handlePoweroff} />;
       }}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps['children'] || !menuItemProps['path']) {

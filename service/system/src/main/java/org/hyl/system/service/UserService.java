@@ -8,6 +8,7 @@ import org.hyl.system.domain.Authority;
 import org.hyl.system.domain.Dict;
 import org.hyl.system.domain.MyUserInfo;
 import org.hyl.system.repository.DictRepository;
+import org.hyl.system.security.SecurityUtils;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.BadRequestException;
@@ -152,6 +153,13 @@ public class UserService {
         user.setInfo(info);
         user.setState(DataConstants.DATA_DISABLED_STATE);
         return UserVM.adapt(userRepository.save(user));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<UserVM> getUserWithAuthorities() {
+        return SecurityUtils.getCurrentUserUsername()
+                .flatMap(userRepository::findByUsernameIgnoreCase)
+                .map(UserVM::adapt);
     }
 
     private Set<Authority> setAuthorities(Set<Long> authorities) {

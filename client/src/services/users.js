@@ -14,6 +14,10 @@ export async function unAuthenticate() {
   await localforage.removeItem(TOKEN['name']);
 }
 
+export async function account() {
+  return await request.get('/account');
+}
+
 export async function authorities() {
   return await request.get('/authorities/tree');
 }
