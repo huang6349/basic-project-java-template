@@ -67,7 +67,7 @@ public class UserResourceTest {
     public void setup() {
         AuthorityVM authorityVM = new AuthorityVM();
         authorityVM.setName("测试角色");
-        authorityVM.setCode("ROLE_TEST");
+        authorityVM.setCode("TEST");
         AuthorityVM newAuthorityVM = authorityService.create(authorityVM);
         vm = new UserVM();
         vm.setUsername(DEFAULT_USERNAME);

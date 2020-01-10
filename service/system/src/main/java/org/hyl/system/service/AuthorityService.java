@@ -37,11 +37,12 @@ public class AuthorityService {
         if (authorityRepository.findByNameIgnoreCase(vm.getName()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
-        if (authorityRepository.findByCodeIgnoreCase(vm.getCode()).isPresent()) {
+        if (authorityRepository.findByCodeIgnoreCase(StringUtils.join("ROLE_", vm.getCode())).isPresent()) {
             throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
         Authority authority = new Authority();
         BeanUtils.copyProperties(vm, authority);
+        authority.setCode(StringUtils.join("ROLE_", vm.getCode()));
         authority.setState(DataConstants.DATA_NORMAL_STATE);
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
@@ -59,17 +60,18 @@ public class AuthorityService {
             if (!StringUtils.equals(StringUtils.trimToNull(vm.getName()), StringUtils.trimToNull(authority.getName()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色名称修改操作");
             }
-            if (!StringUtils.equals(StringUtils.trimToNull(vm.getCode()), StringUtils.trimToNull(authority.getCode()))) {
+            if (!StringUtils.equals(StringUtils.trimToNull(StringUtils.join("ROLE_", vm.getCode())), StringUtils.trimToNull(authority.getCode()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色唯一标识码修改操作");
             }
         }
         if (authorityRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
-        if (authorityRepository.findByCodeIgnoreCaseAndIdNot(vm.getCode(), vm.getId()).isPresent()) {
+        if (authorityRepository.findByCodeIgnoreCaseAndIdNot(StringUtils.join("ROLE_", vm.getCode()), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
         BeanUtils.copyProperties(vm, authority, "permissions");
+        authority.setCode(StringUtils.join("ROLE_", vm.getCode()));
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
 

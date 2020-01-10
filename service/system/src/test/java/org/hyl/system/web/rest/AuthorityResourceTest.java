@@ -2,6 +2,7 @@ package org.hyl.system.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.hyl.system.domain.Authority;
 import org.hyl.system.repository.AuthorityRepository;
@@ -40,9 +41,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuthorityResourceTest {
 
     private static final String DEFAULT_NAME = "测试角色";
-    private static final String DEFAULT_CODE = "ROLE_TEST";
+    private static final String DEFAULT_CODE = "TEST";
     private static final String UPDATE_NAME = "修改测试角色";
-    private static final String UPDATE_CODE = "ROLE_UPDATETEST";
+    private static final String UPDATE_CODE = "UPDATETEST";
 
     @Autowired
     private MockMvc mvc;
@@ -81,7 +82,7 @@ public class AuthorityResourceTest {
         Authority authority = currAll.get(currAll.size() - 1);
         Assertions.assertThat(authority.getId()).isNotNull();
         Assertions.assertThat(authority.getName()).isEqualTo(DEFAULT_NAME);
-        Assertions.assertThat(authority.getCode()).isEqualTo(DEFAULT_CODE);
+        Assertions.assertThat(authority.getCode()).isEqualTo(StringUtils.join("ROLE_", DEFAULT_CODE));
         Assertions.assertThat(authority.getDesc()).isNull();
         Assertions.assertThat(authority.getUsers()).isEmpty();
         Assertions.assertThat(authority.getPermissions()).isEmpty();
@@ -137,7 +138,7 @@ public class AuthorityResourceTest {
         Authority currAuthority = currAll.get(currAll.size() - 1);
         Assertions.assertThat(currAuthority.getId()).isEqualTo(prevAuthority.getId());
         Assertions.assertThat(currAuthority.getName()).isEqualTo(UPDATE_NAME);
-        Assertions.assertThat(currAuthority.getCode()).isEqualTo(UPDATE_CODE);
+        Assertions.assertThat(currAuthority.getCode()).isEqualTo(StringUtils.join("ROLE_", UPDATE_CODE));
         Assertions.assertThat(currAuthority.getDesc()).isEqualTo(prevAuthority.getDesc());
         Assertions.assertThat(currAuthority.getUsers()).isEqualTo(prevAuthority.getUsers());
         Assertions.assertThat(currAuthority.getPermissions()).isEqualTo(prevAuthority.getPermissions());
