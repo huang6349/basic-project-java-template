@@ -9,6 +9,7 @@ import org.hyl.system.commons.result.Message;
 import org.hyl.system.commons.result.RESTful;
 import org.hyl.system.commons.result.enums.RestTypeEnum;
 import org.hyl.system.domain.Dict;
+import org.hyl.system.errors.BadRequestException;
 import org.hyl.system.errors.DataNotAlreadyIDException;
 import org.hyl.system.repository.DictRepository;
 import org.hyl.system.service.DictService;
@@ -75,6 +76,19 @@ public class DictResource {
                 .like(StringUtils.isNotBlank(name), "name", "%" + StringUtils.trim(name) + "%")
                 .build();
         return RESTful.success(RestTypeEnum.GET, levelUtil.listToTree(dictRepository.findAll(specification).stream().map(DictLevelVM::adapt).collect(Collectors.toList())));
+    }
+
+    @GetMapping("/dict/children/{code}")
+    public Message queryToChildren(@PathVariable String code) {
+        Optional<Dict> optional = dictRepository.findByCodeIgnoreCase(code);
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未找字典唯一标识码为【" + code + "】所对应的字典信息");
+        }
+        Dict dict = optional.get();
+        Specification<Dict> specification = Specifications.<Dict>and()
+                .like("level", StringUtils.join(LevelUtil.calculateLevel(dict.getLevel(), dict.getId()), "%"))
+                .build();
+        return RESTful.success(RestTypeEnum.GET, dictRepository.findAll(specification).stream().map(DictVM::adapt).collect(Collectors.toList()));
     }
 
     @PutMapping("/dict")

@@ -6,22 +6,44 @@ import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.system.domain.Authority;
 import org.hyl.system.domain.MyUser;
+import org.hyl.system.domain.MyUserInfo;
 import org.springframework.beans.BeanUtils;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserVM extends AbstractIdAuditingVM {
 
     @NotBlank(message = "用户名不能为空")
-    @Pattern(regexp = "^[a-zA-Z][-_a-zA-Z0-9]{5,19}$", message = "用户名只能是5-19个字母，数字，减号，下划线的组合，且首位必须是字母")
+    @Pattern(regexp = "^[a-zA-Z][-_a-zA-Z0-9]{4,19}$", message = "用户名只能是5-19个字母，数字，减号，下划线的组合，且首位必须是字母")
     private String username;
+
+    @NotBlank(message = "用户昵称不能为空")
+    @Size(max = 50, message = "用户昵称的长度只能小于50个字符")
+    private String nickname;
+
+    private String realname;
+
+    @NotNull(message = "用户性别不能为空")
+    private Long sexId;
+
+    private String sex_text;
+
+    private Date birthday;
+
+    @Pattern(regexp = "(^\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(^\\d{6}(18|19|20)\\d{2}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)$)", message = "身份证的格式有误")
+    private String idCard;
+
+    @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", message = "邮箱的格式有误")
+    private String email;
+
+    @Pattern(regexp = "^(?:(?:\\+|00)86)?1[3-9]\\d{9}$", message = "手机号的格式有误")
+    private String mobilePhone;
 
     private String lastModifiedBy;
 
@@ -35,6 +57,19 @@ public class UserVM extends AbstractIdAuditingVM {
     public static UserVM adapt(MyUser user) {
         UserVM vm = new UserVM();
         BeanUtils.copyProperties(user, vm);
+        if (user.getInfo() != null) {
+            MyUserInfo info = user.getInfo();
+            vm.setNickname(info.getNickname());
+            vm.setRealname(info.getRealname());
+            if (info.getSex() != null) {
+                vm.setSexId(info.getSex().getId());
+                vm.setSex_text(info.getSex().getName());
+            }
+            vm.setBirthday(info.getBirthday());
+            vm.setIdCard(info.getIdCard());
+            vm.setEmail(info.getEmail());
+            vm.setMobilePhone(info.getMobilePhone());
+        }
         if (user.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(user.getLastModifiedDate(), ZoneId.systemDefault());
             vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
@@ -54,6 +89,70 @@ public class UserVM extends AbstractIdAuditingVM {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public Long getSexId() {
+        return sexId;
+    }
+
+    public void setSexId(Long sexId) {
+        this.sexId = sexId;
+    }
+
+    public String getSex_text() {
+        return sex_text;
+    }
+
+    public void setSex_text(String sex_text) {
+        this.sex_text = sex_text;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     public String getLastModifiedBy() {

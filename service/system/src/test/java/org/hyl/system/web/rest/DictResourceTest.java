@@ -137,6 +137,25 @@ public class DictResourceTest {
     }
 
     @Test
+    public void queryToChildren() throws Exception {
+        DictVM dictVM = dictService.create(vm);
+        DictVM vm1 = new DictVM();
+        vm1.setName(DEFAULT_NAME + "A");
+        vm1.setData(DEFAULT_DATA + "A");
+        vm1.setPid(dictVM.getId());
+        dictService.create(vm1);
+        DictVM vm2 = new DictVM();
+        vm2.setName(DEFAULT_NAME + "B");
+        vm2.setData(DEFAULT_DATA + "B");
+        vm2.setPid(dictVM.getId());
+        dictService.create(vm2);
+        ResultActions actions = mvc.perform(get("/api/dict/children/" + dictVM.getCode())
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
     public void update() throws Exception {
         DictVM parentDictVM = new DictVM();
         parentDictVM.setName("父级测试字典");

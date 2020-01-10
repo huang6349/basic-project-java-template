@@ -1,6 +1,7 @@
 import pathToRegexp from 'path-to-regexp';
 import { createUser, queryUserByPageable, updateUser, deleteUser, enableUser, disableUser } from '@/services/users';
 import { queryAuthority } from '@/services/authority';
+import { queryDictToChildren } from '@/services/dict';
 
 export default {
   state: {
@@ -9,6 +10,7 @@ export default {
     total: 0,
     list: [],
     authoritys: [],
+    sexs: [],
   },
   subscriptions: {
     setup: function({ dispatch, history }) {
@@ -18,6 +20,7 @@ export default {
         dispatch({ type: 'resetState' });
         dispatch({ type: 'fetchUsers', payload: { init: !0 } });
         dispatch({ type: 'fetchAuthoritys' });
+        dispatch({ type: 'fetchSexs' });
       });
     },
   },
@@ -44,6 +47,10 @@ export default {
     *fetchAuthoritys({ payload }, { select, call, put }) {
       const { data = [] } = yield call(queryAuthority);
       yield put({ type: 'updateState', payload: { authoritys: data } });
+    },
+    *fetchSexs({ payload }, { select, call, put }) {
+      const { data = [] } = yield call(queryDictToChildren, 'SYS.SEX');
+      yield put({ type: 'updateState', payload: { sexs: data } });
     },
     *createUser({ payload }, { select, call, put }) {
       const { pageSize } = yield select(({ users }) => users);
@@ -76,7 +83,7 @@ export default {
       return { ...state, ...payload };
     },
     resetState: function(state) {
-      return { ...state, authoritys: [] };
+      return { ...state, authoritys: [], sexs: [] };
     },
   },
 };

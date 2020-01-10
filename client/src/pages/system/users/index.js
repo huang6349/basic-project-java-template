@@ -10,7 +10,7 @@ const IndexPage = ({ users, loading, dispatch }) => {
   const [getEditModalType, setEditModalType] = useGetSet(!0);
   const [getEditModalData, setEditModalData] = useGetSet({});
   const [getEditModalVisible, setEditModalVisible] = useGetSet(false);
-  const { current, pageSize, total, list, search, authoritys } = users;
+  const { current, pageSize, total, list, search, authoritys, sexs } = users;
 
   const columns = [
     {
@@ -18,6 +18,18 @@ const IndexPage = ({ users, loading, dispatch }) => {
       width: 180,
       dataIndex: 'username',
       key: 'username',
+    },
+    {
+      title: '角色昵称',
+      width: 180,
+      dataIndex: 'nickname',
+      key: 'nickname',
+    },
+    {
+      title: '用户性别',
+      width: 100,
+      dataIndex: 'sex_text',
+      key: 'sex_text',
     },
     {
       title: '角色信息',
@@ -156,6 +168,7 @@ const IndexPage = ({ users, loading, dispatch }) => {
         onOk={handleEditModalOk}
         data={getEditModalData()}
         authoritys={authoritys}
+        sexs={sexs}
       />
     </PageHeaderWrapper>
   );

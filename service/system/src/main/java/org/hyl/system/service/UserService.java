@@ -5,6 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
+import org.hyl.system.domain.Dict;
+import org.hyl.system.domain.MyUserInfo;
+import org.hyl.system.repository.DictRepository;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.BadRequestException;
@@ -25,16 +28,20 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserService {
 
+
     private final UserRepository userRepository;
 
     private final AuthorityRepository authorityRepository;
 
+    private final DictRepository dictRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, DictRepository dictRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.dictRepository = dictRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -42,9 +49,22 @@ public class UserService {
         if (userRepository.findByUsernameIgnoreCase(vm.getUsername()).isPresent()) {
             throw new DataAlreadyExistException("用户名为【" + vm.getUsername() + "】的信息已经存在了");
         }
+        Optional<Dict> sex = dictRepository.findById(vm.getSexId());
+        if (!sex.isPresent()) {
+            throw new BadRequestException("未能在系统中找到数据编号为【" + vm.getSexId() + "】的性别信息");
+        }
+        MyUserInfo info = new MyUserInfo();
+        info.setNickname(vm.getNickname());
+        info.setRealname(vm.getRealname());
+        info.setSex(sex.get());
+        info.setBirthday(vm.getBirthday());
+        info.setIdCard(vm.getIdCard());
+        info.setEmail(vm.getEmail());
+        info.setMobilePhone(vm.getMobilePhone());
         MyUser user = new MyUser();
         BeanUtils.copyProperties(vm, user);
         user.setPassword(passwordEncoder.encode("123456"));
+        user.setInfo(info);
         user.setState(DataConstants.DATA_NORMAL_STATE);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
@@ -68,7 +88,20 @@ public class UserService {
         if (!StringUtils.equals(vm.getUsername(), user.getUsername())) {
             throw new BadRequestException("用户名不允许修改");
         }
+        Optional<Dict> sex = dictRepository.findById(vm.getSexId());
+        if (!sex.isPresent()) {
+            throw new BadRequestException("未能在系统中找到数据编号为【" + vm.getSexId() + "】的性别信息");
+        }
+        MyUserInfo info = user.getInfo();
+        info.setNickname(vm.getNickname());
+        info.setRealname(vm.getRealname());
+        info.setSex(sex.get());
+        info.setBirthday(vm.getBirthday());
+        info.setIdCard(vm.getIdCard());
+        info.setEmail(vm.getEmail());
+        info.setMobilePhone(vm.getMobilePhone());
         BeanUtils.copyProperties(vm, user);
+        user.setInfo(info);
         user.setAuthorities(setAuthorities(vm.getAuthorities()));
         return UserVM.adapt(userRepository.save(user));
     }
@@ -82,6 +115,9 @@ public class UserService {
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
             throw new BadRequestException("该用户为系统保留用户，无法进行删除操作");
         }
+        MyUserInfo info = user.getInfo();
+        info.setState(DataConstants.DATA_DELETE_STATE);
+        user.setInfo(info);
         user.setState(DataConstants.DATA_DELETE_STATE);
         return UserVM.adapt(userRepository.save(user));
     }
@@ -95,6 +131,9 @@ public class UserService {
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
             throw new BadRequestException("该用户为系统保留用户，无法进行启用操作");
         }
+        MyUserInfo info = user.getInfo();
+        info.setState(DataConstants.DATA_NORMAL_STATE);
+        user.setInfo(info);
         user.setState(DataConstants.DATA_NORMAL_STATE);
         return UserVM.adapt(userRepository.save(user));
     }
@@ -108,6 +147,9 @@ public class UserService {
         if (DataConstants.DATA_KEEP_STATE.equals(user.getState())) {
             throw new BadRequestException("该用户为系统保留用户，无法进行禁用操作");
         }
+        MyUserInfo info = user.getInfo();
+        info.setState(DataConstants.DATA_DISABLED_STATE);
+        user.setInfo(info);
         user.setState(DataConstants.DATA_DISABLED_STATE);
         return UserVM.adapt(userRepository.save(user));
     }

@@ -22,6 +22,10 @@ public class MyUser extends AbstractIdAuditingEntity {
     @Column(length = 60, nullable = false)
     private String password;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "USER_INFO_ID")
+    private MyUserInfo info;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -47,6 +51,14 @@ public class MyUser extends AbstractIdAuditingEntity {
         this.password = password;
     }
 
+    public MyUserInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(MyUserInfo info) {
+        this.info = info;
+    }
+
     public Set<Authority> getAuthorities() {
         return authorities;
     }
@@ -60,6 +72,7 @@ public class MyUser extends AbstractIdAuditingEntity {
         return "MyUser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", info=" + info +
                 ", authorities=" + authorities +
                 '}';
     }

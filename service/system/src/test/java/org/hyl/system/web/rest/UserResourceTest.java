@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import org.assertj.core.api.Assertions;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.MyUser;
+import org.hyl.system.domain.MyUserInfo;
 import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.AuthorityService;
 import org.hyl.system.service.UserService;
@@ -41,7 +42,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserResourceTest {
 
     private static final String DEFAULT_USERNAME = "test01";
+    private static final String DEFAULT_NICKNAME = "测试用户";
     private static final String DEFAULT_PASSWORD = "123456";
+    private static final String UPDATE_NICKNAME = "修改测试用户";
 
     @Autowired
     private MockMvc mvc;
@@ -71,6 +74,8 @@ public class UserResourceTest {
         AuthorityVM newAuthorityVM = authorityService.create(authorityVM);
         vm = new UserVM();
         vm.setUsername(DEFAULT_USERNAME);
+        vm.setNickname(DEFAULT_NICKNAME);
+        vm.setSexId(2L);
         vm.setAuthorities(Sets.newHashSet(newAuthorityVM.getId()));
     }
 
@@ -93,6 +98,19 @@ public class UserResourceTest {
         Assertions.assertThat(user.getCreatedDate()).isNotNull();
         Assertions.assertThat(user.getLastModifiedBy()).isNotNull();
         Assertions.assertThat(user.getLastModifiedDate()).isNotNull();
+        MyUserInfo info = user.getInfo();
+        Assertions.assertThat(info.getId()).isNotNull();
+        Assertions.assertThat(info.getNickname()).isEqualTo(DEFAULT_NICKNAME);
+        Assertions.assertThat(info.getRealname()).isNull();
+        Assertions.assertThat(info.getSex()).isNotNull();
+        Assertions.assertThat(info.getBirthday()).isNull();
+        Assertions.assertThat(info.getIdCard()).isNull();
+        Assertions.assertThat(info.getEmail()).isNull();
+        Assertions.assertThat(info.getMobilePhone()).isNull();
+        Assertions.assertThat(info.getCreatedBy()).isNotNull();
+        Assertions.assertThat(info.getCreatedDate()).isNotNull();
+        Assertions.assertThat(info.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(info.getLastModifiedDate()).isNotNull();
     }
 
     @Test
@@ -127,8 +145,11 @@ public class UserResourceTest {
     @Test
     public void update() throws Exception {
         UserVM userVM = userService.create(vm);
+        userVM.setNickname(UPDATE_NICKNAME);
+        userVM.setSexId(3L);
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
+        MyUserInfo prevInfo = prevUser.getInfo();
         ResultActions actions = mvc.perform(put("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userVM)));
@@ -145,6 +166,19 @@ public class UserResourceTest {
         Assertions.assertThat(currUser.getCreatedDate()).isEqualTo(prevUser.getCreatedDate());
         Assertions.assertThat(currUser.getLastModifiedBy()).isNotNull();
         Assertions.assertThat(currUser.getLastModifiedDate()).isNotNull();
+        MyUserInfo currInfo = currUser.getInfo();
+        Assertions.assertThat(currInfo.getId()).isEqualTo(prevInfo.getId());
+        Assertions.assertThat(currInfo.getNickname()).isEqualTo(UPDATE_NICKNAME);
+        Assertions.assertThat(currInfo.getRealname()).isEqualTo(prevInfo.getRealname());
+        Assertions.assertThat(currInfo.getSex()).isNotNull();
+        Assertions.assertThat(currInfo.getBirthday()).isEqualTo(prevInfo.getBirthday());
+        Assertions.assertThat(currInfo.getIdCard()).isEqualTo(prevInfo.getIdCard());
+        Assertions.assertThat(currInfo.getEmail()).isEqualTo(prevInfo.getEmail());
+        Assertions.assertThat(currInfo.getMobilePhone()).isEqualTo(prevInfo.getMobilePhone());
+        Assertions.assertThat(currInfo.getCreatedBy()).isEqualTo(prevInfo.getCreatedBy());
+        Assertions.assertThat(currInfo.getCreatedDate()).isEqualTo(prevInfo.getCreatedDate());
+        Assertions.assertThat(currInfo.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currInfo.getLastModifiedDate()).isNotNull();
     }
 
     @Test
@@ -164,6 +198,7 @@ public class UserResourceTest {
         UserVM userVM = userService.create(vm);
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
+        MyUserInfo prevInfo = prevUser.getInfo();
         Assertions.assertThat(DataConstants.DATA_DISABLED_STATE).isEqualTo(userService.disable(prevUser.getId()).getState());
         ResultActions actions = mvc.perform(put("/api/users/enable/" + userVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
@@ -181,6 +216,20 @@ public class UserResourceTest {
         Assertions.assertThat(currUser.getLastModifiedBy()).isNotNull();
         Assertions.assertThat(currUser.getLastModifiedDate()).isNotNull();
         Assertions.assertThat(currUser.getState()).isEqualTo(DataConstants.DATA_NORMAL_STATE);
+        MyUserInfo currInfo = currUser.getInfo();
+        Assertions.assertThat(currInfo.getId()).isEqualTo(prevInfo.getId());
+        Assertions.assertThat(currInfo.getNickname()).isEqualTo(prevInfo.getNickname());
+        Assertions.assertThat(currInfo.getRealname()).isEqualTo(prevInfo.getRealname());
+        Assertions.assertThat(currInfo.getSex()).isNotNull();
+        Assertions.assertThat(currInfo.getBirthday()).isEqualTo(prevInfo.getBirthday());
+        Assertions.assertThat(currInfo.getIdCard()).isEqualTo(prevInfo.getIdCard());
+        Assertions.assertThat(currInfo.getEmail()).isEqualTo(prevInfo.getEmail());
+        Assertions.assertThat(currInfo.getMobilePhone()).isEqualTo(prevInfo.getMobilePhone());
+        Assertions.assertThat(currInfo.getCreatedBy()).isEqualTo(prevInfo.getCreatedBy());
+        Assertions.assertThat(currInfo.getCreatedDate()).isEqualTo(prevInfo.getCreatedDate());
+        Assertions.assertThat(currInfo.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currInfo.getLastModifiedDate()).isNotNull();
+        Assertions.assertThat(currInfo.getState()).isEqualTo(DataConstants.DATA_NORMAL_STATE);
     }
 
     @Test
@@ -188,6 +237,7 @@ public class UserResourceTest {
         UserVM userVM = userService.create(vm);
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
+        MyUserInfo prevInfo = prevUser.getInfo();
         Assertions.assertThat(DataConstants.DATA_NORMAL_STATE).isEqualTo(prevUser.getState());
         ResultActions actions = mvc.perform(put("/api/users/disable/" + userVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
@@ -205,5 +255,19 @@ public class UserResourceTest {
         Assertions.assertThat(currUser.getLastModifiedBy()).isNotNull();
         Assertions.assertThat(currUser.getLastModifiedDate()).isNotNull();
         Assertions.assertThat(currUser.getState()).isEqualTo(DataConstants.DATA_DISABLED_STATE);
+        MyUserInfo currInfo = currUser.getInfo();
+        Assertions.assertThat(currInfo.getId()).isEqualTo(prevInfo.getId());
+        Assertions.assertThat(currInfo.getNickname()).isEqualTo(prevInfo.getNickname());
+        Assertions.assertThat(currInfo.getRealname()).isEqualTo(prevInfo.getRealname());
+        Assertions.assertThat(currInfo.getSex()).isNotNull();
+        Assertions.assertThat(currInfo.getBirthday()).isEqualTo(prevInfo.getBirthday());
+        Assertions.assertThat(currInfo.getIdCard()).isEqualTo(prevInfo.getIdCard());
+        Assertions.assertThat(currInfo.getEmail()).isEqualTo(prevInfo.getEmail());
+        Assertions.assertThat(currInfo.getMobilePhone()).isEqualTo(prevInfo.getMobilePhone());
+        Assertions.assertThat(currInfo.getCreatedBy()).isEqualTo(prevInfo.getCreatedBy());
+        Assertions.assertThat(currInfo.getCreatedDate()).isEqualTo(prevInfo.getCreatedDate());
+        Assertions.assertThat(currInfo.getLastModifiedBy()).isNotNull();
+        Assertions.assertThat(currInfo.getLastModifiedDate()).isNotNull();
+        Assertions.assertThat(currInfo.getState()).isEqualTo(DataConstants.DATA_DISABLED_STATE);
     }
 }
