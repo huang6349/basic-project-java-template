@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class UserJWTControllerTest {
 
-    private static final String DEFAULT_USERNAME = "test";
+    private static final String DEFAULT_USERNAME = "test01";
 
     @Autowired
     private MockMvc mvc;
@@ -40,6 +40,8 @@ public class UserJWTControllerTest {
     public void authorize() throws Exception {
         UserVM userVM = new UserVM();
         userVM.setUsername(DEFAULT_USERNAME);
+        userVM.setNickname("测试用户");
+        userVM.setSexId(2L);
         userService.create(userVM);
         LoginVM vm = new LoginVM();
         vm.setUsername(DEFAULT_USERNAME);
