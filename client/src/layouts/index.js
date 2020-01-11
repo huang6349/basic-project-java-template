@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { useAsync } from 'react-use';
+import { useGetSet, useAsync } from 'react-use';
+import { message } from 'antd';
 import ProLayout from '@ant-design/pro-layout';
 import Link from 'umi/link';
 import { connect } from 'dva';
 import router from 'umi/router';
 import pathToRegexp from 'path-to-regexp';
 import localforage from 'localforage';
-import { RightContent } from './components';
+import { RightContent, ChangePasswordModal } from './components';
 import { TOKEN } from '@/constant';
 import styles from './index.css';
 
 const BasicLayout = ({ global, location, dispatch, children }) => {
+  const [getChangePasswordModalVisible, setChangePasswordModalVisible] = useGetSet(!1);
+
   const { value: hasToken, loading } = useAsync(async () => {
     return !!(await localforage.getItem(TOKEN['name']));
   }, []);
@@ -55,6 +58,24 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
     dispatch({ type: 'global/logout' });
   }
 
+  function handleRightContentSelect({ key }) {
+    if (key === 'password') setChangePasswordModalVisible(!0);
+  }
+
+  function handleChangePasswordModalCancel() {
+    setChangePasswordModalVisible(!1);
+  }
+
+  function handleChangePasswordModalOk(data) {
+    dispatch({
+      type: 'global/changePassword',
+      payload: data,
+    }).then(() => {
+      message.success('当前用户的密码已更新完成');
+      setChangePasswordModalVisible(!1);
+    });
+  }
+
   return (
     <ProLayout
       className={styles['layout']}
@@ -71,7 +92,14 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       fixSiderbar={!1}
       collapsedButtonRender={!1}
       rightContentRender={() => {
-        return <RightContent username={username} onPoweroff={handlePoweroff} />;
+        return (
+          <RightContent
+            username={username}
+            avatarMenus={[{ key: 'password', name: '更新密码', icon: 'key' }]}
+            onSelect={handleRightContentSelect}
+            onPoweroff={handlePoweroff}
+          />
+        );
       }}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps['children'] || !menuItemProps['path']) {
@@ -84,6 +112,12 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       }}
       menuDataRender={() => menuData}
     >
+      <ChangePasswordModal
+        loading={loading}
+        visible={getChangePasswordModalVisible()}
+        onCancel={handleChangePasswordModalCancel}
+        onOk={handleChangePasswordModalOk}
+      />
       <React.Fragment>{children}</React.Fragment>
     </ProLayout>
   );

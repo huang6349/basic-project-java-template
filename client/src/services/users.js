@@ -22,6 +22,10 @@ export async function authorities() {
   return await request.get('/authorities/tree');
 }
 
+export async function changePassword(password) {
+  return await request.post('/change-password', { data: password });
+}
+
 export async function createUser(user) {
   return await request.post('/users', { data: user });
 }

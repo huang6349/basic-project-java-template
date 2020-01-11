@@ -22,9 +22,9 @@ export default function AvatarMenuView({ menus, onSelect, onPoweroff }) {
 
   return (
     <Menu selectedKeys={[]} onClick={handleClick}>
-      {filterMenus.map(({ key, icon, title }) => (
+      {filterMenus.map(({ key, icon, name }) => (
         <Menu.Item key={key}>
-          <Icon type={icon} /> {title}
+          <Icon type={icon} /> {name}
         </Menu.Item>
       ))}
       {filterMenus.length > 0 ? <Menu.Divider /> : null}

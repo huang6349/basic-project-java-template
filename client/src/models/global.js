@@ -1,4 +1,4 @@
-import { authenticate, unAuthenticate, account, authorities } from '@/services/users';
+import { authenticate, unAuthenticate, account, authorities, changePassword } from '@/services/users';
 
 export default {
   state: {
@@ -26,6 +26,9 @@ export default {
       } = yield call(account) || {};
       const { data: menuData = [] } = yield call(authorities) || {};
       yield put({ type: 'updateState', payload: { username: realname || nickname || username, menuData } });
+    },
+    *changePassword({ payload }, { put, call, select }) {
+      yield call(changePassword, payload) || {};
     },
   },
   reducers: {

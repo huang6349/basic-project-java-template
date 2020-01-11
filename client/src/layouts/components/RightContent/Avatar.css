@@ -13,7 +13,7 @@
 }
 
 .popover:global(.ant-popover) {
-  z-index: 999;
+  z-index: 998;
 }
 
 .popover:global(.ant-popover .ant-popover-arrow) {

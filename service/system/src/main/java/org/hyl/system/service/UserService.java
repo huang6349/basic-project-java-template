@@ -9,6 +9,7 @@ import org.hyl.system.domain.Dict;
 import org.hyl.system.domain.MyUserInfo;
 import org.hyl.system.repository.DictRepository;
 import org.hyl.system.security.SecurityUtils;
+import org.hyl.system.web.rest.vm.ChangePasswordVM;
 import org.hyl.system.web.rest.vm.UserVM;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.errors.BadRequestException;
@@ -160,6 +161,22 @@ public class UserService {
         return SecurityUtils.getCurrentUserUsername()
                 .flatMap(userRepository::findByUsernameIgnoreCase)
                 .map(UserVM::adapt);
+    }
+
+    public UserVM changePassword(ChangePasswordVM vm) {
+        if (!StringUtils.equals(StringUtils.trimToNull(vm.getNewPassword()), StringUtils.trimToNull(vm.getConfirm()))) {
+            throw new BadRequestException("两次密码不一致，无法进行密码修改操作");
+        }
+        Optional<MyUser> optional = SecurityUtils.getCurrentUserUsername().flatMap(userRepository::findByUsernameIgnoreCase);
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未授权的用户，无法进行密码修改操作");
+        }
+        MyUser user = optional.get();
+        if (!passwordEncoder.matches(vm.getOldPassword(), user.getPassword())) {
+            throw new BadRequestException("请输入的旧密码不正确，无法进行密码修改操作");
+        }
+        user.setPassword(passwordEncoder.encode(vm.getNewPassword()));
+        return UserVM.adapt(userRepository.save(user));
     }
 
     private Set<Authority> setAuthorities(Set<Long> authorities) {
