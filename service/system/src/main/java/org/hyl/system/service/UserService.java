@@ -179,6 +179,16 @@ public class UserService {
         return UserVM.adapt(userRepository.save(user));
     }
 
+    public UserVM resetPassword(Long id) {
+        Optional<MyUser> optional = userRepository.findById(id);
+        if (!optional.isPresent()) {
+            throw new BadRequestException("未找到需要重置密码的用户信息");
+        }
+        MyUser user = optional.get();
+        user.setPassword(passwordEncoder.encode("123456"));
+        return UserVM.adapt(userRepository.save(user));
+    }
+
     private Set<Authority> setAuthorities(Set<Long> authorities) {
         return authorities.stream().map(authoritie -> {
             Optional<Authority> optional = authorityRepository.findById(authoritie);

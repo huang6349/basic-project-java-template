@@ -23,7 +23,7 @@ export async function authorities() {
 }
 
 export async function changePassword(password) {
-  return await request.post('/change-password', { data: password });
+  return await request.put('/password/change', { data: password });
 }
 
 export async function createUser(user) {
@@ -48,4 +48,8 @@ export async function enableUser(id) {
 
 export async function disableUser(id) {
   return await request.put(`/users/disable/${id}`);
+}
+
+export async function resetPassword(id) {
+  return await request.put(`/users/password/reset/${id}`);
 }

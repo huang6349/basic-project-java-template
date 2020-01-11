@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useGetSet } from 'react-use';
-import { Divider, Button, Modal } from 'antd';
+import { Divider, Button, Modal, message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { SearchTable } from '@/components';
@@ -67,6 +67,7 @@ const IndexPage = ({ users, loading, dispatch }) => {
               { key: 'delete', name: '删除' },
               { key: 'enable', name: '启用', hideMenu: record['state'] !== 3 },
               { key: 'disable', name: '禁用', hideMenu: record['state'] === 3 },
+              { key: 'reset', name: '重置密码' },
             ]}
             onSelect={(key) => handleTableDropdownSelect(key, record)}
           />
@@ -93,6 +94,7 @@ const IndexPage = ({ users, loading, dispatch }) => {
     key === 'delete' && handleDelete(record);
     key === 'enable' && handleEnable(record);
     key === 'disable' && handleDisable(record);
+    key === 'reset' && handleResetPassword(record);
   }
 
   function handleDelete({ id, username } = {}) {
@@ -121,6 +123,21 @@ const IndexPage = ({ users, loading, dispatch }) => {
       content: `你确定要禁用用户[${username}]吗`,
       onOk: () => {
         dispatch({ type: `users/disableUser`, payload: { id } });
+      },
+    });
+  }
+
+  function handleResetPassword({ id, username }) {
+    Modal.confirm({
+      title: `重置提示`,
+      content: `你确定要重置用户[${username}]的密码吗`,
+      onOk: () => {
+        dispatch({
+          type: `users/resetPassword`,
+          payload: { id },
+        }).then(() => {
+          message.info(`已将用户[${username}]的密码重置为[123456]`);
+        });
       },
     });
   }

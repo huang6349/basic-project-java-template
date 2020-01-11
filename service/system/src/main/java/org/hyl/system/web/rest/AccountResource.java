@@ -49,7 +49,7 @@ public class AccountResource {
                 .orElseThrow(() -> new BadRequestException("获取当前用户权限失败，请稍后再试", HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/change-password")
+    @PutMapping("/password/change")
     public Message changePassword(@Valid @RequestBody ChangePasswordVM vm) {
         return RESTful.success(RestTypeEnum.PUT, userService.changePassword(vm));
     }

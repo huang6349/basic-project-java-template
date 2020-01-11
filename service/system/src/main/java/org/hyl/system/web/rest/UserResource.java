@@ -81,4 +81,9 @@ public class UserResource {
     public Message disable(@PathVariable Long id) {
         return RESTful.success(RestTypeEnum.PUT, userService.disable(id));
     }
+
+    @PutMapping("/users/password/reset/{id}")
+    public Message resetPassword(@PathVariable Long id) {
+        return RESTful.success(RestTypeEnum.PUT, userService.resetPassword(id));
+    }
 }

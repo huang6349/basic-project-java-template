@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -62,7 +62,7 @@ public class AccountResourceTest {
         vm.setOldPassword("123456");
         vm.setNewPassword("Test123456");
         vm.setConfirm("Test123456");
-        ResultActions actions = mvc.perform(post("/api/change-password")
+        ResultActions actions = mvc.perform(put("/api/password/change")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(vm)));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");

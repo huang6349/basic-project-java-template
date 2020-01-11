@@ -270,4 +270,13 @@ public class UserResourceTest {
         Assertions.assertThat(currInfo.getLastModifiedDate()).isNotNull();
         Assertions.assertThat(currInfo.getState()).isEqualTo(DataConstants.DATA_DISABLED_STATE);
     }
+
+    @Test
+    public void resetPassword() throws Exception {
+        UserVM userVM = userService.create(vm);
+        ResultActions actions = mvc.perform(put("/api/user/password/reset/" + userVM.getId())
+                .accept(MediaType.APPLICATION_JSON));
+        actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
+        actions.andExpect(status().isOk()).andDo(print());
+    }
 }
