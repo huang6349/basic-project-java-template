@@ -274,7 +274,7 @@ public class UserResourceTest {
     @Test
     public void resetPassword() throws Exception {
         UserVM userVM = userService.create(vm);
-        ResultActions actions = mvc.perform(put("/api/user/password/reset/" + userVM.getId())
+        ResultActions actions = mvc.perform(put("/api/users/password/reset/" + userVM.getId())
                 .accept(MediaType.APPLICATION_JSON));
         actions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         actions.andExpect(status().isOk()).andDo(print());
