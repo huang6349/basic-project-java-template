@@ -1,9 +1,14 @@
 package org.hyl.system.security.jwt;
 
 import io.jsonwebtoken.*;
+import org.hyl.data.config.DataConstants;
+import org.hyl.system.domain.Authority;
+import org.hyl.system.domain.MyUser;
+import org.hyl.system.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,6 +32,13 @@ public class TokenProvider implements InitializingBean {
     private String key = "basic";
 
     private Long tokenValidityInMilliseconds;
+
+    private final UserRepository userRepository;
+
+    @Autowired
+    public TokenProvider(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -53,6 +66,16 @@ public class TokenProvider implements InitializingBean {
                 .setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody();
+
+        Optional<MyUser> optional = userRepository.findByUsernameIgnoreCase(claims.getSubject());
+        if (!optional.isPresent()) return null;
+
+        MyUser user = optional.get();
+        if (DataConstants.DATA_DISABLED_STATE.equals(user.getState())) return null;
+        String authorities = claims.get(AUTHORITIES_KEY).toString();
+        if (!user.getAuthorities().stream().map(Authority::getCode).sorted().collect(Collectors.joining(",")).equals(authorities)) {
+            return null;
+        }
 
         Collection<? extends GrantedAuthority> grantedAuthorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))

@@ -25,14 +25,13 @@ request.interceptors.request.use(async (url, options) => {
 request.interceptors.response.use(async (response, { method }) => {
   NProgress.done();
   const data = await response.clone().json();
-  if (data && data['success']) {
-    method !== 'GET' && message.success(data['message']);
-    return response;
-  } else {
-    const error = new Error(data['message']);
-    error.response = data;
-    throw error;
+  if (response.ok && data && data['success'] && method !== 'GET') {
+    message.success(data['message']);
   }
+  if (response.ok && data && !data['success']) {
+    message.error(data['message']);
+  }
+  return response;
 });
 
 export default request;
