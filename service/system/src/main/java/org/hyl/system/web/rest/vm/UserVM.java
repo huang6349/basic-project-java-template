@@ -37,13 +37,13 @@ public class UserVM extends AbstractIdAuditingVM {
     @Past(message = "用户生日必须是一个过去的日期")
     private Date birthday;
 
-    @Pattern(regexp = "(^$|\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(^\\d{6}(18|19|20)\\d{2}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)$)", message = "错误的身份证格式")
+    @Pattern(regexp = "(^$|^\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(^\\d{6}(18|19|20)\\d{2}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)$)", message = "错误的身份证格式")
     private String idCard;
 
     @Email(message = "错误的邮箱格式")
     private String email;
 
-    @Pattern(regexp = "^$|(?:(?:\\+|00)86)?1[3-9]\\d{9}$", message = "错误的手机号格式")
+    @Pattern(regexp = "^$|^(?:(?:\\+|00)86)?1[3-9]\\d{9}$", message = "错误的手机号格式")
     private String mobilePhone;
 
     private String lastModifiedBy;
