@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import NProgress from 'nprogress';
 import localforage from 'localforage';
 import { extend } from 'umi-request';
@@ -21,10 +22,11 @@ request.interceptors.request.use(async (url, options) => {
   return { url: `/api${url}`, options };
 });
 
-request.interceptors.response.use(async (response, ...b) => {
+request.interceptors.response.use(async (response, { method }) => {
   NProgress.done();
   const data = await response.clone().json();
   if (data && data['success']) {
+    method !== 'GET' && message.success(data['message']);
     return response;
   } else {
     const error = new Error(data['message']);

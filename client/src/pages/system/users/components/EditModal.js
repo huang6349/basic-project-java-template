@@ -11,8 +11,7 @@ function EditModal({ form, loading, visible, onCancel, onOk, data, authoritys, s
   function handleSubmit() {
     form.validateFields((errors, { birthday, ...values }) => {
       if (errors) return;
-      const newData = { ...data, ...values };
-      if (birthday) newData['birthday'] = birthday.format('YYYY-MM-DD HH:mm:ss');
+      const newData = { ...data, ...values, birthday: birthday && birthday.format('YYYY-MM-DD HH:mm:ss') };
       typeof onOk === 'function' && onOk(newData);
     });
   }

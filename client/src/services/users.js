@@ -22,19 +22,19 @@ export async function authorities() {
   return await request.get('/authorities/tree');
 }
 
-export async function changePassword(password) {
+export async function changePassword(password = {}) {
   return await request.put('/password/change', { data: password });
 }
 
-export async function createUser(user) {
+export async function createUser(user = {}) {
   return await request.post('/users', { data: user });
 }
 
-export async function queryUserByPageable(params) {
+export async function queryUserByPageable(params = {}) {
   return await request.get('/users/pageable', { params });
 }
 
-export async function updateUser(user) {
+export async function updateUser(user = {}) {
   return await request.put('/users', { data: user });
 }
 

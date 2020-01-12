@@ -34,15 +34,16 @@ public class UserVM extends AbstractIdAuditingVM {
 
     private String sex_text;
 
+    @Past(message = "用户生日必须是一个过去的日期")
     private Date birthday;
 
-    @Pattern(regexp = "(^\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(^\\d{6}(18|19|20)\\d{2}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)$)", message = "身份证的格式有误")
+    @Pattern(regexp = "(^$|\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(^\\d{6}(18|19|20)\\d{2}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)$)", message = "错误的身份证格式")
     private String idCard;
 
-    @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", message = "邮箱的格式有误")
+    @Email(message = "错误的邮箱格式")
     private String email;
 
-    @Pattern(regexp = "^(?:(?:\\+|00)86)?1[3-9]\\d{9}$", message = "手机号的格式有误")
+    @Pattern(regexp = "^$|(?:(?:\\+|00)86)?1[3-9]\\d{9}$", message = "错误的手机号格式")
     private String mobilePhone;
 
     private String lastModifiedBy;
