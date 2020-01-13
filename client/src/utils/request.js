@@ -9,29 +9,30 @@ NProgress.configure({ showSpinner: false });
 
 const request = extend({ credentials: 'include' });
 
-request.interceptors.request.use(async (url, options) => {
-  NProgress.start();
+request.use(async (ctx, next) => {
+  const { req } = ctx;
+  const { url, options = {} } = req;
+  if (url.indexOf('/api') !== 0) ctx.req.url = `/api${url}`;
   options.headers = options.headers || {};
   options.headers['Content-Type'] = 'application/json;charset=UTF-8';
   options.headers['Accept'] = 'application/json';
   const token = await localforage.getItem(TOKEN['name']);
-  if (token) {
-    options.headers['Authorization'] = `Bearer ${token}`;
-  }
+  if (token) options.headers['Authorization'] = `Bearer ${token}`;
+  ctx.req.options = options;
+  NProgress.start();
   NProgress.inc();
-  return { url: `/api${url}`, options };
-});
-
-request.interceptors.response.use(async (response, { method }) => {
+  await next();
   NProgress.done();
-  const data = await response.clone().json();
-  if (response.ok && data && data['success'] && method !== 'GET') {
-    message.success(data['message']);
+  const { res = {} } = ctx;
+  const { method } = options;
+  if (res['success'] && method !== 'GET') {
+    message.success(res['message']);
   }
-  if (response.ok && data && !data['success']) {
-    message.error(data['message']);
+  if (!res['success']) {
+    const error = new Error(res['message']);
+    error.data = res;
+    throw error;
   }
-  return response;
 });
 
 export default request;

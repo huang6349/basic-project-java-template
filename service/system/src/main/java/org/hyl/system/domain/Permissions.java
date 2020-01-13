@@ -28,6 +28,7 @@ public class Permissions extends AbstractLevelAuditingEntity {
     @Column(name = "SEQ", nullable = false, columnDefinition = "INTEGER DEFAULT 0")
     private Integer seq = 0;
 
+    @Column(name = "DATA_DESC")
     private String desc;
 
     @JsonIgnore

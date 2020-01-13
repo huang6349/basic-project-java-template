@@ -21,6 +21,7 @@ public class Authority extends AbstractIdAuditingEntity {
     @Column(name = "CODE", length = 50, nullable = false)
     private String code;
 
+    @Column(name = "DATA_DESC")
     private String desc;
 
     @JsonIgnore

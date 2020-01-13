@@ -23,6 +23,7 @@ public class Dict extends AbstractLevelAuditingEntity {
     @Column(name = "DATA", length = 50)
     private String data;
 
+    @Column(name = "DATA_DESC")
     private String desc;
 
     public String getName() {
