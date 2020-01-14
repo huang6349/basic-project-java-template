@@ -51,7 +51,7 @@ export default {
       return { ...state, ...payload };
     },
     resetState: function() {
-      return { current: 1, pageSize: 10, total: 0, list: [], data: {}, visible: !1 };
+      return { current: 1, pageSize: 10, total: 0, list: [] };
     },
   },
 };

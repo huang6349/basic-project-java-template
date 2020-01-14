@@ -1,6 +1,8 @@
 package org.hyl.system.web.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.hyl.system.commons.result.Message;
 import org.hyl.system.commons.result.ResultUtil;
 import org.hyl.system.security.jwt.TokenProvider;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Api(tags = "用户管理", position = 999)
 @RestController
 @RequestMapping("/api")
 public class UserJWTController {
@@ -31,6 +34,7 @@ public class UserJWTController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
+    @ApiOperation(value = "获取授权令牌")
     @PostMapping("/authenticate")
     public Message authorize(@Valid @RequestBody LoginVM loginVM) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());

@@ -1,5 +1,7 @@
 package org.hyl.system.web.rest.vm;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.system.domain.Permissions;
@@ -12,25 +14,34 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+@ApiModel("菜单视图模型")
 public class PermissionsVM extends AbstractIdAuditingVM {
 
+    @ApiModelProperty("上级数据编号")
     private Long pid = 0L;
 
+    @ApiModelProperty("菜单名称")
     @NotBlank(message = "菜单名称不能为空")
     @Size(max = 50, message = "菜单名称的长度只能小于50个字符")
     private String name;
 
+    @ApiModelProperty("菜单路径")
     private String path;
 
+    @ApiModelProperty("菜单图标")
     private String icon;
 
+    @ApiModelProperty("排序")
     @NotNull(message = "排序不能为空")
     private Integer seq = 0;
 
+    @ApiModelProperty("菜单描述")
     private String desc;
 
+    @ApiModelProperty("菜单信息最后修改人")
     private String lastModifiedBy;
 
+    @ApiModelProperty("菜单信息最后修改时间")
     private String lastModifiedDate_text;
 
     public static PermissionsVM adapt(Permissions permissions) {

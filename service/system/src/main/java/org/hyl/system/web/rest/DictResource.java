@@ -1,6 +1,8 @@
 package org.hyl.system.web.rest;
 
 import com.github.wenhao.jpa.Specifications;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.auditing.LevelUtil;
@@ -26,6 +28,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Api(tags = "字典管理", position = 996)
 @RestController
 @RequestMapping("/api")
 public class DictResource {
@@ -42,6 +45,7 @@ public class DictResource {
         this.dictService = dictService;
     }
 
+    @ApiOperation("新增一个字典")
     @PostMapping("/dict")
     public Message create(@Valid @RequestBody DictVM vm) {
         if (vm.getId() != null) {
@@ -50,17 +54,20 @@ public class DictResource {
         return RESTful.success(RestTypeEnum.POST, dictService.create(vm));
     }
 
+    @ApiOperation("查询所有的字典")
     @GetMapping("/dict")
     public Message query() {
         return RESTful.success(RestTypeEnum.GET, dictRepository.findAll().stream().map(DictVM::adapt).collect(Collectors.toList()));
     }
 
+    @ApiOperation("查询一个字典")
     @GetMapping("/dict/{id}")
     public Message query(@PathVariable Long id) {
         Optional<Dict> optional = dictRepository.findById(id);
         return RESTful.success(RestTypeEnum.GET, optional.map(DictVM::adapt).orElse(null));
     }
 
+    @ApiOperation("分页查询字典")
     @GetMapping("/dict/pageable")
     public Message query(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Long pid, String name) {
         Specification<Dict> specification = Specifications.<Dict>and()
@@ -70,6 +77,7 @@ public class DictResource {
         return PaginationUtil.execute(dictRepository.findAll(specification, pageable).map(DictVM::adapt));
     }
 
+    @ApiOperation("查询所有的字典（树形数据）")
     @GetMapping("/dict/tree")
     public Message queryToTree(String name) {
         Specification<Dict> specification = Specifications.<Dict>and()
@@ -78,6 +86,7 @@ public class DictResource {
         return RESTful.success(RestTypeEnum.GET, levelUtil.listToTree(dictRepository.findAll(specification).stream().map(DictLevelVM::adapt).collect(Collectors.toList())));
     }
 
+    @ApiOperation("查询所有的字典（子级列表）")
     @GetMapping("/dict/children/{code}")
     public Message queryToChildren(@PathVariable String code) {
         Optional<Dict> optional = dictRepository.findByCodeIgnoreCase(code);
@@ -91,11 +100,13 @@ public class DictResource {
         return RESTful.success(RestTypeEnum.GET, dictRepository.findAll(specification).stream().map(DictVM::adapt).collect(Collectors.toList()));
     }
 
+    @ApiOperation("修改一个字典")
     @PutMapping("/dict")
     public Message update(@Valid @RequestBody DictVM vm) {
         return RESTful.success(RestTypeEnum.PUT, dictService.update(vm));
     }
 
+    @ApiOperation("删除一个菜单")
     @DeleteMapping("/dict/{id}")
     public Message delete(@PathVariable Long id) {
         return RESTful.success(RestTypeEnum.DELETE, dictService.delete(id));

@@ -1,11 +1,16 @@
 package org.hyl.data.auditing;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hyl.data.config.DataConstants;
 
+@ApiModel("数据审计视图模型")
 public class AbstractAuditingVM {
 
+    @ApiModelProperty("数据状态")
     private Byte state = DataConstants.DATA_NORMAL_STATE;
 
+    @ApiModelProperty("数据状态（文字）")
     private String state_text;
 
     public Byte getState() {

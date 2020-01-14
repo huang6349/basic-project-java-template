@@ -1,10 +1,11 @@
 package org.hyl.system.web.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.hyl.system.commons.result.Message;
 import org.hyl.system.commons.result.RESTful;
 import org.hyl.system.commons.result.enums.RestTypeEnum;
 import org.hyl.system.errors.BadRequestException;
-import org.hyl.system.repository.UserRepository;
 import org.hyl.system.service.PermissionsService;
 import org.hyl.system.service.UserService;
 import org.hyl.system.web.rest.vm.ChangePasswordVM;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Api(tags = "用户管理", position = 999)
 @RestController
 @RequestMapping("/api")
 public class AccountResource {
@@ -28,6 +30,7 @@ public class AccountResource {
         this.permissionsService = permissionsService;
     }
 
+    @ApiOperation("获取当前用户信息")
     @GetMapping("/account")
     public Message account() {
         return userService.getUserWithAuthorities()
@@ -35,6 +38,7 @@ public class AccountResource {
                 .orElseThrow(() -> new BadRequestException("获取当前用户信息失败，请稍后再试", HttpStatus.NOT_FOUND));
     }
 
+    @ApiOperation("获取当前用户权限")
     @GetMapping("/authorities")
     public Message authorities() {
         return permissionsService.getUserPermissions()
@@ -42,6 +46,7 @@ public class AccountResource {
                 .orElseThrow(() -> new BadRequestException("获取当前用户权限失败，请稍后再试", HttpStatus.NOT_FOUND));
     }
 
+    @ApiOperation("获取当前用户权限（树形数据）")
     @GetMapping("/authorities/tree")
     public Message authoritiesToTree() {
         return permissionsService.getUserPermissionsToTree()
@@ -49,6 +54,7 @@ public class AccountResource {
                 .orElseThrow(() -> new BadRequestException("获取当前用户权限失败，请稍后再试", HttpStatus.NOT_FOUND));
     }
 
+    @ApiOperation("更改当前用户密码")
     @PutMapping("/password/change")
     public Message changePassword(@Valid @RequestBody ChangePasswordVM vm) {
         return RESTful.success(RestTypeEnum.PUT, userService.changePassword(vm));
