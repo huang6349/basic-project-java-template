@@ -31,7 +31,7 @@ export default {
       yield put({
         type: 'updateState',
         payload: {
-          current: page,
+          current: page + 1,
           pageSize: size,
           total: total,
           list: data,
