@@ -1,23 +1,27 @@
 package org.hyl.system.commons.result;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hyl.system.commons.result.enums.RestMessageEnum;
 import org.hyl.system.commons.result.enums.RestTypeEnum;
 import org.hyl.system.commons.result.enums.NetworkEnum;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RestMessageVM extends MessageVM {
 
     private RestTypeEnum type;
 
-    public RestMessageVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public RestMessageVM(NetworkEnum network, RestTypeEnum type, Integer state, String message, Object data, Object params) {
+    RestMessageVM(NetworkEnum network, RestTypeEnum type, Integer state, String message, Object data, Object params) {
         super(network, state, message, data, params);
         this.type = type;
     }
 
-    public RestMessageVM(NetworkEnum network, RestTypeEnum type, Integer state, String message, Object data, String e, Object params) {
+    RestMessageVM(NetworkEnum network, RestTypeEnum type, Integer state, String message, Object data, String e, Object params) {
         super(network, state, message, data, e, params);
         this.type = type;
     }
@@ -32,13 +36,5 @@ public class RestMessageVM extends MessageVM {
         message.setE(vm.getE());
         message.setParams(vm.getParams());
         return message;
-    }
-
-    public RestTypeEnum getType() {
-        return type;
-    }
-
-    public void setType(RestTypeEnum type) {
-        this.type = type;
     }
 }

@@ -2,9 +2,15 @@ package org.hyl.system.commons.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("消息模型")
 public class Message implements Serializable {
 
@@ -27,56 +33,4 @@ public class Message implements Serializable {
 
     @ApiModelProperty("消息参数")
     private Object params;
-
-    public Message() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public String getE() {
-        return e;
-    }
-
-    public void setE(String e) {
-        this.e = e;
-    }
-
-    public Object getParams() {
-        return params;
-    }
-
-    public void setParams(Object params) {
-        this.params = params;
-    }
 }

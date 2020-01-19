@@ -4,7 +4,7 @@ import com.github.wenhao.jpa.Specifications;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.hyl.system.commons.pagination.PaginationUtil;
+import org.hyl.system.commons.result.PaginationUtil;
 import org.hyl.system.commons.result.RESTful;
 import org.hyl.system.commons.result.enums.RestTypeEnum;
 import org.hyl.system.domain.MyUser;

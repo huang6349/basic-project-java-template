@@ -6,12 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-public final class SecurityUtils {
+public interface SecurityUtils {
 
-    private SecurityUtils() {
-    }
-
-    public static Optional<String> getCurrentUserUsername() {
+    static Optional<String> getCurrentUserUsername() {
         SecurityContext context = SecurityContextHolder.getContext();
         return Optional.ofNullable(context.getAuthentication()).map(authentication -> {
             if (authentication.getPrincipal() instanceof UserDetails) {

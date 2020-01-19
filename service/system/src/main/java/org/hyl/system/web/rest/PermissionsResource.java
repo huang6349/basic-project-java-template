@@ -9,7 +9,7 @@ import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.auditing.LevelUtil;
 import org.hyl.system.commons.result.Message;
-import org.hyl.system.commons.pagination.PaginationUtil;
+import org.hyl.system.commons.result.PaginationUtil;
 import org.hyl.system.commons.result.RESTful;
 import org.hyl.system.domain.Permissions;
 import org.hyl.system.errors.DataNotAlreadyIDException;

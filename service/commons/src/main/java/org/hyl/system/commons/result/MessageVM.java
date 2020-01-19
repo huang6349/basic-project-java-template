@@ -1,8 +1,14 @@
 package org.hyl.system.commons.result;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hyl.system.commons.result.enums.MessageEnum;
 import org.hyl.system.commons.result.enums.NetworkEnum;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MessageVM {
 
     private NetworkEnum network;
@@ -17,24 +23,11 @@ public class MessageVM {
 
     private Object params;
 
-    public MessageVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public MessageVM(NetworkEnum network, Integer state, String message, Object data, Object params) {
+    MessageVM(NetworkEnum network, Integer state, String message, Object data, Object params) {
         this.network = network;
         this.state = state;
         this.message = message;
         this.data = data;
-        this.params = params;
-    }
-
-    public MessageVM(NetworkEnum network, Integer state, String message, Object data, String e, Object params) {
-        this.network = network;
-        this.state = state;
-        this.message = message;
-        this.data = data;
-        this.e = e;
         this.params = params;
     }
 
@@ -48,53 +41,5 @@ public class MessageVM {
         message.setE(vm.getE());
         message.setParams(vm.getParams());
         return message;
-    }
-
-    public NetworkEnum getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(NetworkEnum network) {
-        this.network = network;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public String getE() {
-        return e;
-    }
-
-    public void setE(String e) {
-        this.e = e;
-    }
-
-    public Object getParams() {
-        return params;
-    }
-
-    public void setParams(Object params) {
-        this.params = params;
     }
 }
