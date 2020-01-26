@@ -1,4 +1,4 @@
-package org.hyl.system.commons.result.enums;
+package org.hyl.commons.result.enums;
 
 public enum NetworkEnum {
     SUCCESS(true), ERROR(false);

@@ -11,15 +11,15 @@ import org.hyl.system.service.PermissionsService;
 import org.hyl.system.web.rest.vm.AuthorityVM;
 import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.hyl.system.web.rest.vm.UpdateAuthorityPermissionsVM;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
@@ -62,8 +62,8 @@ public class AuthorityResourceTest {
 
     private AuthorityVM vm;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    public void setUp() {
         vm = new AuthorityVM();
         vm.setName(DEFAULT_NAME);
         vm.setCode(DEFAULT_CODE);

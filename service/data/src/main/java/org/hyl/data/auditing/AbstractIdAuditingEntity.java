@@ -1,7 +1,13 @@
 package org.hyl.data.auditing;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public class AbstractIdAuditingEntity extends AbstractAuditingEntity {
 
@@ -11,12 +17,4 @@ public class AbstractIdAuditingEntity extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

@@ -1,12 +1,12 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hyl.system.commons.result.enums.RestMessageEnum;
-import org.hyl.system.commons.result.enums.RestTypeEnum;
-import org.hyl.system.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.RestMessageEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

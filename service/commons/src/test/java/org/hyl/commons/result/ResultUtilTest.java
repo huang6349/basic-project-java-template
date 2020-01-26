@@ -1,12 +1,12 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.assertj.core.api.Assertions;
-import org.hyl.system.commons.result.enums.MessageEnum;
-import org.hyl.system.commons.result.enums.NetworkEnum;
-import org.junit.Before;
-import org.junit.Test;
+import org.hyl.commons.result.enums.MessageEnum;
+import org.hyl.commons.result.enums.NetworkEnum;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -22,8 +22,8 @@ public class ResultUtilTest {
 
     private Map<String, Integer> params = Maps.newHashMap();
 
-    @Before
-    public void setup() throws Exception {
+    @BeforeEach
+    public void setUp() {
         this.state = new Random().nextInt(400) + 100;
         this.message = "COMMONS_TEST";
         this.data = Lists.newArrayList();
@@ -35,7 +35,7 @@ public class ResultUtilTest {
         this.params.put("id", new Random().nextInt(100));
     }
 
-    private void compare(Message a, Message b) throws Exception {
+    private void compare(Message a, Message b) {
         Assertions.assertThat(a.getState()).isEqualTo(b.getState());
         Assertions.assertThat(a.getMessage()).isEqualTo(b.getMessage());
         Assertions.assertThat(a.getData()).isEqualTo(b.getData());
@@ -45,7 +45,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success0() throws Exception {
+    public void success0() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -54,7 +54,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success1() throws Exception {
+    public void success1() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -63,7 +63,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success2() throws Exception {
+    public void success2() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -72,7 +72,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success3() throws Exception {
+    public void success3() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -82,7 +82,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success4() throws Exception {
+    public void success4() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -93,7 +93,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success5() throws Exception {
+    public void success5() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -103,7 +103,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success6() throws Exception {
+    public void success6() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -114,7 +114,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success7() throws Exception {
+    public void success7() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -123,7 +123,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success8() throws Exception {
+    public void success8() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -133,7 +133,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success9() throws Exception {
+    public void success9() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -144,7 +144,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success10() throws Exception {
+    public void success10() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -154,7 +154,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void success11() throws Exception {
+    public void success11() {
         Message a = new Message();
         a.setState(MessageEnum.SUCCESS.getState());
         a.setMessage(MessageEnum.SUCCESS.getMessage());
@@ -165,7 +165,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error0() throws Exception {
+    public void error0() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());
@@ -175,7 +175,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error1() throws Exception {
+    public void error1() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -185,7 +185,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error2() throws Exception {
+    public void error2() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -195,7 +195,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error3() throws Exception {
+    public void error3() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -206,7 +206,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error4() throws Exception {
+    public void error4() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -218,7 +218,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error5() throws Exception {
+    public void error5() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -229,7 +229,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error6() throws Exception {
+    public void error6() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -241,7 +241,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error7() throws Exception {
+    public void error7() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());
@@ -251,7 +251,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error8() throws Exception {
+    public void error8() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());
@@ -262,7 +262,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error9() throws Exception {
+    public void error9() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());
@@ -274,7 +274,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error10() throws Exception {
+    public void error10() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());
@@ -285,7 +285,7 @@ public class ResultUtilTest {
     }
 
     @Test
-    public void error11() throws Exception {
+    public void error11() {
         Message a = new Message();
         a.setE(e);
         a.setState(MessageEnum.ERROR.getState());

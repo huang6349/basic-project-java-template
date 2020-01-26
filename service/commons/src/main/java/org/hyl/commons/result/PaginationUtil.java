@@ -1,6 +1,6 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.springframework.data.domain.Page;
 
 public interface PaginationUtil {

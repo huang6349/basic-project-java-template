@@ -2,6 +2,10 @@ package org.hyl.system.web.rest.vm;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.system.domain.Permissions;
@@ -14,6 +18,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("菜单视图模型")
 public class PermissionsVM extends AbstractIdAuditingVM {
 
@@ -52,73 +60,5 @@ public class PermissionsVM extends AbstractIdAuditingVM {
             vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
         }
         return vm;
-    }
-
-    public PermissionsVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Integer getSeq() {
-        return seq;
-    }
-
-    public void setSeq(Integer seq) {
-        this.seq = seq;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getLastModifiedDate_text() {
-        return lastModifiedDate_text;
-    }
-
-    public void setLastModifiedDate_text(String lastModifiedDate_text) {
-        this.lastModifiedDate_text = lastModifiedDate_text;
     }
 }

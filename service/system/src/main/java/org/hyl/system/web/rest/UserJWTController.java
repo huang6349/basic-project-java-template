@@ -3,8 +3,11 @@ package org.hyl.system.web.rest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hyl.system.commons.result.Message;
-import org.hyl.system.commons.result.ResultUtil;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hyl.commons.result.Message;
+import org.hyl.commons.result.ResultUtil;
 import org.hyl.system.security.jwt.TokenProvider;
 import org.hyl.system.web.rest.vm.LoginVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Api(tags = "用户管理", position = 999)
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/api")
 public class UserJWTController {
@@ -44,21 +47,12 @@ public class UserJWTController {
         return ResultUtil.success("登陆成功", new JWTToken(jwt));
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     static class JWTToken {
 
-        private String idToken;
-
-        JWTToken(String idToken) {
-            this.idToken = idToken;
-        }
-
         @JsonProperty("id_token")
-        String getIdToken() {
-            return idToken;
-        }
-
-        void setIdToken(String idToken) {
-            this.idToken = idToken;
-        }
+        private String idToken;
     }
 }

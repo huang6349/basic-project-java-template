@@ -2,10 +2,17 @@ package org.hyl.system.web.rest.vm;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("修改用户密码视图模型")
 public class ChangePasswordVM {
 
@@ -20,32 +27,4 @@ public class ChangePasswordVM {
 
     @ApiModelProperty("确认新的用户密码")
     private String confirm;
-
-    public ChangePasswordVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    public String getConfirm() {
-        return confirm;
-    }
-
-    public void setConfirm(String confirm) {
-        this.confirm = confirm;
-    }
 }

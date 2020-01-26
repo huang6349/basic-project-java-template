@@ -1,4 +1,4 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,8 +1,14 @@
 package org.hyl.data.auditing;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public class AbstractLevelAuditingEntity extends AbstractIdAuditingEntity {
 
@@ -13,20 +19,4 @@ public class AbstractLevelAuditingEntity extends AbstractIdAuditingEntity {
 
     @Column(name = "LEVEL", nullable = false)
     private String level;
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
 }

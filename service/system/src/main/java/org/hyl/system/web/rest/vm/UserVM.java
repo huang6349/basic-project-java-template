@@ -3,6 +3,10 @@ package org.hyl.system.web.rest.vm;
 import com.google.common.collect.Sets;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
@@ -19,6 +23,10 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("用户视图模型")
 public class UserVM extends AbstractIdAuditingVM {
 
@@ -94,113 +102,5 @@ public class UserVM extends AbstractIdAuditingVM {
         vm.setAuthorities(user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         vm.setAuthorities_text(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
         return vm;
-    }
-
-    public UserVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
-    }
-
-    public Long getSexId() {
-        return sexId;
-    }
-
-    public void setSexId(Long sexId) {
-        this.sexId = sexId;
-    }
-
-    public String getSex_text() {
-        return sex_text;
-    }
-
-    public void setSex_text(String sex_text) {
-        this.sex_text = sex_text;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getLastModifiedDate_text() {
-        return lastModifiedDate_text;
-    }
-
-    public void setLastModifiedDate_text(String lastModifiedDate_text) {
-        this.lastModifiedDate_text = lastModifiedDate_text;
-    }
-
-    public Set<Long> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Long> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Set<String> getAuthorities_text() {
-        return authorities_text;
-    }
-
-    public void setAuthorities_text(Set<String> authorities_text) {
-        this.authorities_text = authorities_text;
     }
 }

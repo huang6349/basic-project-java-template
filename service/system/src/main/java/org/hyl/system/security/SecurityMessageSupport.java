@@ -1,7 +1,7 @@
 package org.hyl.system.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hyl.system.commons.result.ResultUtil;
+import org.hyl.commons.result.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

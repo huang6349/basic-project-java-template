@@ -2,12 +2,16 @@ package org.hyl.system.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Where;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true, exclude = {"users", "permissions"})
+@Data
 @Entity
 @Table(name = "TB_AUTHORITY")
 @Where(clause = "DATA_STATE <> 0")
@@ -36,55 +40,4 @@ public class Authority extends AbstractIdAuditingEntity {
             inverseJoinColumns = @JoinColumn(name = "PERMISSIONS_ID"))
     @Where(clause = "DATA_STATE <> 0")
     private Set<Permissions> permissions = Sets.newHashSet();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Set<MyUser> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<MyUser> users) {
-        this.users = users;
-    }
-
-    public Set<Permissions> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permissions> permissions) {
-        this.permissions = permissions;
-    }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", desc='" + desc + '\'' +
-                ", users=" + users +
-                ", permissions=" + permissions +
-                '}';
-    }
 }

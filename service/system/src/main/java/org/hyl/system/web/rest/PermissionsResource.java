@@ -4,13 +4,13 @@ import com.github.wenhao.jpa.Specifications;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.Message;
+import org.hyl.commons.result.PaginationUtil;
+import org.hyl.commons.result.RESTful;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.auditing.LevelUtil;
-import org.hyl.system.commons.result.Message;
-import org.hyl.system.commons.result.PaginationUtil;
-import org.hyl.system.commons.result.RESTful;
 import org.hyl.system.domain.Permissions;
 import org.hyl.system.errors.DataNotAlreadyIDException;
 import org.hyl.system.repository.PermissionsRepository;
@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Api(tags = "菜单管理", position = 997)
+@Api(tags = "菜单管理")
 @RestController
 @RequestMapping("/api")
 public class PermissionsResource {

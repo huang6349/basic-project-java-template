@@ -1,11 +1,8 @@
 package org.hyl.system.errors;
 
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.springframework.http.HttpStatus;
 
-/**
- * 自定义异常：错误的请求
- */
 public class BadRequestException extends InternalServerErrorException {
 
     private static final long serialVersionUID = -3076250638377926943L;

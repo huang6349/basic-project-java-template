@@ -1,7 +1,7 @@
 package org.hyl.system.errors;
 
-import org.hyl.system.commons.result.RESTful;
-import org.hyl.system.commons.result.Message;
+import org.hyl.commons.result.Message;
+import org.hyl.commons.result.RESTful;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * 自定义异常处理器
- */
+import java.util.Objects;
+
 @ControllerAdvice
 public class ExceptionHandling {
 
@@ -28,7 +27,7 @@ public class ExceptionHandling {
     public Message handleBindException(final BindException e) {
         log.info("【全局异常拦截】 BindException: 异常信息 {}", e.getMessage());
 
-        return RESTful.error(e.getClass().getName(), HttpStatus.BAD_REQUEST.value(), e.getBindingResult().getFieldError().getDefaultMessage());
+        return RESTful.error(e.getClass().getName(), HttpStatus.BAD_REQUEST.value(), Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -37,7 +36,7 @@ public class ExceptionHandling {
     public Message handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
         log.info("【全局异常拦截】 MethodArgumentNotValidException: 异常信息 {}", e.getMessage());
 
-        return RESTful.error(e.getClass().getName(), HttpStatus.BAD_REQUEST.value(), e.getBindingResult().getFieldError().getDefaultMessage());
+        return RESTful.error(e.getClass().getName(), HttpStatus.BAD_REQUEST.value(), Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

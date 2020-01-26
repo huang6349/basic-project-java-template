@@ -2,9 +2,9 @@ package org.hyl.system.web.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hyl.system.commons.result.Message;
-import org.hyl.system.commons.result.RESTful;
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.Message;
+import org.hyl.commons.result.RESTful;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.hyl.system.errors.BadRequestException;
 import org.hyl.system.service.PermissionsService;
 import org.hyl.system.service.UserService;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Api(tags = "用户管理", position = 999)
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/api")
 public class AccountResource {

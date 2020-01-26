@@ -1,13 +1,13 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.assertj.core.api.Assertions;
-import org.hyl.system.commons.result.enums.NetworkEnum;
-import org.hyl.system.commons.result.enums.RestMessageEnum;
-import org.hyl.system.commons.result.enums.RestTypeEnum;
-import org.junit.Before;
-import org.junit.Test;
+import org.hyl.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.RestMessageEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -23,8 +23,8 @@ public class RESTfulTest {
 
     private Map<String, Integer> params = Maps.newHashMap();
 
-    @Before
-    public void setup() throws Exception {
+    @BeforeEach
+    public void setUp() {
         this.state = new Random().nextInt(400) + 100;
         this.message = "REST_TEST";
         this.data = Lists.newArrayList();
@@ -36,7 +36,7 @@ public class RESTfulTest {
         this.params.put("id", new Random().nextInt(100));
     }
 
-    private void compare(Message a, Message b) throws Exception {
+    private void compare(Message a, Message b) {
         Assertions.assertThat(a.getState()).isEqualTo(b.getState());
         Assertions.assertThat(a.getMessage()).isEqualTo(b.getMessage());
         Assertions.assertThat(a.getData()).isEqualTo(b.getData());
@@ -46,7 +46,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success0() throws Exception {
+    public void success0() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -55,7 +55,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success1() throws Exception {
+    public void success1() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -64,7 +64,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success2() throws Exception {
+    public void success2() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -73,7 +73,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success3() throws Exception {
+    public void success3() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -83,7 +83,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success4() throws Exception {
+    public void success4() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(message);
@@ -94,7 +94,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success5() throws Exception {
+    public void success5() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -104,7 +104,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success6() throws Exception {
+    public void success6() {
         Message a = new Message();
         a.setState(state);
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -115,7 +115,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success7() throws Exception {
+    public void success7() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -124,7 +124,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success8() throws Exception {
+    public void success8() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -134,7 +134,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success9() throws Exception {
+    public void success9() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(message);
@@ -145,7 +145,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success10() throws Exception {
+    public void success10() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -155,7 +155,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success11() throws Exception {
+    public void success11() {
         Message a = new Message();
         a.setState(RestMessageEnum.SUCCESS.getState());
         a.setMessage(RestMessageEnum.SUCCESS.getMessage());
@@ -166,7 +166,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success12() throws Exception {
+    public void success12() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -177,7 +177,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success13() throws Exception {
+    public void success13() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -188,7 +188,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success14() throws Exception {
+    public void success14() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -199,7 +199,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success15() throws Exception {
+    public void success15() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -211,7 +211,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success16() throws Exception {
+    public void success16() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -224,7 +224,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success17() throws Exception {
+    public void success17() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -236,7 +236,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success18() throws Exception {
+    public void success18() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type, state));
@@ -249,7 +249,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success19() throws Exception {
+    public void success19() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -260,7 +260,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success20() throws Exception {
+    public void success20() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -272,7 +272,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success21() throws Exception {
+    public void success21() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -285,7 +285,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success22() throws Exception {
+    public void success22() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -297,7 +297,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void success23() throws Exception {
+    public void success23() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setState(RestMessageEnum.getState(NetworkEnum.SUCCESS, type));
@@ -310,7 +310,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error0() throws Exception {
+    public void error0() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -320,7 +320,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error1() throws Exception {
+    public void error1() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -330,7 +330,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error2() throws Exception {
+    public void error2() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -340,7 +340,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error3() throws Exception {
+    public void error3() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -351,7 +351,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error4() throws Exception {
+    public void error4() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -363,7 +363,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error5() throws Exception {
+    public void error5() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -374,7 +374,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error6() throws Exception {
+    public void error6() {
         Message a = new Message();
         a.setE(e);
         a.setState(state);
@@ -386,7 +386,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error7() throws Exception {
+    public void error7() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -396,7 +396,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error8() throws Exception {
+    public void error8() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -407,7 +407,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error9() throws Exception {
+    public void error9() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -419,7 +419,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error10() throws Exception {
+    public void error10() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -430,7 +430,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error11() throws Exception {
+    public void error11() {
         Message a = new Message();
         a.setE(e);
         a.setState(RestMessageEnum.ERROR.getState());
@@ -442,7 +442,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error12() throws Exception {
+    public void error12() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -454,7 +454,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error13() throws Exception {
+    public void error13() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -466,7 +466,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error14() throws Exception {
+    public void error14() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -478,7 +478,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error15() throws Exception {
+    public void error15() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -491,7 +491,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error16() throws Exception {
+    public void error16() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -505,7 +505,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error17() throws Exception {
+    public void error17() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -518,7 +518,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error18() throws Exception {
+    public void error18() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -533,7 +533,7 @@ public class RESTfulTest {
 
 
     @Test
-    public void error19() throws Exception {
+    public void error19() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -545,7 +545,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error20() throws Exception {
+    public void error20() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -558,7 +558,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error21() throws Exception {
+    public void error21() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -572,7 +572,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error22() throws Exception {
+    public void error22() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);
@@ -585,7 +585,7 @@ public class RESTfulTest {
     }
 
     @Test
-    public void error23() throws Exception {
+    public void error23() {
         for (RestTypeEnum type : RestTypeEnum.values()) {
             Message a = new Message();
             a.setE(e);

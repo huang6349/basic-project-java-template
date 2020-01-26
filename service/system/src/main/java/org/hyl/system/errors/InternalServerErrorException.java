@@ -1,11 +1,8 @@
 package org.hyl.system.errors;
 
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.springframework.http.HttpStatus;
 
-/**
- * 自定义异常：服务器内部错误
- */
 public class InternalServerErrorException extends RuntimeException {
 
     private static final long serialVersionUID = 5899807313916831250L;

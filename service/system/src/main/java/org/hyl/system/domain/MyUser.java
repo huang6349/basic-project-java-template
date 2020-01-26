@@ -2,12 +2,16 @@ package org.hyl.system.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Where;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@EqualsAndHashCode(callSuper = true, exclude = {"info", "authorities"})
+@Data
 @Entity
 @Table(name = "TB_USER")
 @Where(clause = "DATA_STATE <> 0")
@@ -34,46 +38,4 @@ public class MyUser extends AbstractIdAuditingEntity {
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID"))
     @Where(clause = "DATA_STATE <> 0")
     private Set<Authority> authorities = Sets.newHashSet();
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public MyUserInfo getInfo() {
-        return info;
-    }
-
-    public void setInfo(MyUserInfo info) {
-        this.info = info;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    @Override
-    public String toString() {
-        return "MyUser{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", info=" + info +
-                ", authorities=" + authorities +
-                '}';
-    }
 }

@@ -3,6 +3,10 @@ package org.hyl.system.web.rest.vm;
 import com.google.common.collect.Sets;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.system.config.Constants;
@@ -19,6 +23,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ApiModel("角色视图模型")
 public class AuthorityVM extends AbstractIdAuditingVM {
 
@@ -54,57 +62,5 @@ public class AuthorityVM extends AbstractIdAuditingVM {
         }
         vm.setPermissions(authority.getPermissions().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         return vm;
-    }
-
-    public AuthorityVM() {
-        // Empty constructor needed for Jackson.
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getLastModifiedDate_text() {
-        return lastModifiedDate_text;
-    }
-
-    public void setLastModifiedDate_text(String lastModifiedDate_text) {
-        this.lastModifiedDate_text = lastModifiedDate_text;
-    }
-
-    public Set<Long> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Long> permissions) {
-        this.permissions = permissions;
     }
 }

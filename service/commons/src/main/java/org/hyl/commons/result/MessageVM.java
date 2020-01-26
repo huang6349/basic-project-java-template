@@ -1,10 +1,10 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hyl.system.commons.result.enums.MessageEnum;
-import org.hyl.system.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.MessageEnum;
+import org.hyl.commons.result.enums.NetworkEnum;
 
 @Data
 @NoArgsConstructor

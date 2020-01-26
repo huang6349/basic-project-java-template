@@ -1,7 +1,7 @@
-package org.hyl.system.commons.result;
+package org.hyl.commons.result;
 
-import org.hyl.system.commons.result.enums.RestTypeEnum;
-import org.hyl.system.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.NetworkEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 
 public interface RESTful {
 

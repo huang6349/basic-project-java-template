@@ -1,11 +1,8 @@
 package org.hyl.system.errors;
 
-import org.hyl.system.commons.result.enums.RestTypeEnum;
+import org.hyl.commons.result.enums.RestTypeEnum;
 import org.springframework.http.HttpStatus;
 
-/**
- * 自定义异常：新增的数据不能存在编号
- */
 public class DataNotAlreadyIDException extends InternalServerErrorException {
 
     private static final long serialVersionUID = -5050265227748557450L;
