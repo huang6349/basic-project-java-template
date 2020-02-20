@@ -43,7 +43,10 @@ export default function SearchTableView({
 
   const handleSearch = (search) => {
     if (typeof onParamsChange === 'function') {
-      onParamsChange.apply(null, prepareParamsArguments({ ...state, search }));
+      onParamsChange.apply(
+        null,
+        prepareParamsArguments({ ...state, search, pagination: { ...pagination, current: 1 } })
+      );
     }
     setState({ search });
   };

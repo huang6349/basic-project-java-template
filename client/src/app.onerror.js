@@ -1,18 +1,16 @@
 import { notification, message } from 'antd';
 
-const onError = (err, dispatch) => {
-  err.preventDefault();
+const onError = (error, dispatch) => {
+  error.preventDefault();
 
-  const { data } = err;
-  if (data) {
-    if (data['state'] === 401) {
-      dispatch({ type: 'global/logout' });
-      notification.warning({
-        description: data['message'],
-        message: '登录验证提示',
+  if (error['response']) {
+    if (error['response']['status'] === 401) {
+      notification.close();
+      dispatch({ type: 'global/logout' }).then(() => {
+        notification.warning({ description: error['data']['message'], message: '登录验证提示' });
       });
     } else {
-      message.error(data['message']);
+      message.error(error['data']['message']);
     }
   }
 };

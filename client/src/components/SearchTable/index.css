@@ -15,6 +15,10 @@
   width: 210px;
 }
 
+.layout :global(.ant-table-body) > table {
+  table-layout: fixed;
+}
+
 .layout :global(.ant-table-tbody) {
   background: #ffffff;
 }
@@ -24,14 +28,13 @@
   cursor: pointer;
 }
 
-.layout :global(.ant-table-tbody) > tr span {
-  color: #1890ff;
-  cursor: pointer;
-}
-
 .layout :global(.ant-table-tbody) > tr :global(.ant-btn-link) {
   padding: 0;
   height: auto;
+}
+
+.layout :global(.ant-table-tbody) tr :global(.ant-typography) {
+  margin-bottom: 0;
 }
 
 .layout :global(.ant-table-tbody) > tr span:hover {

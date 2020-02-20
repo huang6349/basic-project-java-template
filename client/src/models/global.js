@@ -1,4 +1,5 @@
 import { authenticate, unAuthenticate, account, authorities, changePassword } from '@/services/users';
+import { localDownload } from '@/services/download';
 
 export default {
   state: {
@@ -14,7 +15,7 @@ export default {
     },
     *logout({ payload }, { put, call, select }) {
       yield call(unAuthenticate, payload) || {};
-      yield put({ type: 'updateState', payload: { isLogin: !1 } });
+      yield put({ type: 'updateState', payload: { isLogin: !1, menuData: [] } });
     },
     *keep({ payload }, { put, call, select }) {
       const { hasToken } = payload;
@@ -29,6 +30,9 @@ export default {
     },
     *changePassword({ payload }, { put, call, select }) {
       yield call(changePassword, payload) || {};
+    },
+    *localDownload({ payload }, { put, call, select }) {
+      yield call(localDownload, payload['url']);
     },
   },
   reducers: {

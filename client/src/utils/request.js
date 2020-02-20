@@ -7,7 +7,12 @@ import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false });
 
-const request = extend({ credentials: 'include' });
+function errorHandler(error) {
+  NProgress.done();
+  throw error;
+}
+
+const request = extend({ credentials: 'include', errorHandler });
 
 request.use(async (ctx, next) => {
   const { req } = ctx;
@@ -23,16 +28,31 @@ request.use(async (ctx, next) => {
   NProgress.inc();
   await next();
   NProgress.done();
-  const { res = {} } = ctx;
-  const { method } = options;
-  if (res['success'] && method !== 'GET') {
-    message.success(res['message']);
+});
+
+request.interceptors.response.use(async (response, options) => {
+  if (response.headers.get('Content-Type') === 'application/octet-stream') {
+    const fileName = decodeURI(response.headers.get('Content-Disposition').split('fileName=')[1]);
+    const blob = new Blob([await response.clone().blob()]);
+    if ('download' in document.createElement('a')) {
+      // 非IE下载
+      const elink = document.createElement('a');
+      elink.download = fileName;
+      elink.style.display = 'none';
+      elink.href = URL.createObjectURL(blob);
+      document.body.appendChild(elink);
+      elink.click();
+      URL.revokeObjectURL(elink.href); // 释放URL 对象
+      document.body.removeChild(elink);
+    } else {
+      // IE10+下载
+      navigator.msSaveBlob(blob, fileName);
+    }
+  } else {
+    const data = await response.clone().json();
+    data['success'] && options['method'] !== 'GET' && message.success(data['message']);
   }
-  if (!res['success']) {
-    const error = new Error(res['message']);
-    error.data = res;
-    throw error;
-  }
+  return response;
 });
 
 export default request;

@@ -56,6 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().deny();
         http.authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
+                .antMatchers("/api/file/upload").permitAll()
+                .antMatchers("/api/file/download/*").permitAll()
                 .antMatchers("/api/**").authenticated();
         http.apply(securityConfigurerAdapter());
     }
