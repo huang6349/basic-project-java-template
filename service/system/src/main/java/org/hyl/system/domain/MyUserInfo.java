@@ -1,5 +1,6 @@
 package org.hyl.system.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Where;
@@ -22,8 +23,10 @@ public class MyUserInfo extends AbstractIdAuditingEntity {
 
     private String realname;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SEX_ID", foreignKey = @ForeignKey(name = "FK_USERINFO_SEX_ID"))
+    @Where(clause = "DATA_STATE <> 0")
     private Dict sex;
 
     @Temporal(TemporalType.DATE)

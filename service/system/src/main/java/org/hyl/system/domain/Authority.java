@@ -30,6 +30,7 @@ public class Authority extends AbstractIdAuditingEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "authorities")
+    @Where(clause = "DATA_STATE <> 0")
     private Set<MyUser> users = Sets.newHashSet();
 
     @JsonIgnore

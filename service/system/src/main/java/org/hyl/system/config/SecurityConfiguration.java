@@ -58,7 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/file/upload").permitAll()
                 .antMatchers("/api/file/download/*").permitAll()
-                .antMatchers("/api/**").authenticated();
+                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/**").access("@rbacAuthorityService.hasPermission(request, authentication)");
         http.apply(securityConfigurerAdapter());
     }
 

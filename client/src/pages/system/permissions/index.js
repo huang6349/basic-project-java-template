@@ -4,12 +4,14 @@ import { Divider, Button, Modal, Icon } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { SearchTable } from '@/components';
-import { EditModal } from './components';
+import { EditModal, ResourceModal } from './components';
 
 const IndexPage = ({ permissions, loading, dispatch }) => {
   const [getEditModalType, setEditModalType] = useGetSet(!0);
   const [getEditModalData, setEditModalData] = useGetSet({});
   const [getEditModalVisible, setEditModalVisible] = useGetSet(false);
+  const [getResourceModalData, setResourceModalData] = useGetSet({});
+  const [getResourceModalVisible, setResourceModalVisible] = useGetSet(!1);
   const { list } = permissions;
 
   const columns = [
@@ -62,12 +64,16 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
     },
     {
       title: '操作',
-      width: 165,
+      width: 230,
       key: 'action',
       render: (text, record) => (
         <React.Fragment>
           <Button type="link" icon="edit" onClick={() => handleEdit(record)}>
             编辑
+          </Button>
+          <Divider type="vertical" />
+          <Button type="link" icon="setting" onClick={() => handleConfig(record)}>
+            配置
           </Button>
           <Divider type="vertical" />
           <SearchTable.TableDropdown
@@ -91,6 +97,11 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
     setEditModalVisible(!0);
   }
 
+  function handleConfig(record = {}) {
+    setResourceModalData(record);
+    setResourceModalVisible(!0);
+  }
+
   function handleTableDropdownSelect(key, record) {
     key === 'delete' && handleDelete(record);
   }
@@ -107,6 +118,10 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
 
   function handleEditModalCancel() {
     setEditModalVisible(!1);
+  }
+
+  function handleResourceModalCancel() {
+    setResourceModalVisible(!1);
   }
 
   function handleEditModalOk(data) {
@@ -140,6 +155,11 @@ const IndexPage = ({ permissions, loading, dispatch }) => {
         onOk={handleEditModalOk}
         data={getEditModalData()}
         permissions={list}
+      />
+      <ResourceModal
+        visible={getResourceModalVisible()}
+        onCancel={handleResourceModalCancel}
+        data={getResourceModalData()}
       />
     </PageHeaderWrapper>
   );

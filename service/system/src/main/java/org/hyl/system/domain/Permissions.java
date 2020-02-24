@@ -7,13 +7,10 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Where;
 import org.hyl.data.auditing.AbstractLevelAuditingEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true, exclude = {"authorities"})
+@EqualsAndHashCode(callSuper = true, exclude = {"authorities", "resources"})
 @Data
 @Entity
 @Table(name = "TB_PERMISSIONS")
@@ -37,5 +34,11 @@ public class Permissions extends AbstractLevelAuditingEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "permissions")
+    @Where(clause = "DATA_STATE <> 0")
     private Set<Authority> authorities = Sets.newHashSet();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "permissions")
+    @Where(clause = "DATA_STATE <> 0")
+    private Set<Resource> resources = Sets.newHashSet();
 }

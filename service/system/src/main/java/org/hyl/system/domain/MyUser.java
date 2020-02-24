@@ -26,8 +26,10 @@ public class MyUser extends AbstractIdAuditingEntity {
     @Column(length = 60, nullable = false)
     private String password;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "USER_INFO_ID")
+    @Where(clause = "DATA_STATE <> 0")
     private MyUserInfo info;
 
     @JsonIgnore

@@ -30,7 +30,7 @@ public class SecurityMessageSupport implements AuthenticationEntryPoint, AccessD
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.error(exception.getMessage(), HttpStatus.UNAUTHORIZED.value(), "你的账户信息已过期，请从新登陆")));
+        response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.error(exception.getMessage(), HttpStatus.UNAUTHORIZED.value(), "您的账户信息已过期，请从新登陆")));
     }
 
     @Override
@@ -38,6 +38,6 @@ public class SecurityMessageSupport implements AuthenticationEntryPoint, AccessD
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.error(exception.getMessage(), HttpStatus.FORBIDDEN.value(), "你的权限不足执行该操作")));
+        response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.error(exception.getMessage(), HttpStatus.FORBIDDEN.value(), "您没有足够的权限执行该操作")));
     }
 }

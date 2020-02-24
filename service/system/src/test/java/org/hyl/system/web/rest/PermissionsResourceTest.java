@@ -80,6 +80,7 @@ public class PermissionsResourceTest {
         Assertions.assertThat(permissions.getSeq()).isEqualTo(0);
         Assertions.assertThat(permissions.getDesc()).isNull();
         Assertions.assertThat(permissions.getAuthorities()).isEmpty();
+        Assertions.assertThat(permissions.getResources()).isEmpty();
         Assertions.assertThat(permissions.getCreatedBy()).isNotNull();
         Assertions.assertThat(permissions.getCreatedDate()).isNotNull();
         Assertions.assertThat(permissions.getLastModifiedBy()).isNotNull();
@@ -159,6 +160,7 @@ public class PermissionsResourceTest {
         Assertions.assertThat(currPermissions.getSeq()).isEqualTo(prevPermissions.getSeq());
         Assertions.assertThat(currPermissions.getDesc()).isEqualTo(prevPermissions.getDesc());
         Assertions.assertThat(currPermissions.getAuthorities()).isEqualTo(prevPermissions.getAuthorities());
+        Assertions.assertThat(currPermissions.getResources()).isEqualTo(prevPermissions.getResources());
         Assertions.assertThat(currPermissions.getCreatedBy()).isEqualTo(prevPermissions.getCreatedBy());
         Assertions.assertThat(currPermissions.getCreatedDate()).isEqualTo(prevPermissions.getCreatedDate());
         Assertions.assertThat(currPermissions.getLastModifiedBy()).isNotNull();
