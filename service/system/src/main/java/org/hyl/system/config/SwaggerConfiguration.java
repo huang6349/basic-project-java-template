@@ -24,7 +24,7 @@ public class SwaggerConfiguration {
                 .groupName("默认分组")
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.hyl.system.web.rest"))
+                .apis(RequestHandlerSelectors.basePackage("org.hyl"))
                 .paths(PathSelectors.ant("/api/**"))
                 .build()
                 .securitySchemes(securitySchemes())
