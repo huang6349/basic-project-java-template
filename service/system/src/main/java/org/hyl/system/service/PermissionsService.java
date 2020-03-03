@@ -2,7 +2,7 @@ package org.hyl.system.service;
 
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.config.DataConstants;
-import org.hyl.system.errors.DataAlreadyExistException;
+import org.hyl.commons.exception.DataAlreadyExistException;
 import org.hyl.system.repository.UserRepository;
 import org.hyl.system.security.SecurityUtils;
 import org.hyl.system.web.rest.vm.PermissionsLevelVM;
@@ -10,7 +10,7 @@ import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.LevelUtil;
 import org.hyl.system.domain.Permissions;
-import org.hyl.system.errors.BadRequestException;
+import org.hyl.commons.exception.BadRequestException;
 import org.hyl.system.repository.PermissionsRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

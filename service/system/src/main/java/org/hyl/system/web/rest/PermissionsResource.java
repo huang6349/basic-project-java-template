@@ -12,7 +12,7 @@ import org.hyl.system.web.rest.vm.PermissionsVM;
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.auditing.LevelUtil;
 import org.hyl.system.domain.Permissions;
-import org.hyl.system.errors.DataNotAlreadyIDException;
+import org.hyl.commons.exception.DataNotAlreadyIDException;
 import org.hyl.system.repository.PermissionsRepository;
 import org.hyl.system.service.PermissionsService;
 import org.hyl.system.web.rest.vm.PermissionsLevelVM;

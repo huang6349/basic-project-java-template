@@ -7,7 +7,7 @@ import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.util.StrUtil;
 import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.File;
-import org.hyl.system.errors.BadRequestException;
+import org.hyl.commons.exception.BadRequestException;
 import org.hyl.system.repository.FileRepository;
 import org.hyl.system.web.rest.vm.FileVM;
 import org.springframework.beans.factory.annotation.Autowired;

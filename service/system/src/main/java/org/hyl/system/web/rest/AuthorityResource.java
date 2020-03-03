@@ -9,7 +9,7 @@ import org.hyl.commons.result.PaginationUtil;
 import org.hyl.commons.result.RESTful;
 import org.hyl.commons.result.enums.RestTypeEnum;
 import org.hyl.system.domain.Authority;
-import org.hyl.system.errors.DataNotAlreadyIDException;
+import org.hyl.commons.exception.DataNotAlreadyIDException;
 import org.hyl.system.web.rest.vm.AuthorityVM;
 import org.hyl.system.repository.AuthorityRepository;
 import org.hyl.system.service.AuthorityService;

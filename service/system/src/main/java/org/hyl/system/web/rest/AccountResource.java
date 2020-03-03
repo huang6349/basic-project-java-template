@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.hyl.commons.result.Message;
 import org.hyl.commons.result.RESTful;
 import org.hyl.commons.result.enums.RestTypeEnum;
-import org.hyl.system.errors.BadRequestException;
+import org.hyl.commons.exception.BadRequestException;
 import org.hyl.system.service.PermissionsService;
 import org.hyl.system.service.UserService;
 import org.hyl.system.web.rest.vm.ChangePasswordVM;

@@ -5,7 +5,7 @@ import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Dict;
 import org.hyl.system.domain.Permissions;
 import org.hyl.system.domain.Resource;
-import org.hyl.system.errors.BadRequestException;
+import org.hyl.commons.exception.BadRequestException;
 import org.hyl.system.repository.DictRepository;
 import org.hyl.system.repository.PermissionsRepository;
 import org.hyl.system.repository.ResourceRepository;
