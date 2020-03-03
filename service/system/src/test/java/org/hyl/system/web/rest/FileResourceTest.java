@@ -1,7 +1,7 @@
 package org.hyl.system.web.rest;
 
-import org.hyl.system.domain.File;
-import org.hyl.system.repository.FileRepository;
+import org.hyl.file.domain.File;
+import org.hyl.file.repository.FileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

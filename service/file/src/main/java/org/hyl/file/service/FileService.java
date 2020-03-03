@@ -1,4 +1,4 @@
-package org.hyl.system.service;
+package org.hyl.file.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
@@ -6,10 +6,10 @@ import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.core.util.StrUtil;
 import org.hyl.data.config.DataConstants;
-import org.hyl.system.domain.File;
+import org.hyl.file.domain.File;
 import org.hyl.commons.exception.BadRequestException;
-import org.hyl.system.repository.FileRepository;
-import org.hyl.system.web.rest.vm.FileVM;
+import org.hyl.file.repository.FileRepository;
+import org.hyl.file.web.rest.vm.FileVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartProperties;
 import org.springframework.http.HttpHeaders;

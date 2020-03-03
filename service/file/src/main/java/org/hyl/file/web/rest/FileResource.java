@@ -1,4 +1,4 @@
-package org.hyl.system.web.rest;
+package org.hyl.file.web.rest;
 
 import com.github.wenhao.jpa.Specifications;
 import io.swagger.annotations.Api;
@@ -8,10 +8,10 @@ import org.hyl.commons.result.Message;
 import org.hyl.commons.result.PaginationUtil;
 import org.hyl.commons.result.RESTful;
 import org.hyl.commons.result.enums.RestTypeEnum;
-import org.hyl.system.domain.File;
-import org.hyl.system.repository.FileRepository;
-import org.hyl.system.service.FileService;
-import org.hyl.system.web.rest.vm.FileVM;
+import org.hyl.file.domain.File;
+import org.hyl.file.repository.FileRepository;
+import org.hyl.file.service.FileService;
+import org.hyl.file.web.rest.vm.FileVM;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;

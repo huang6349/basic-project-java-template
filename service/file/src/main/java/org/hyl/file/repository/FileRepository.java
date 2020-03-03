@@ -1,6 +1,6 @@
-package org.hyl.system.repository;
+package org.hyl.file.repository;
 
-import org.hyl.system.domain.File;
+import org.hyl.file.domain.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

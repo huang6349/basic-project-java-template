@@ -7,4 +7,5 @@ dependencies {
     implementation project(':data')
     implementation project(':log')
     implementation project(':dict')
+    implementation project(':file')
 }

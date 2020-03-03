@@ -1,4 +1,4 @@
-package org.hyl.system.web.rest.vm;
+package org.hyl.file.web.rest.vm;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.ApiModel;
@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
 import org.hyl.data.config.DataConstants;
-import org.hyl.system.domain.File;
+import org.hyl.file.domain.File;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
