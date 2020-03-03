@@ -1,4 +1,4 @@
-package org.hyl.system.web.rest;
+package org.hyl.dict.web.rest;
 
 import com.github.wenhao.jpa.Specifications;
 import io.swagger.annotations.Api;
@@ -10,13 +10,13 @@ import org.hyl.commons.result.RESTful;
 import org.hyl.commons.result.enums.RestTypeEnum;
 import org.hyl.data.auditing.DefaultLevelUtil;
 import org.hyl.data.auditing.LevelUtil;
-import org.hyl.system.domain.Dict;
+import org.hyl.dict.domain.Dict;
 import org.hyl.commons.exception.BadRequestException;
 import org.hyl.commons.exception.DataNotAlreadyIDException;
-import org.hyl.system.repository.DictRepository;
-import org.hyl.system.service.DictService;
-import org.hyl.system.web.rest.vm.DictLevelVM;
-import org.hyl.system.web.rest.vm.DictVM;
+import org.hyl.dict.repository.DictRepository;
+import org.hyl.dict.service.DictService;
+import org.hyl.dict.web.rest.vm.DictLevelVM;
+import org.hyl.dict.web.rest.vm.DictVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

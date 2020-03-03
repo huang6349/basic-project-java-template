@@ -1,6 +1,6 @@
-package org.hyl.system.repository;
+package org.hyl.dict.repository;
 
-import org.hyl.system.domain.Dict;
+import org.hyl.dict.domain.Dict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

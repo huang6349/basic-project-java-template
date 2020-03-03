@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hyl.system.config.Constants;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Permissions;
 import org.hyl.data.auditing.AbstractLevelAuditingVM;
 import org.springframework.beans.BeanUtils;
@@ -48,7 +48,7 @@ public class PermissionsLevelVM extends AbstractLevelAuditingVM<PermissionsLevel
         BeanUtils.copyProperties(permissions, vm);
         if (permissions.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(permissions.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(DataConstants.DATE_TIME_FORMATTER)));
         }
         return vm;
     }

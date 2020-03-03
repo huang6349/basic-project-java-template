@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Where;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
+import org.hyl.dict.domain.Dict;
 
 import javax.persistence.*;
 

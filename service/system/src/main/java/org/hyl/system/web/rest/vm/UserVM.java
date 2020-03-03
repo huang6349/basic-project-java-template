@@ -7,9 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
 import org.hyl.system.domain.MyUser;
 import org.hyl.system.domain.MyUserInfo;
@@ -97,7 +97,7 @@ public class UserVM extends AbstractIdAuditingVM {
         }
         if (user.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(user.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(DataConstants.DATE_TIME_FORMATTER)));
         }
         vm.setAuthorities(user.getAuthorities().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         vm.setAuthorities_text(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));

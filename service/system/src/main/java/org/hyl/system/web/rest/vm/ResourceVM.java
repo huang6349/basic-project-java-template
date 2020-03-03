@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
-import org.hyl.system.config.Constants;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Resource;
 import org.springframework.beans.BeanUtils;
 
@@ -64,7 +64,7 @@ public class ResourceVM extends AbstractIdAuditingVM {
         }
         if (resource.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(resource.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(DataConstants.DATE_TIME_FORMATTER)));
         }
         return vm;
     }

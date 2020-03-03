@@ -2,11 +2,11 @@ package org.hyl.system.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.config.DataConstants;
-import org.hyl.system.domain.Dict;
+import org.hyl.dict.domain.Dict;
 import org.hyl.system.domain.Permissions;
 import org.hyl.system.domain.Resource;
 import org.hyl.commons.exception.BadRequestException;
-import org.hyl.system.repository.DictRepository;
+import org.hyl.dict.repository.DictRepository;
 import org.hyl.system.repository.PermissionsRepository;
 import org.hyl.system.repository.ResourceRepository;
 import org.hyl.system.repository.UserRepository;

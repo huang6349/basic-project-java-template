@@ -1,4 +1,4 @@
-package org.hyl.system.domain;
+package org.hyl.dict.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

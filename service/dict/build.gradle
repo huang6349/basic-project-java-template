@@ -1,10 +1,8 @@
-bootJar {
+jar {
     enabled = true
 }
 
 dependencies {
     implementation project(':commons')
     implementation project(':data')
-    implementation project(':log')
-    implementation project(':dict')
 }

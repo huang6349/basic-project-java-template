@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
-import org.hyl.system.config.Constants;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.File;
 import org.springframework.beans.BeanUtils;
 
@@ -51,7 +51,7 @@ public class FileVM extends AbstractIdAuditingVM {
         vm.setDownload(StrUtil.format("/api/file/download/{}", file.getId()));
         if (file.getCreatedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(file.getCreatedDate(), ZoneId.systemDefault());
-            vm.setCreatedBy_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setCreatedBy_text(localDateTime.format(DateTimeFormatter.ofPattern(DataConstants.DATE_TIME_FORMATTER)));
         }
         return vm;
     }

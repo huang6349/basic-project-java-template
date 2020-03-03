@@ -1,15 +1,14 @@
-package org.hyl.system.service;
+package org.hyl.dict.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.LevelUtil;
 import org.hyl.data.config.DataConstants;
-import org.hyl.system.domain.Dict;
+import org.hyl.dict.domain.Dict;
 import org.hyl.commons.exception.BadRequestException;
 import org.hyl.commons.exception.DataAlreadyExistException;
-import org.hyl.system.repository.DictRepository;
-import org.hyl.system.web.rest.vm.DictVM;
+import org.hyl.dict.repository.DictRepository;
+import org.hyl.dict.web.rest.vm.DictVM;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class DictService {
 
     private final DictRepository dictRepository;
 
-    @Autowired
     public DictService(DictRepository dictRepository) {
         this.dictRepository = dictRepository;
     }

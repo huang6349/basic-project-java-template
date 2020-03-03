@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.data.auditing.AbstractIdAuditingEntity;
-import org.hyl.system.config.Constants;
 import org.hyl.data.auditing.AbstractIdAuditingVM;
+import org.hyl.data.config.DataConstants;
 import org.hyl.system.domain.Authority;
 import org.springframework.beans.BeanUtils;
 
@@ -58,7 +58,7 @@ public class AuthorityVM extends AbstractIdAuditingVM {
         vm.setCode(StringUtils.upperCase(StringUtils.replaceOnce(authority.getCode(), "ROLE_", "")));
         if (authority.getLastModifiedDate() != null) {
             LocalDateTime localDateTime = LocalDateTime.ofInstant(authority.getLastModifiedDate(), ZoneId.systemDefault());
-            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMATTER)));
+            vm.setLastModifiedDate_text(localDateTime.format(DateTimeFormatter.ofPattern(DataConstants.DATE_TIME_FORMATTER)));
         }
         vm.setPermissions(authority.getPermissions().stream().map(AbstractIdAuditingEntity::getId).collect(Collectors.toSet()));
         return vm;

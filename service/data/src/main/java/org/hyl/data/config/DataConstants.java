@@ -17,4 +17,6 @@ public interface DataConstants {
     String DATA_KEEP_STATE_TEXT = "系统保留";
 
     String DATA_DISABLED_STATE_TEXT = "禁用";
+
+    String DATE_TIME_FORMATTER = "yyyy-MM-dd HH:mm:ss";
 }
