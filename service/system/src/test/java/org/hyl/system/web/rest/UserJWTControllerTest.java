@@ -1,9 +1,9 @@
 package org.hyl.system.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hyl.system.service.UserService;
-import org.hyl.system.web.rest.vm.LoginVM;
-import org.hyl.system.web.rest.vm.UserVM;
+import org.hyl.auth.service.UserService;
+import org.hyl.auth.web.rest.vm.LoginVM;
+import org.hyl.auth.web.rest.vm.UserVM;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

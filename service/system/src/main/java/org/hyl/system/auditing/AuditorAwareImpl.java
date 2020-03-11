@@ -1,7 +1,7 @@
 package org.hyl.system.auditing;
 
 import org.hyl.commons.config.GlobalConstants;
-import org.hyl.system.security.SecurityUtils;
+import org.hyl.auth.security.SecurityUtils;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 

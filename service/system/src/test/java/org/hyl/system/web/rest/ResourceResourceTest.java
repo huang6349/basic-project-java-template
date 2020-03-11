@@ -2,12 +2,12 @@ package org.hyl.system.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
-import org.hyl.system.domain.Resource;
-import org.hyl.system.repository.ResourceRepository;
-import org.hyl.system.service.PermissionsService;
-import org.hyl.system.service.ResourceService;
-import org.hyl.system.web.rest.vm.PermissionsVM;
-import org.hyl.system.web.rest.vm.ResourceVM;
+import org.hyl.auth.domain.Resource;
+import org.hyl.auth.repository.ResourceRepository;
+import org.hyl.auth.service.PermissionsService;
+import org.hyl.auth.service.ResourceService;
+import org.hyl.auth.web.rest.vm.PermissionsVM;
+import org.hyl.auth.web.rest.vm.ResourceVM;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
