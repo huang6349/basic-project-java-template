@@ -8,11 +8,3 @@
  */
 
 rootProject.name = 'basic'
-
-include 'commons'
-include 'data'
-include 'log'
-include 'dict'
-include 'file'
-include 'auth'
-include 'system'

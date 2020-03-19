@@ -1,0 +1,1 @@
+package org.hyl.modules.dict.domain;

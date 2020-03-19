@@ -1,5 +1,0 @@
-jar {
-    enabled = true
-}
-
-dependencies {}

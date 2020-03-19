@@ -1,6 +1,6 @@
 [English](./README.md) | 简体中文
 
-# client
+# 客户端
 
 [![](https://img.shields.io/badge/umi-2.7.7-ff69b4.svg?style=flat-square)](https://github.com/umijs/umi)
 [![](https://img.shields.io/badge/react-16.8.6-brightgreen.svg?style=flat-square)](https://github.com/facebook/react)

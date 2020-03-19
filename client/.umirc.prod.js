@@ -1,3 +1,3 @@
 export default {
-  outputPath: '../service/system/src/main/resources/static',
+  outputPath: '../service/src/main/resources/static',
 };

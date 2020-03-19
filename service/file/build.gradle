@@ -1,8 +1,0 @@
-jar {
-    enabled = true
-}
-
-dependencies {
-    implementation project(':commons')
-    implementation project(':data')
-}
