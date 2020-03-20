@@ -1,10 +1,14 @@
 package org.hyl.modules.auth.security.jwt;
 
+import cn.hutool.core.util.StrUtil;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.hyl.config.GlobalConstants;
 import org.hyl.modules.auth.domain.Authority;
 import org.hyl.modules.auth.domain.MyUser;
 import org.hyl.modules.auth.repository.UserRepository;
+import org.hyl.modules.auth.security.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,6 +19,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -28,19 +34,30 @@ public class TokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "auth";
 
-    private String key = "basic";
+    private Key key;
 
     private Long tokenValidityInMilliseconds;
 
+    private final SecurityProperties securityProperties;
+
     private final UserRepository userRepository;
 
-    public TokenProvider(UserRepository userRepository) {
+    public TokenProvider(SecurityProperties securityProperties, UserRepository userRepository) {
+        this.securityProperties = securityProperties;
         this.userRepository = userRepository;
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        this.tokenValidityInMilliseconds = 1000 * 2592000L;
+    public void afterPropertiesSet() {
+        byte[] keyBytes;
+        String secret = securityProperties.getSecret();
+        if (!StrUtil.isEmpty(secret)) {
+            keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        } else {
+            keyBytes = Decoders.BASE64.decode(securityProperties.getBase64Secret());
+        }
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+        this.tokenValidityInMilliseconds = 1000 * securityProperties.getTokenValidityInSeconds();
     }
 
     public String createToken(Authentication authentication) {
@@ -53,15 +70,16 @@ public class TokenProvider implements InitializingBean {
         JwtBuilder builder = Jwts.builder();
         builder.setSubject(authentication.getName());
         builder.claim(AUTHORITIES_KEY, authorities);
-        builder.signWith(SignatureAlgorithm.HS512, key);
+        builder.signWith(key, SignatureAlgorithm.HS512);
         builder.setExpiration(new Date(now + this.tokenValidityInMilliseconds));
         builder.setNotBefore(new Date(now));
         return builder.compact();
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -87,7 +105,7 @@ public class TokenProvider implements InitializingBean {
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (SecurityException | MalformedJwtException e) {
             log.info("无效的 JWT 令牌");
