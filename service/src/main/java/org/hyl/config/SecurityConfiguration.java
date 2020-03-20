@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers("/**/*.{js,html}")
@@ -60,8 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/api/file/upload").permitAll()
-                .antMatchers("/api/file/download/*").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/api/**").access("@rbacAuthorityService.hasPermission(request, authentication)");
         http.apply(securityConfigurerAdapter());

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hyl.modules.auth.domain.vm.ResourceVM;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
@@ -28,10 +29,12 @@ public class RbacAuthorityService {
             return false;
         }
         List<Ignoring> ignorings = Lists.newArrayList();
-        ignorings.add(new Ignoring("/api/account/**", "GET"));
-        ignorings.add(new Ignoring("/api/authorities/**", "GET"));
-        ignorings.add(new Ignoring("/api/dict/**", "GET"));
-        ignorings.add(new Ignoring("/api/password/change", "PUT"));
+        ignorings.add(new Ignoring("/api/account/**", HttpMethod.GET.toString()));
+        ignorings.add(new Ignoring("/api/authorities/**", HttpMethod.GET.toString()));
+        ignorings.add(new Ignoring("/api/dict/**", HttpMethod.GET.toString()));
+        ignorings.add(new Ignoring("/api/password/change", HttpMethod.PUT.toString()));
+        ignorings.add(new Ignoring("/api/file/upload", HttpMethod.POST.toString()));
+        ignorings.add(new Ignoring("/api/file/download/*", HttpMethod.GET.toString()));
         for (ResourceVM vm : vms.get()) {
             ignorings.add(new Ignoring(vm.getPattern(), vm.getMethod_text()));
         }
