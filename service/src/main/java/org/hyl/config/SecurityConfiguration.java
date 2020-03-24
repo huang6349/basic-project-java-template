@@ -2,7 +2,7 @@ package org.hyl.config;
 
 import org.hyl.modules.auth.security.jwt.JWTConfigurer;
 import org.hyl.modules.auth.security.jwt.TokenProvider;
-import org.hyl.modules.auth.service.SecurityMessageSupport;
+import org.hyl.modules.auth.security.SecurityMessageSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -49,19 +49,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.exceptionHandling().accessDeniedHandler(securityMessageSupport);
+        http.exceptionHandling().accessDeniedHandler(securityMessageSupport).authenticationEntryPoint(securityMessageSupport);
         http.csrf().disable();
         http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
         http.httpBasic().disable();
         http.formLogin().disable();
         http.logout().disable();
-        http.exceptionHandling().authenticationEntryPoint(securityMessageSupport);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/**").authenticated()
-                .antMatchers("/api/**").access("@rbacAuthorityService.hasPermission(request, authentication)");
+                .antMatchers("/api/**").access("@rbacService.hasPermission(authentication, request)");
         http.apply(securityConfigurerAdapter());
     }
 

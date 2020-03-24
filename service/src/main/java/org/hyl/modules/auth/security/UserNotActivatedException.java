@@ -1,4 +1,4 @@
-package org.hyl.modules.auth.service;
+package org.hyl.modules.auth.security;
 
 import org.springframework.security.core.AuthenticationException;
 
