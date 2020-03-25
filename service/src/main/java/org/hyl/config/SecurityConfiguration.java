@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/**").authenticated()
-                .antMatchers("/api/**").access("@rbacService.hasPermission(authentication, request)");
+                .antMatchers("/api/**").access("@rbacService.hasPermission()");
         http.apply(securityConfigurerAdapter());
     }
 

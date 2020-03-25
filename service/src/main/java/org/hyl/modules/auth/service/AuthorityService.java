@@ -1,5 +1,6 @@
 package org.hyl.modules.auth.service;
 
+import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hyl.config.GlobalConstants;
 import org.hyl.modules.auth.domain.Authority;
@@ -35,12 +36,13 @@ public class AuthorityService {
         if (authorityRepository.findByNameIgnoreCase(vm.getName()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
-        if (authorityRepository.findByCodeIgnoreCase(StringUtils.join("ROLE_", vm.getCode())).isPresent()) {
+        String formatCode = StrUtil.format("ROLE_{}", vm.getCode());
+        if (GlobalConstants.AUTHORITY_ANONYMOUS.equals(formatCode) || authorityRepository.findByCodeIgnoreCase(formatCode).isPresent()) {
             throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
         Authority authority = new Authority();
         BeanUtils.copyProperties(vm, authority);
-        authority.setCode(StringUtils.join("ROLE_", vm.getCode()));
+        authority.setCode(formatCode);
         authority.setState(GlobalConstants.DATA_NORMAL_STATE);
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
@@ -50,6 +52,7 @@ public class AuthorityService {
         if (!optional.isPresent()) {
             throw new BadRequestException("未找到需要修改的角色信息");
         }
+        String formatCode = StrUtil.format("ROLE_{}", vm.getCode());
         Authority authority = optional.get();
         if (vm.getState() == null || !vm.getState().equals(authority.getState())) {
             throw new BadRequestException("角色状态不允许修改");
@@ -58,18 +61,18 @@ public class AuthorityService {
             if (!StringUtils.equals(StringUtils.trimToNull(vm.getName()), StringUtils.trimToNull(authority.getName()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色名称修改操作");
             }
-            if (!StringUtils.equals(StringUtils.trimToNull(StringUtils.join("ROLE_", vm.getCode())), StringUtils.trimToNull(authority.getCode()))) {
+            if (!StringUtils.equals(StringUtils.trimToNull(formatCode), StringUtils.trimToNull(authority.getCode()))) {
                 throw new BadRequestException("该角色为系统保留角色，无法进行角色唯一标识码修改操作");
             }
         }
         if (authorityRepository.findByNameIgnoreCaseAndIdNot(vm.getName(), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色名称为【" + vm.getName() + "】的信息已经存在了");
         }
-        if (authorityRepository.findByCodeIgnoreCaseAndIdNot(StringUtils.join("ROLE_", vm.getCode()), vm.getId()).isPresent()) {
+        if (GlobalConstants.AUTHORITY_ANONYMOUS.equals(formatCode) || authorityRepository.findByCodeIgnoreCaseAndIdNot(StringUtils.join("ROLE_", vm.getCode()), vm.getId()).isPresent()) {
             throw new DataAlreadyExistException("角色唯一标识码为【" + vm.getCode() + "】的信息已经存在了");
         }
         BeanUtils.copyProperties(vm, authority, "permissions");
-        authority.setCode(StringUtils.join("ROLE_", vm.getCode()));
+        authority.setCode(formatCode);
         return AuthorityVM.adapt(authorityRepository.save(authority));
     }
 

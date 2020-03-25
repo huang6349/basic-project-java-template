@@ -25,4 +25,6 @@ public interface GlobalConstants {
     Long DICT_ID_SEX = 1L;
 
     Long DICT_ID_METHOD = 4L;
+
+    String AUTHORITY_ANONYMOUS = "ROLE_ANONYMOUS";
 }
