@@ -3,11 +3,7 @@ import { TOKEN } from '@/constant';
 import request from '@/utils/request';
 
 export async function authenticate(login) {
-  const { success, data: { id_token } = {} } = await request.post('/authenticate', { data: login });
-  if (success) {
-    await localforage.setItem(TOKEN['name'], id_token);
-  }
-  return success;
+  return await request.post('/authenticate', { data: login });
 }
 
 export async function unAuthenticate() {

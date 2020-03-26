@@ -22,7 +22,7 @@ request.use(async (ctx, next) => {
   options.headers['Content-Type'] = 'application/json;charset=UTF-8';
   options.headers['Accept'] = 'application/json';
   const token = await localforage.getItem(TOKEN['name']);
-  if (token) options.headers['Authorization'] = `Bearer ${token}`;
+  if (token) options.headers['Authorization'] = token;
   ctx.req.options = options;
   NProgress.start();
   NProgress.inc();
@@ -31,6 +31,9 @@ request.use(async (ctx, next) => {
 });
 
 request.interceptors.response.use(async (response, options) => {
+  if (response.headers.get('Authorization')) {
+    await localforage.setItem(TOKEN['name'], response.headers.get('Authorization'));
+  }
   if (response.headers.get('Content-Type') === 'application/octet-stream') {
     const fileName = decodeURI(response.headers.get('Content-Disposition').split('fileName=')[1]);
     const blob = new Blob([await response.clone().blob()]);

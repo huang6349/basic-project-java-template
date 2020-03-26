@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useGetSet, useAsync } from 'react-use';
-import { message } from 'antd';
 import ProLayout from '@ant-design/pro-layout';
 import Link from 'umi/link';
 import { connect } from 'dva';
@@ -71,7 +70,6 @@ const BasicLayout = ({ global, location, dispatch, children }) => {
       type: 'global/changePassword',
       payload: data,
     }).then(() => {
-      message.success('当前用户的密码已更新完成');
       setChangePasswordModalVisible(!1);
     });
   }

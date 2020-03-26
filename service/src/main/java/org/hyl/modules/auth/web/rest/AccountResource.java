@@ -55,6 +55,6 @@ public class AccountResource {
     @ApiOperation("更改当前用户密码")
     @PutMapping("/password/change")
     public Message changePassword(@Valid @RequestBody ChangePasswordVM vm) {
-        return RESTful.success(RestTypeEnum.PUT, userService.changePassword(vm));
+        return RESTful.success("更改当前用户密码成功", RestTypeEnum.PUT, userService.changePassword(vm));
     }
 }

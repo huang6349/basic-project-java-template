@@ -10,8 +10,8 @@ export default {
   subscriptions: {},
   effects: {
     *login({ payload }, { put, call, select }) {
-      const isLogin = yield call(authenticate, payload) || {};
-      yield put({ type: 'updateState', payload: { isLogin } });
+      const { success } = yield call(authenticate, payload) || {};
+      yield put({ type: 'updateState', payload: { isLogin: success } });
     },
     *logout({ payload }, { put, call, select }) {
       yield call(unAuthenticate, payload) || {};
