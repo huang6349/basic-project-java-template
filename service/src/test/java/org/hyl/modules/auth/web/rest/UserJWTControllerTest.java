@@ -41,7 +41,7 @@ public class UserJWTControllerTest {
         UserVM userVM = new UserVM();
         userVM.setUsername(DEFAULT_USERNAME);
         userVM.setNickname("测试用户");
-        userVM.setSexId(2L);
+        userVM.setSexId(10001L);
         userService.create(userVM);
         LoginVM vm = new LoginVM();
         vm.setUsername(DEFAULT_USERNAME);

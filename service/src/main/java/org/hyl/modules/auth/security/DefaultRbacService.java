@@ -1,15 +1,13 @@
 package org.hyl.modules.auth.security;
 
-import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hyl.modules.auth.domain.vm.ResourceVM;
 import org.hyl.modules.auth.service.ResourceService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Component("rbacService")
 public class DefaultRbacService implements RbacService {
@@ -31,26 +29,20 @@ public class DefaultRbacService implements RbacService {
         if (!SecurityUtils.isAuthenticated()) {
             return false;
         }
-        List<RbacMatcher> matchers = Lists.newArrayList();
-        securityProperties.getRbacIgnorings().forEach(ignoring -> matchers.add(new RbacMatcher(ignoring.get(1), ignoring.get(0))));
-        resourceService.getUserResource().ifPresent(vms -> vms.forEach(vm -> {
-            matchers.add(new RbacMatcher(vm.getPattern(), vm.getMethod_text()));
-        }));
-        for (RbacMatcher matcher : matchers) {
-            if (new AntPathRequestMatcher(matcher.getPattern(), matcher.getMethod()).matches(httpServletRequest)) {
+        for (List<String> rbacIgnoring : securityProperties.getRbacIgnorings()) {
+            if (new AntPathRequestMatcher(rbacIgnoring.get(1), rbacIgnoring.get(0)).matches(httpServletRequest)) {
+                return true;
+            }
+        }
+        Optional<List<ResourceVM>> optional = resourceService.getUserResource();
+        if (!optional.isPresent()) {
+            return false;
+        }
+        for (ResourceVM vm : optional.get()) {
+            if (new AntPathRequestMatcher(vm.getPattern(), vm.getMethod_text()).matches(httpServletRequest)) {
                 return true;
             }
         }
         return false;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    private static class RbacMatcher {
-
-        private String pattern;
-
-        private String method;
     }
 }

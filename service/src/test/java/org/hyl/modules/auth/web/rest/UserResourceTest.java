@@ -75,7 +75,7 @@ public class UserResourceTest {
         vm = new UserVM();
         vm.setUsername(DEFAULT_USERNAME);
         vm.setNickname(DEFAULT_NICKNAME);
-        vm.setSexId(2L);
+        vm.setSexId(10001L);
         vm.setAuthorities(Sets.newHashSet(newAuthorityVM.getId()));
     }
 
@@ -146,7 +146,7 @@ public class UserResourceTest {
     public void update() throws Exception {
         UserVM userVM = userService.create(vm);
         userVM.setNickname(UPDATE_NICKNAME);
-        userVM.setSexId(3L);
+        userVM.setSexId(10002L);
         List<MyUser> prevAll = userRepository.findAll();
         MyUser prevUser = prevAll.get(prevAll.size() - 1);
         MyUserInfo prevInfo = prevUser.getInfo();

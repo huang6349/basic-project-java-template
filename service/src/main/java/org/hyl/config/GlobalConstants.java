@@ -22,9 +22,9 @@ public interface GlobalConstants {
 
     String SYSTEM_ACCOUNT = "SYSTEM";
 
-    Long DICT_ID_SEX = 1L;
+    Long DICT_ID_SEX = 10000L;
 
-    Long DICT_ID_METHOD = 4L;
+    Long DICT_ID_METHOD = 10100L;
 
     String AUTHORITY_ANONYMOUS = "ROLE_ANONYMOUS";
 }

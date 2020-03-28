@@ -62,7 +62,7 @@ class ResourceResourceTest {
         PermissionVM newPermissionVM = permissionService.create(permissionVM);
         vm = new ResourceVM();
         vm.setPattern(DEFAULT_PATTERN);
-        vm.setMethodId(5L);
+        vm.setMethodId(10101L);
         vm.setPermissionId(newPermissionVM.getId());
     }
 
