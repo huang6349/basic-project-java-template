@@ -3,6 +3,7 @@ package org.hyl.config;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
+@Profile({"dev", "test"})
 public class SwaggerConfiguration {
 
     @Bean

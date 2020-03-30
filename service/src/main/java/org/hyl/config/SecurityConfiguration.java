@@ -58,7 +58,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
         http.authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST.toString(), "/api/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST.toString(), "/api/file/upload").permitAll()
+                .antMatchers(HttpMethod.GET.toString(), "/api/file/download/*").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/api/**").access("@rbacService.hasPermission()");
         http.apply(securityConfigurerAdapter());
