@@ -132,12 +132,7 @@ const IndexPage = ({ users, loading, dispatch }) => {
       title: `重置提示`,
       content: `你确定要重置用户[${username}]的密码吗`,
       onOk: () => {
-        dispatch({
-          type: `users/resetPassword`,
-          payload: { id },
-        }).then(() => {
-          message.info(`已将用户[${username}]的密码重置为[123456]`);
-        });
+        dispatch({ type: `users/resetPassword`, payload: { id } });
       },
     });
   }

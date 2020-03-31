@@ -1,5 +1,6 @@
 package org.hyl.modules.auth.web.rest;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.wenhao.jpa.Specifications;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -96,6 +97,6 @@ public class UserResource {
     @ApiOperation("重置一个用户的密码")
     @PutMapping("/users/password/reset/{id}")
     public Message resetPassword(@PathVariable Long id) {
-        return RESTful.success(RestTypeEnum.PUT, userService.resetPassword(id));
+        return RESTful.success("用户的密码已重置为【123456】", RestTypeEnum.PUT, userService.resetPassword(id));
     }
 }
