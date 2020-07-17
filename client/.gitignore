@@ -257,6 +257,3 @@ dist/
 .umi/
 .umi-production/
 .umi-test/
-.umirc.local.js
-.umirc.local.ts
-.env.local

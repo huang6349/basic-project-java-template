@@ -9,26 +9,29 @@ export default {
     },
   },
   requestInterceptors: [
-    async function requestInterceptorToken(url, options) {
-      options.headers = options.headers || {};
-      const token = await localforage.getItem(TOKEN_NAME);
-      if (token) options.headers['Authorization'] = token;
+    function interceptorNprogress(url, options) {
+      nprogress.start();
       return { url, options };
     },
-    function requestInterceptorNprogress(url, options) {
-      nprogress.start();
+    async function interceptorToken(url, options) {
+      options['headers'] = options['headers'] || {};
+      const token = await localforage.getItem(TOKEN_NAME);
+      if (token) options['headers']['Authorization'] = token;
       return { url, options };
     },
   ],
   responseInterceptors: [
-    async function responseInterceptorToken(response) {
-      if (response.headers.get('Authorization')) {
-        await localforage.setItem(TOKEN_NAME, response.headers.get('Authorization'));
-      }
+    function interceptorNprogress(response) {
+      nprogress.done();
       return response;
     },
-    function responseInterceptorNprogress(response) {
-      nprogress.done();
+    async function interceptorToken(response) {
+      if (response['status'] === 401) {
+        await localforage.removeItem(TOKEN_NAME);
+      }
+      if (response['headers'].get('Authorization')) {
+        await localforage.setItem(TOKEN_NAME, response['headers'].get('Authorization'));
+      }
       return response;
     },
   ],
