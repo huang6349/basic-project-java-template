@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { BackTop } from 'antd';
 import ProLayout from '@ant-design/pro-layout';
 import { Link, useModel, history } from 'umi';
 import localforage from 'localforage';
@@ -75,7 +74,6 @@ const BasicLayout = ({ children }) => {
         }}
       >
         <React.Fragment>{children}</React.Fragment>
-        <BackTop target={() => document.querySelector('.ant-pro-page-header-wrap-children-content')} />
       </ProLayout>
     </ProLayout>
   );

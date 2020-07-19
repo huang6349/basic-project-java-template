@@ -15,7 +15,7 @@ export default defineConfig({
   targets: {
     ie: 11,
   },
-  title: '项目模板',
+  title: '项目模板 - v3.0.0',
   locale: {},
   define: {
     TOKEN_NAME: 'basic',
