@@ -1,0 +1,48 @@
+@import '~antd/es/style/themes/default.less';
+
+.popover {
+  user-select: none;
+}
+
+.popover:global(.ant-popover) {
+  z-index: 998;
+}
+
+.popover:global(.ant-popover .ant-popover-arrow) {
+  border-top-color: @primary-color;
+  border-left-color: @primary-color;
+}
+
+.popover:global(.ant-popover .ant-popover-inner) {
+  border-top: 3px solid @primary-color;
+}
+
+.popover:global(.ant-popover .ant-popover-inner .ant-popover-title) {
+  margin: 0;
+  padding: 9px 16px;
+  background: #fafafa;
+}
+
+.popover:global(.ant-popover .ant-popover-inner .ant-popover-inner-content) {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.popover :global(.ant-menu) {
+  border: none;
+}
+
+.popover :global(.ant-menu .ant-menu-item) {
+  color: rgba(0, 0, 0, 0.65);
+  margin: 0;
+  width: 210px;
+}
+
+.popover :global(.ant-menu .ant-menu-item-active) {
+  background-color: #f5f5f5;
+}
+
+.popover :global(.ant-menu .ant-menu-item-divider) {
+  margin: 0;
+}

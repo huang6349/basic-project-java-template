@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const LoginFrom = ({ loading, onFinish }) => {
+export default function LoginFromView({ loading, onFinish }) {
   return (
     <Form hideRequiredMark={!0} layout="vertical" name="login" size="large" onFinish={onFinish} style={{ width: 400 }}>
       <Form.Item name="username" rules={[{ required: !0, message: '请输入您的账号' }]}>
@@ -25,15 +25,13 @@ const LoginFrom = ({ loading, onFinish }) => {
       </Form.Item>
     </Form>
   );
-};
+}
 
-LoginFrom.propTypes = {
+LoginFromView.propTypes = {
   loading: PropTypes.bool.isRequired,
   onFinish: PropTypes.func,
 };
 
-LoginFrom.defaultProps = {
+LoginFromView.defaultProps = {
   loading: !1,
 };
-
-export default LoginFrom;

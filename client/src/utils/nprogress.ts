@@ -1,5 +1,8 @@
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+
+NProgress.configure({
+  showSpinner: !1,
+});
 
 let isNProgress = !1;
 
