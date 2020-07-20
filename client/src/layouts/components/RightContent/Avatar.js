@@ -25,7 +25,7 @@ export default function AvatarView({ username, children }) {
       title={`当前用户：${username}`}
     >
       <div className={styles['layout']}>
-        <Avatar icon={<UserOutlined style={{ fontSize: 18 }} />} style={{ marginRight: -8 }} />
+        <Avatar icon={<UserOutlined style={{ fontSize: 18 }} />} />
       </div>
     </Popover>
   );
