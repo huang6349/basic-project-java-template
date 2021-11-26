@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

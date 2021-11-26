@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @Configuration
 @EnableScheduling
-@ComponentScan(basePackages = {"com.jqkj.job"})
+@ComponentScan(basePackages = {"org.huangyalong.job"})
 public class TaskConfiguration implements SchedulingConfigurer {
 
     @Override

@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import org.springframework.context.annotation.Configuration;

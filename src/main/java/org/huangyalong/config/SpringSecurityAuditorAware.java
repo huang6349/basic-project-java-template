@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.lang.NonNull;

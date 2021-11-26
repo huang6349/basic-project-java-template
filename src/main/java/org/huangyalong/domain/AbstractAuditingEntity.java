@@ -1,4 +1,4 @@
-package com.jqkj.domain;
+package org.huangyalong.domain;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;

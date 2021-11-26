@@ -1,4 +1,4 @@
-package com.jqkj;
+package org.huangyalong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

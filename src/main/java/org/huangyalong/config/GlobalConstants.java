@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 public interface GlobalConstants {
 

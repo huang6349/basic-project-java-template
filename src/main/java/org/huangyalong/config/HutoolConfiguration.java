@@ -1,4 +1,4 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.context.annotation.Configuration;

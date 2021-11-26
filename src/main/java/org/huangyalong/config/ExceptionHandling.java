@@ -1,16 +1,16 @@
-package com.jqkj.config;
+package org.huangyalong.config;
 
 import cn.dev33.satoken.exception.DisableLoginException;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.hutool.core.util.StrUtil;
-import com.jqkj.commons.exception.InternalServerErrorException;
-import com.jqkj.commons.info.Info;
-import com.jqkj.commons.info.InfoStructure;
-import com.jqkj.commons.info.enums.ShowType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.huangyalong.commons.exception.InternalServerErrorException;
+import org.huangyalong.commons.info.Info;
+import org.huangyalong.commons.info.InfoStructure;
+import org.huangyalong.commons.info.ShowType;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
