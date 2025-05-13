@@ -16,14 +16,14 @@ public class FrameworkHutool implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Starting Scheduled task");
+        log.debug("启动定时任务");
         CronUtil.setMatchSecond(Boolean.FALSE);
         CronUtil.start(Boolean.TRUE);
     }
 
     @PreDestroy
     void destroy() {
-        log.info("Stopping Scheduled task");
+        log.debug("停止定时任务");
         CronUtil.stop();
     }
 }
