@@ -21,13 +21,17 @@
     <name>${project.artifactId}</name>
     <description>这是一个构建 JAVA 项目的模板库</description>
     <properties>
+        <!-- Maven 相关 -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
         <project.build.jdk>${java.version}</project.build.jdk>
+        <!-- 项目相关 -->
         <revision>0.0.1-SNAPSHOT</revision>
+        <!-- 打包跳过测试 -->
+        <skipTests>true</skipTests>
     </properties>
     <dependencyManagement>
         <dependencies>

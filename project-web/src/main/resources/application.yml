@@ -14,33 +14,32 @@
 # ===================================================================
 
 spring:
+
+  # 应用名称配置
   application:
     name: project
 
+  # 多环境配置
   profiles:
     active: dev
-
-  main:
-    allow-circular-references: true # 允许循环依赖
 
   # Servlet 配置
   servlet:
     # 文件上传相关配置项
     multipart:
-      enabled: true
-      max-file-size: 16MB # 单个文件大小
-      max-request-size: 32MB # 设置总上传的文件大小
+      max-file-size: 1024MB # 单个文件大小
+      max-request-size: 1024MB # 设置总上传的文件大小
 
-  codec:
-    max-in-memory-size: 32MB
-
+# 监控端点配置
 management:
   server:
     port: 8085
 
+# 服务器配置
 server:
   port: 8088
 
+# 文档生成配置
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
