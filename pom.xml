@@ -18,7 +18,7 @@
     <groupId>org.huangyalong</groupId>
     <artifactId>project</artifactId>
     <version>${revision}</version>
-    <name>project</name>
+    <name>${project.artifactId}</name>
     <description>这是一个构建 JAVA 项目的模板库</description>
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
