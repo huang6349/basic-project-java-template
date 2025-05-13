@@ -13,24 +13,40 @@
     <name>${project.artifactId}</name>
     <description>业务模块</description>
     <dependencies>
+        <!-- Framework 核心 -->
         <dependency>
             <groupId>org.huangyalong</groupId>
             <artifactId>project-framework</artifactId>
         </dependency>
+        <!-- Spring 核心 -->
         <dependency>
+            <!-- 用于生成自定义的 Spring @ConfigurationProperties 配置类的说明文件 -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- 工具类相关 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- Test 测试相关 -->
         <dependency>
             <groupId>org.huangyalong</groupId>
             <artifactId>project-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <!-- 设置构建的 jar 包名 -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- 打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

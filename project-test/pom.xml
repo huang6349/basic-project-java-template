@@ -13,6 +13,13 @@
     <name>${project.artifactId}</name>
     <description>测试模块</description>
     <dependencies>
+        <!-- Framework 核心 -->
+        <dependency>
+            <groupId>org.huangyalong</groupId>
+            <artifactId>project-framework</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Test 测试相关 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -26,11 +33,6 @@
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.huangyalong</groupId>
-            <artifactId>project-framework</artifactId>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
