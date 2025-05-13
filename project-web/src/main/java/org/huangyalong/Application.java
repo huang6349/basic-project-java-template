@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 
-@Slf4j
 @SpringBootApplication
+@Slf4j
 public class Application extends AbstractIntegration {
 
     public static void main(String[] args) {
