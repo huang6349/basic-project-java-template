@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>project-framework</module>
+        <module>project-es</module>
         <module>project-test</module>
         <module>project-web</module>
     </modules>
@@ -50,8 +51,33 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.dromara.easy-es</groupId>
+                <artifactId>easy-es-boot-starter</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>7.17.8</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>7.17.8</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>7.17.8</version>
+            </dependency>
+            <dependency>
                 <groupId>org.huangyalong</groupId>
                 <artifactId>project-framework</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.huangyalong</groupId>
+                <artifactId>project-es</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
