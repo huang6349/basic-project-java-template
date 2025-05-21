@@ -4,7 +4,7 @@ import lombok.val;
 
 import java.io.Serializable;
 
-@SuppressWarnings({"UnnecessaryLocalVariable", "unchecked"})
+@SuppressWarnings({"UnnecessaryLocalVariable", "unchecked", "unused"})
 public abstract class Model<T extends Model<T>> implements Serializable {
 
     public T self() {

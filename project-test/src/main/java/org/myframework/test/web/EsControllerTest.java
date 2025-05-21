@@ -6,7 +6,8 @@ import org.myframework.test.MyFrameworkTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "LombokGetterMayBeUsed"})
-public abstract class EsControllerTest<S extends EsService<Entity>, Entity> extends MyFrameworkTest {
+public abstract class EsControllerTest<S extends EsService<Entity>, Entity>
+        extends MyFrameworkTest {
 
     @Autowired
     @Getter
