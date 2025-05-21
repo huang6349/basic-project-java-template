@@ -68,7 +68,7 @@
             <dependency>
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
-                <version>7.17.8</version>
+                <version>8.15.1</version>
             </dependency>
             <dependency>
                 <groupId>org.huangyalong</groupId>
