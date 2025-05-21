@@ -9,26 +9,26 @@
         <artifactId>project</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>project-es</artifactId>
+    <artifactId>project-ai</artifactId>
     <name>${project.artifactId}</name>
-    <description>搜索引擎</description>
+    <description>人工智能</description>
     <dependencies>
-        <!-- Es 相关 -->
+        <!-- Ai 相关 -->
         <dependency>
-            <groupId>org.dromara.easy-es</groupId>
-            <artifactId>easy-es-boot-starter</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-web-servlet</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-client</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-ai-mcp</artifactId>
         </dependency>
         <!-- Framework 核心 -->
         <dependency>

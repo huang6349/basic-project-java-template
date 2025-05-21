@@ -7,6 +7,7 @@
     <modules>
         <module>project-framework</module>
         <module>project-es</module>
+        <module>project-ai</module>
         <module>project-test</module>
         <module>project-web</module>
     </modules>
@@ -71,6 +72,26 @@
                 <version>7.17.8</version>
             </dependency>
             <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-web-servlet</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-logging</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-lib</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-ai-mcp</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.huangyalong</groupId>
                 <artifactId>project-framework</artifactId>
                 <version>${revision}</version>
@@ -78,6 +99,11 @@
             <dependency>
                 <groupId>org.huangyalong</groupId>
                 <artifactId>project-es</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.huangyalong</groupId>
+                <artifactId>project-ai</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
