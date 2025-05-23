@@ -13,22 +13,10 @@
     <name>${project.artifactId}</name>
     <description>人工智能</description>
     <dependencies>
-        <!-- Ai 相关 -->
+        <!-- Spring AI Model 模型接入 -->
         <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-web-servlet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-lib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-ai-mcp</artifactId>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
         </dependency>
         <!-- Framework 核心 -->
         <dependency>
