@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@SuppressWarnings("LombokGetterMayBeUsed")
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "LombokGetterMayBeUsed"})
 public abstract class OllamaController {
 
     @Autowired

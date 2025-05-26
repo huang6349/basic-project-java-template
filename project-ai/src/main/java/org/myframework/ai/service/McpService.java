@@ -9,6 +9,7 @@ import static cn.hutool.core.text.CharSequenceUtil.addSuffixIfNot;
 import static cn.hutool.core.text.CharSequenceUtil.removeSufAndLowerFirst;
 import static cn.hutool.core.util.ClassUtil.getClassName;
 
+@SuppressWarnings("unused")
 public abstract class McpService implements InitializingBean {
 
     @Override

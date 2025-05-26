@@ -5,7 +5,7 @@ import lombok.val;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
-import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
@@ -15,16 +15,16 @@ import java.util.ArrayList;
 
 @Slf4j
 @Configuration
-public class FrameworkChat {
+public class FrameworkOllama {
 
     @Bean
-    ChatClient chatClient(ObjectProvider<ToolCallbackProvider> providers,
-                          OllamaChatModel chatModel) {
+    ChatClient chatClient(ObjectProvider<ToolCallbackProvider> callbackProviders,
+                          ObjectProvider<ChatModel> modelProvider) {
         val advisors = new ArrayList<Advisor>();
         advisors.add(new SimpleLoggerAdvisor());
-        val tools = providers.stream()
+        val tools = callbackProviders.stream()
                 .toArray(ToolCallbackProvider[]::new);
-        return ChatClient.builder(chatModel)
+        return ChatClient.builder(modelProvider.getObject())
                 .defaultAdvisors(advisors)
                 .defaultTools(tools)
                 .build();
