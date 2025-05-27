@@ -1,13 +1,13 @@
 package org.myframework.ai.web;
 
+import jakarta.annotation.Resource;
 import lombok.Getter;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "LombokGetterMayBeUsed"})
+@SuppressWarnings("LombokGetterMayBeUsed")
 public abstract class OllamaController {
 
-    @Autowired
+    @Resource
     @Getter
     protected ChatClient chatClient;
 }
