@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties("app-chat")
+@ConfigurationProperties("app.ai.chat")
 public class ChatProperties {
 
     private String apiUrl;

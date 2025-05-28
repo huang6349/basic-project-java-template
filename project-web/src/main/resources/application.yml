@@ -13,22 +13,18 @@
 # 生产环境 prod
 # ===================================================================
 
-spring:
+# 应用名称配置
+spring.application:
+  name: project
 
-  # 应用名称配置
-  application:
-    name: project
+# 多环境配置
+spring.profiles:
+  active: dev
 
-  # 多环境配置
-  profiles:
-    active: dev
-
-  # Servlet 配置
-  servlet:
-    # 文件上传相关配置项
-    multipart:
-      max-file-size: 1024MB # 单个文件大小
-      max-request-size: 1024MB # 设置总上传的文件大小
+# 文件上传相关配置项
+spring.servlet.multipart:
+  max-file-size: 1024MB # 单个文件大小
+  max-request-size: 1024MB # 设置总上传的文件大小
 
 # 监控端点配置
 management:
@@ -43,9 +39,7 @@ server:
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
-
   swagger-ui:
     enabled: true
-
   api-docs:
     enabled: true
