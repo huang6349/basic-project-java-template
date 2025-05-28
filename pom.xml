@@ -31,7 +31,6 @@
         <project.build.locales>zh_CN</project.build.locales>
         <project.build.jdk>${java.version}</project.build.jdk>
         <!-- 项目相关 -->
-        <spring-ai.version>1.0.0-M6</spring-ai.version>
         <mybatis-flex.version>1.10.5</mybatis-flex.version>
         <hutool.version>5.8.38</hutool.version>
         <solon.version>3.3.1</solon.version>
