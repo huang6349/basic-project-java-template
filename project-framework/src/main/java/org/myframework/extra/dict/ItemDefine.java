@@ -1,5 +1,6 @@
 package org.myframework.extra.dict;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
@@ -19,6 +20,7 @@ public class ItemDefine implements Serializable {
     @Schema(description = "字典键值")
     private Object value;
 
+    @JsonIgnore
     @Schema(description = "是否缺省")
     private Boolean isDefault;
 }

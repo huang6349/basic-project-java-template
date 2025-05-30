@@ -36,7 +36,8 @@ public class DictUtil {
         val itemDefine = new ItemDefine();
         itemDefine.setLabel(enumDict.getLabel());
         itemDefine.setValue(enumDict.getValue());
-        itemDefine.setIsDefault(equal(YES.getValue(), enumDict.getIsDefault()));
+        val isDefault = enumDict.getIsDefault();
+        itemDefine.setIsDefault(equal(YES.getValue(), isDefault));
         return itemDefine;
     }
 }
