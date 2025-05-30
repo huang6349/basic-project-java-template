@@ -34,6 +34,9 @@
         <mybatis-flex.version>1.10.5</mybatis-flex.version>
         <hutool.version>5.8.38</hutool.version>
         <solon.version>3.3.1</solon.version>
+        <es.version>7.17.8</es.version>
+        <ee.version>2.1.0</ee.version>
+        <openapi.version>1.8.0</openapi.version>
         <revision>0.0.1-SNAPSHOT</revision>
         <!-- 打包跳过测试 -->
         <skipTests>true</skipTests>
@@ -64,22 +67,22 @@
             <dependency>
                 <groupId>org.dromara.easy-es</groupId>
                 <artifactId>easy-es-boot-starter</artifactId>
-                <version>2.1.0</version>
+                <version>${ee.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                <version>7.17.8</version>
+                <version>${es.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-client</artifactId>
-                <version>7.17.8</version>
+                <version>${es.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
-                <version>7.17.8</version>
+                <version>${es.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.huangyalong</groupId>
@@ -104,7 +107,7 @@
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-webmvc-core</artifactId>
-                <version>1.8.0</version>
+                <version>${openapi.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
