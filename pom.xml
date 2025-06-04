@@ -36,6 +36,7 @@
         <solon.version>3.3.1</solon.version>
         <es.version>7.17.8</es.version>
         <ee.version>2.1.0</ee.version>
+        <agents-flex.version>1.1.7</agents-flex.version>
         <openapi.version>1.8.0</openapi.version>
         <revision>0.0.1-SNAPSHOT</revision>
         <!-- 打包跳过测试 -->
@@ -83,6 +84,16 @@
                 <groupId>org.elasticsearch</groupId>
                 <artifactId>elasticsearch</artifactId>
                 <version>${es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agentsflex</groupId>
+                <artifactId>agents-flex-spring-boot-starter</artifactId>
+                <version>${agents-flex.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.agentsflex</groupId>
+                <artifactId>agents-flex-llm-ollama</artifactId>
+                <version>${agents-flex.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.huangyalong</groupId>
