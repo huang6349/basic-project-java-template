@@ -13,12 +13,12 @@ public class ChatClient {
 
     private List<Function> defaultTools;
 
-    private Llm llm;
+    private Llm defaultLlm;
 
     public ChatRequest prompt(String message) {
         return ChatRequest.builder()
                 .defaultTools(defaultTools)
-                .llm(llm)
+                .llm(defaultLlm)
                 .message(message)
                 .build();
     }

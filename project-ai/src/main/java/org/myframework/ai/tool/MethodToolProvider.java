@@ -37,7 +37,7 @@ public class MethodToolProvider implements ToolProvider {
 
     @Override
     public Collection<Function> getTools() {
-        log.info("获取工具");
+        log.debug("获取工具: {}", tools);
         return tools;
     }
 }

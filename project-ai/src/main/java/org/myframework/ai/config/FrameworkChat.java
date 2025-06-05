@@ -27,7 +27,7 @@ public class FrameworkChat {
         val llm = llmProvider.getObject();
         return ChatClient.builder()
                 .defaultTools(tools)
-                .llm(llm)
+                .defaultLlm(llm)
                 .build();
     }
 }
