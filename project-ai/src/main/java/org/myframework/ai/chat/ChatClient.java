@@ -14,11 +14,18 @@ import java.util.List;
 @Builder
 public class ChatClient {
 
-    private final HistoriesPrompt prompt = new HistoriesPrompt();
-
     private List<Function> defaultTools;
 
-    private Llm defaultLlm;
+    private HistoriesPrompt prompt;
+
+    private Llm llm;
+
+    public static ChatClientBuilder of(Llm llm) {
+        val prompt = new HistoriesPrompt();
+        return ChatClient.builder()
+                .prompt(prompt)
+                .llm(llm);
+    }
 
     public ChatRequest prompt(String content) {
         val message = new HumanMessage(content);
@@ -26,7 +33,7 @@ public class ChatClient {
         prompt.addMessage(message);
         return ChatRequest.builder()
                 .prompt(prompt)
-                .llm(defaultLlm)
+                .llm(llm)
                 .build();
     }
 }

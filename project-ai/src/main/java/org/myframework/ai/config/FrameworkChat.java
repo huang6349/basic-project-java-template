@@ -24,10 +24,8 @@ public class FrameworkChat {
                 .map(MethodToolProvider::getTools)
                 .flatMap(Collection::stream)
                 .toList();
-        val llm = llmProvider.getObject();
-        return ChatClient.builder()
+        return ChatClient.of(llmProvider.getObject())
                 .defaultTools(tools)
-                .defaultLlm(llm)
                 .build();
     }
 }
