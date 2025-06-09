@@ -1,9 +1,9 @@
 package org.myframework.core.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
-import cn.dev33.satoken.interceptor.SaInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.myframework.core.satoken.interceptor.SaTokenInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,7 +16,7 @@ public class FrameworkSaToken implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SaInterceptor())
+        registry.addInterceptor(new SaTokenInterceptor())
                 .addPathPatterns("/**");
     }
 
