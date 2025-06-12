@@ -25,6 +25,8 @@ public class FrameworkSaToken implements WebMvcConfigurer {
     SaTokenConfig saTokenConfig() {
         val config = new SaTokenConfig();
         config.setIsWriteHeader(Boolean.TRUE);
+        config.setIsConcurrent(Boolean.TRUE);
+        config.setIsShare(Boolean.TRUE);
         config.setIsPrint(Boolean.FALSE);
         return config;
     }
