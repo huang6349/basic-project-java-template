@@ -1,8 +1,12 @@
 package org.myframework.core.satoken.interceptor;
 
 import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.Opt;
 import lombok.extern.slf4j.Slf4j;
-import org.myframework.core.satoken.ContextUtil;
+import lombok.val;
+import org.myframework.core.satoken.util.ContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +19,25 @@ public class SaTokenInterceptor extends SaInterceptor {
                                 HttpServletResponse response,
                                 Object handler,
                                 Exception ex) throws Exception {
-        // 清空ThreadLocal的值，防止下次请求时获取到的值是旧数据，同时也能防止内存溢出
+        // 清空 ThreadLocal 的值，防止下次请求时获取到的值是旧数据，同时也能防止内存溢出
         ContextUtil.remove();
+    }
+
+    @SuppressWarnings("all")
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws Exception {
+        log.debug("本次请求的请求路径为: {}", request.getServletPath());
+        return super.preHandle(request, response, handler);
+    }
+
+    public SaTokenInterceptor() {
+        super(handler -> {
+            // 设置 ThreadLocal 的值
+            val loginId = StpUtil.getLoginIdDefaultNull();
+            Opt.ofBlankAble(loginId)
+                    .map(Convert::toLong)
+                    .ifPresent(ContextUtil::setLoginId);
+        });
     }
 }
