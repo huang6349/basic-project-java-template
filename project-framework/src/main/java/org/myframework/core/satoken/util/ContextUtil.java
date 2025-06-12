@@ -2,13 +2,12 @@ package org.myframework.core.satoken.util;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.log.StaticLog;
 import com.alibaba.ttl.TransmittableThreadLocal;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Slf4j
 public final class ContextUtil {
 
     private static final ThreadLocal<Map<String, String>> THREAD_LOCAL = new TransmittableThreadLocal<>();
@@ -36,19 +35,19 @@ public final class ContextUtil {
     }
 
     public static void remove() {
-        log.debug("清除线程变量中存储的信息");
+        StaticLog.debug("清除线程变量中存储的信息");
         THREAD_LOCAL.remove();
     }
 
     /****************** 登录信息 ***************/
 
     public static void setLoginId(Long loginId) {
-        log.debug("设置线程变量中的登录信息");
+        StaticLog.debug("设置线程变量中的登录信息");
         set("loginId", loginId);
     }
 
     public static Long getLoginId() {
-        log.debug("获取线程变量中的登录信息");
+        StaticLog.debug("获取线程变量中的登录信息");
         return get("loginId", Long.class, 0L);
     }
 }
