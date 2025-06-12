@@ -4,14 +4,13 @@ import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Opt;
-import lombok.extern.slf4j.Slf4j;
+import cn.hutool.log.StaticLog;
 import lombok.val;
 import org.myframework.core.satoken.util.ContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Slf4j
 public class SaTokenInterceptor extends SaInterceptor {
 
     @SuppressWarnings("all")
@@ -27,7 +26,7 @@ public class SaTokenInterceptor extends SaInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        log.debug("本次请求的请求路径为: {}", request.getServletPath());
+        StaticLog.debug("本次请求的请求路径为: {}", request.getServletPath());
         return super.preHandle(request, response, handler);
     }
 
