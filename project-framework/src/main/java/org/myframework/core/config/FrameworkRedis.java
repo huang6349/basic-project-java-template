@@ -1,7 +1,6 @@
 package org.myframework.core.config;
 
 import cn.hutool.core.collection.CollUtil;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.myframework.core.redis.RedisHelper;
 import org.springframework.beans.factory.ObjectProvider;
@@ -15,7 +14,6 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
 import static org.myframework.core.redis.RedisUtil.getChannelName;
 
-@Slf4j
 @Configuration
 @Import({RedisHelper.class})
 public class FrameworkRedis {

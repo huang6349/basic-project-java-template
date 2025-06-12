@@ -1,10 +1,10 @@
 package org.myframework.ai.tool;
 
 import cn.hutool.core.util.ClassUtil;
+import cn.hutool.log.StaticLog;
 import com.agentsflex.core.llm.functions.Function;
 import com.agentsflex.core.llm.functions.JavaNativeFunction;
 import com.agentsflex.core.llm.functions.annotation.FunctionDef;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import java.lang.reflect.Method;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Slf4j
 public class MethodToolProvider implements ToolProvider {
 
     private final List<Function> tools = new ArrayList<>();
@@ -37,7 +36,7 @@ public class MethodToolProvider implements ToolProvider {
 
     @Override
     public Collection<Function> getTools() {
-        log.debug("获取工具: {}", tools);
+        StaticLog.debug("获取工具: {}", tools);
         return tools;
     }
 }

@@ -1,7 +1,6 @@
 package org.myframework.ai.config;
 
 import com.agentsflex.llm.ollama.OllamaLlm;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.myframework.ai.chat.ChatClient;
 import org.myframework.ai.tool.MethodToolProvider;
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Collection;
 
-@Slf4j
 @Configuration
 public class FrameworkChat {
 
