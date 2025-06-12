@@ -18,9 +18,6 @@ public class RedisHelper extends RedisTemplate {
 
     private static StringRedisTemplate redisTemplate;
 
-    private RedisHelper() {
-    }
-
     @PostConstruct
     void init() {
         StaticLog.debug("RedisHelper 初始化开始...");

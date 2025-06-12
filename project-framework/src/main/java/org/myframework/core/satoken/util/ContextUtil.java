@@ -8,12 +8,9 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class ContextUtil {
+public class ContextUtil {
 
     private static final ThreadLocal<Map<String, String>> THREAD_LOCAL = new TransmittableThreadLocal<>();
-
-    private ContextUtil() {
-    }
 
     public static void set(String key, Object value) {
         Map<String, String> map = getLocalMap();
