@@ -34,7 +34,7 @@ class ApiResponseTest {
                         .data(DATA)
                         .defExec(Boolean.TRUE)
                         .build(),
-                ApiResponse.ok(DATA));
+                ApiResponse.okDef(DATA));
     }
 
     @Order(1)
@@ -47,7 +47,7 @@ class ApiResponseTest {
                         .showType(WARN_MESSAGE)
                         .defExec(Boolean.TRUE)
                         .build(),
-                ApiResponse.ok(DATA,
+                ApiResponse.okDef(DATA,
                         MESSAGE));
     }
 
@@ -61,7 +61,7 @@ class ApiResponseTest {
                         .showType(ERROR_MESSAGE)
                         .defExec(Boolean.TRUE)
                         .build(),
-                ApiResponse.ok(DATA,
+                ApiResponse.okDef(DATA,
                         MESSAGE,
                         ERROR_MESSAGE));
     }
@@ -189,5 +189,6 @@ class ApiResponseTest {
         assertThat(a.getE()).isEqualTo(b.getE());
         assertThat(a.getTraceId()).isEqualTo(b.getTraceId());
         assertThat(a.getHost()).isEqualTo(b.getHost());
+        assertThat(a.getDefExec()).isEqualTo(b.getDefExec());
     }
 }
