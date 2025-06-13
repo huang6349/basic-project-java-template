@@ -17,7 +17,7 @@ public class JKDictFormatSerializer extends StdSerializer<Object> {
 
     protected JKDictFormatSerializer() {
         super(Object.class);
-        StaticLog.debug("JKDictFormat 初始化完成，字典序列化已注入");
+        StaticLog.trace("JKDictFormat 初始化完成，字典序列器已注入");
     }
 
     @Override

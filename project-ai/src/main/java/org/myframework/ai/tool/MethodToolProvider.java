@@ -1,17 +1,17 @@
 package org.myframework.ai.tool;
 
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.log.StaticLog;
 import com.agentsflex.core.llm.functions.Function;
 import com.agentsflex.core.llm.functions.JavaNativeFunction;
 import com.agentsflex.core.llm.functions.annotation.FunctionDef;
+import lombok.Getter;
 import lombok.val;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class MethodToolProvider implements ToolProvider {
 
     private final List<Function> tools = new ArrayList<>();
@@ -32,11 +32,5 @@ public class MethodToolProvider implements ToolProvider {
         if (ClassUtil.isAssignable(ToolProvider.class, clazz)) {
             tools.addAll(((ToolProvider) object).getTools());
         }
-    }
-
-    @Override
-    public Collection<Function> getTools() {
-        StaticLog.debug("获取工具: {}", tools);
-        return tools;
     }
 }

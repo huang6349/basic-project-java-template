@@ -32,19 +32,19 @@ public class ContextUtil {
     }
 
     public static void remove() {
-        StaticLog.debug("清除线程变量中存储的信息");
+        StaticLog.trace("清除线程变量中存储的信息");
         THREAD_LOCAL.remove();
     }
 
     /****************** 登录信息 ***************/
 
     public static void setLoginId(Long loginId) {
-        StaticLog.debug("设置线程变量中的登录信息");
+        StaticLog.trace("设置线程变量中的登录信息");
         set("loginId", loginId);
     }
 
     public static Long getLoginId() {
-        StaticLog.debug("获取线程变量中的登录信息");
+        StaticLog.trace("获取线程变量中的登录信息");
         return get("loginId", Long.class, 0L);
     }
 }

@@ -26,7 +26,7 @@ public class SaTokenInterceptor extends SaInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        StaticLog.debug("本次请求的请求路径为: {}", request.getServletPath());
+        StaticLog.trace("本次请求的请求路径为: {}", request.getServletPath());
         return super.preHandle(request, response, handler);
     }
 
