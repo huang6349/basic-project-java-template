@@ -9,7 +9,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static cn.hutool.core.util.RandomUtil.randomStringUpper;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.myframework.base.response.ShowType.*;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.myframework.core.exception.ErrorCode.ERR_BUSINESS;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ApiResponseTest {
@@ -18,7 +18,7 @@ class ApiResponseTest {
 
     static final String MESSAGE = randomStringUpper(18);
 
-    static final Integer CODE = INTERNAL_SERVER_ERROR.value();
+    static final Integer CODE = ERR_BUSINESS.getCode();
 
     static final String E = randomStringUpper(18);
 
