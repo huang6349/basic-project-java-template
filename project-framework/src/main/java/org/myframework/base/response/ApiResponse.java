@@ -1,5 +1,6 @@
 package org.myframework.base.response;
 
+import cn.hutool.log.StaticLog;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -39,6 +40,7 @@ public class ApiResponse<T> implements Serializable {
     public static <T> ApiResponse<T> fail(String message,
                                           Integer code,
                                           String e) {
+        StaticLog.debug("请求失败");
         return ApiResponse.<T>builder()
                 .success(Boolean.FALSE)
                 .message(message)
@@ -52,6 +54,7 @@ public class ApiResponse<T> implements Serializable {
                                           Integer code,
                                           String e,
                                           Integer showType) {
+        StaticLog.debug("请求失败");
         return ApiResponse.<T>builder()
                 .success(Boolean.FALSE)
                 .message(message)
@@ -66,6 +69,7 @@ public class ApiResponse<T> implements Serializable {
                                           String e,
                                           String traceId,
                                           String host) {
+        StaticLog.debug("请求失败");
         return ApiResponse.<T>builder()
                 .success(Boolean.FALSE)
                 .message(message)
@@ -83,6 +87,7 @@ public class ApiResponse<T> implements Serializable {
                                           Integer showType,
                                           String traceId,
                                           String host) {
+        StaticLog.debug("请求失败");
         return ApiResponse.<T>builder()
                 .success(Boolean.FALSE)
                 .message(message)
@@ -95,6 +100,7 @@ public class ApiResponse<T> implements Serializable {
     }
 
     public static <T> ApiResponse<T> ok(T data) {
+        StaticLog.debug("请求成功");
         return ApiResponse.<T>builder()
                 .success(Boolean.TRUE)
                 .data(data)
@@ -103,6 +109,7 @@ public class ApiResponse<T> implements Serializable {
 
     public static <T> ApiResponse<T> ok(T data,
                                         String message) {
+        StaticLog.debug("请求成功");
         return ApiResponse.<T>builder()
                 .success(Boolean.TRUE)
                 .data(data)
@@ -114,6 +121,7 @@ public class ApiResponse<T> implements Serializable {
     public static <T> ApiResponse<T> ok(T data,
                                         String message,
                                         Integer showType) {
+        StaticLog.debug("请求成功");
         return ApiResponse.<T>builder()
                 .success(Boolean.TRUE)
                 .data(data)
