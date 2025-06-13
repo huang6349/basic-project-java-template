@@ -12,6 +12,7 @@ import static org.myframework.base.response.ShowType.WARN_MESSAGE;
 
 @Data
 @Builder
+@Schema(name = "响应信息")
 public class ApiResponse<T> implements Serializable {
 
     @Schema(description = "响应状态")
