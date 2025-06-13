@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unused")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,7 +24,7 @@ public class TimeSeriesEntity<E extends TimeSeriesEntity<E>> extends Entity<E> {
     @Schema(description = "时序数据")
     protected List<TimeSeriesData> data;
 
-    @Schema(description = "时序数据")
+    @SuppressWarnings("unused")
     public Map<String, Object> values() {
         return Opt.ofNullable(data)
                 .orElse(Collections.emptyList())
