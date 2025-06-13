@@ -26,111 +26,158 @@ class ApiResponseTest {
 
     static final String HOST = randomStringUpper(18);
 
+    @Order(0)
+    @Test
+    void okDef1() {
+        compare(ApiResponse.<String>builder()
+                        .success(Boolean.TRUE)
+                        .data(DATA)
+                        .defExec(Boolean.TRUE)
+                        .build(),
+                ApiResponse.ok(DATA));
+    }
+
     @Order(1)
     @Test
-    void fail1() {
+    void okDef2() {
         compare(ApiResponse.<String>builder()
-                        .success(Boolean.FALSE)
+                        .success(Boolean.TRUE)
+                        .data(DATA)
                         .message(MESSAGE)
-                        .code(CODE)
-                        .showType(ERROR_MESSAGE.getShowType())
-                        .e(E)
+                        .showType(WARN_MESSAGE)
+                        .defExec(Boolean.TRUE)
                         .build(),
-                ApiResponse.fail(MESSAGE,
-                        CODE,
-                        E));
+                ApiResponse.ok(DATA,
+                        MESSAGE));
     }
 
     @Order(2)
     @Test
-    void fail2() {
+    void okDef3() {
         compare(ApiResponse.<String>builder()
-                        .success(Boolean.FALSE)
+                        .success(Boolean.TRUE)
+                        .data(DATA)
                         .message(MESSAGE)
-                        .code(CODE)
-                        .showType(NOTIFICATION.getShowType())
-                        .e(E)
+                        .showType(ERROR_MESSAGE)
+                        .defExec(Boolean.TRUE)
                         .build(),
-                ApiResponse.fail(MESSAGE,
-                        CODE,
-                        E,
-                        NOTIFICATION.getShowType()));
+                ApiResponse.ok(DATA,
+                        MESSAGE,
+                        ERROR_MESSAGE));
     }
 
     @Order(3)
-    @Test
-    void fail3() {
-        compare(ApiResponse.<String>builder()
-                        .success(Boolean.FALSE)
-                        .message(MESSAGE)
-                        .code(CODE)
-                        .showType(ERROR_MESSAGE.getShowType())
-                        .e(E)
-                        .traceId(TRACE_ID)
-                        .host(HOST)
-                        .build(),
-                ApiResponse.fail(MESSAGE,
-                        CODE,
-                        E,
-                        TRACE_ID,
-                        HOST));
-    }
-
-    @Order(4)
-    @Test
-    void fail4() {
-        compare(ApiResponse.<String>builder()
-                        .success(Boolean.FALSE)
-                        .message(MESSAGE)
-                        .code(CODE)
-                        .showType(NOTIFICATION.getShowType())
-                        .e(E)
-                        .traceId(TRACE_ID)
-                        .host(HOST)
-                        .build(),
-                ApiResponse.fail(MESSAGE,
-                        CODE,
-                        E,
-                        NOTIFICATION.getShowType(),
-                        TRACE_ID,
-                        HOST));
-    }
-
-    @Order(5)
     @Test
     void ok1() {
         compare(ApiResponse.<String>builder()
                         .success(Boolean.TRUE)
                         .data(DATA)
+                        .defExec(Boolean.FALSE)
                         .build(),
                 ApiResponse.ok(DATA));
     }
 
-    @Order(6)
+    @Order(4)
     @Test
     void ok2() {
         compare(ApiResponse.<String>builder()
                         .success(Boolean.TRUE)
                         .data(DATA)
                         .message(MESSAGE)
-                        .showType(WARN_MESSAGE.getShowType())
+                        .showType(WARN_MESSAGE)
+                        .defExec(Boolean.FALSE)
                         .build(),
                 ApiResponse.ok(DATA,
                         MESSAGE));
     }
 
-    @Order(7)
+    @Order(5)
     @Test
     void ok3() {
         compare(ApiResponse.<String>builder()
                         .success(Boolean.TRUE)
                         .data(DATA)
                         .message(MESSAGE)
-                        .showType(ERROR_MESSAGE.getShowType())
+                        .showType(ERROR_MESSAGE)
+                        .defExec(Boolean.FALSE)
                         .build(),
                 ApiResponse.ok(DATA,
                         MESSAGE,
-                        ERROR_MESSAGE.getShowType()));
+                        ERROR_MESSAGE));
+    }
+
+    @Order(6)
+    @Test
+    void fail1() {
+        compare(ApiResponse.<String>builder()
+                        .success(Boolean.FALSE)
+                        .message(MESSAGE)
+                        .code(CODE)
+                        .showType(ERROR_MESSAGE)
+                        .e(E)
+                        .defExec(Boolean.FALSE)
+                        .build(),
+                ApiResponse.fail(MESSAGE,
+                        CODE,
+                        E));
+    }
+
+    @Order(7)
+    @Test
+    void fail2() {
+        compare(ApiResponse.<String>builder()
+                        .success(Boolean.FALSE)
+                        .message(MESSAGE)
+                        .code(CODE)
+                        .showType(NOTIFICATION)
+                        .e(E)
+                        .defExec(Boolean.FALSE)
+                        .build(),
+                ApiResponse.fail(MESSAGE,
+                        CODE,
+                        E,
+                        NOTIFICATION));
+    }
+
+    @Order(8)
+    @Test
+    void fail3() {
+        compare(ApiResponse.<String>builder()
+                        .success(Boolean.FALSE)
+                        .message(MESSAGE)
+                        .code(CODE)
+                        .showType(ERROR_MESSAGE)
+                        .e(E)
+                        .traceId(TRACE_ID)
+                        .host(HOST)
+                        .defExec(Boolean.FALSE)
+                        .build(),
+                ApiResponse.fail(MESSAGE,
+                        CODE,
+                        E,
+                        TRACE_ID,
+                        HOST));
+    }
+
+    @Order(9)
+    @Test
+    void fail4() {
+        compare(ApiResponse.<String>builder()
+                        .success(Boolean.FALSE)
+                        .message(MESSAGE)
+                        .code(CODE)
+                        .showType(NOTIFICATION)
+                        .e(E)
+                        .traceId(TRACE_ID)
+                        .host(HOST)
+                        .defExec(Boolean.FALSE)
+                        .build(),
+                ApiResponse.fail(MESSAGE,
+                        CODE,
+                        E,
+                        NOTIFICATION,
+                        TRACE_ID,
+                        HOST));
     }
 
     void compare(ApiResponse<String> a, ApiResponse<String> b) {

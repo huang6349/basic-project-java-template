@@ -1,5 +1,6 @@
 package org.myframework.base.response;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,5 +13,6 @@ public enum ShowType {
     NOTIFICATION(4),
     REDIRECT(9);
 
-    private final Integer showType;
+    @JsonValue
+    private final Integer value;
 }
